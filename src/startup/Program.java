@@ -8,7 +8,7 @@ public class Program {
 
         for (int x = 0; x < 100_000f; x++) {
             float noise = OpenSimplex2S.noise2(seed, x / 10f, 0);
-            System.out.println(noise);
+            System.out.println(noise);//e
         }
     }
 }
