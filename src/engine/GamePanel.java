@@ -6,9 +6,14 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable {
 
     final Settings settings;
+    final SafeList<GameObject> gameObjects;
+    float fps;
+    private long lastFrame;
 
     public GamePanel(Settings settings) {
         this.settings = settings;
+        this.gameObjects = new SafeList<>();
+        this.lastFrame = System.nanoTime();
 
         setMinimumSize(new Dimension(300, 200));
         setBackground(Color.black);
@@ -26,6 +31,18 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void update() {
+        // Bubble-Sort nach Attribut GameObject.layer
+        for (int i = 0; i < gameObjects.size(); i++) {
+            for (int j = 0; j < gameObjects.size() - 1; j++) {
+                if (gameObjects.get(j).getLayer() < gameObjects.get(j + 1).getLayer()) {
+                    GameObject temp = gameObjects.get(j);
+                    gameObjects.set(j, gameObjects.get(j + 1));
+                    gameObjects.set(j + 1, temp);
+                }
+            }
+        }
+
+        gameObjects.forEach(GameObject::update);
     }
 
     @Override
