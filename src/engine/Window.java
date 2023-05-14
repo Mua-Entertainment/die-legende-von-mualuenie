@@ -7,19 +7,16 @@ public class Window extends JFrame {
 
     final GamePanel gamePanel;
 
-    public Window() {
+    public Window(Settings settings, GameObject environment) {
         super("Die Legende Von Müaluenie");
 
-        Settings settings = new Settings(16, 20, 12, 100);
-        gamePanel = new GamePanel(settings);
-        add(gamePanel);
+        gamePanel = new GamePanel(settings, environment);
 
         setMinimumSize(new Dimension(settings.xTiles(), settings.yTiles()));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        add(gamePanel);
         pack();
         setLocationRelativeTo(null);
-        setSize(800, 500);
-        setExtendedState(MAXIMIZED_BOTH);
         setVisible(true);
     }
 }
