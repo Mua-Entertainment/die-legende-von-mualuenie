@@ -3,6 +3,7 @@ package engine;
 import javax.swing.*;
 import java.awt.*;
 
+// Panel auf das die Spielelemente gezeichnet werden
 public class GamePanel extends JPanel implements Runnable {
 
     final SafeList<GameObject> gameObjects = new SafeList<>();

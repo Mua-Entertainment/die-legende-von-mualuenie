@@ -2,6 +2,7 @@ package development;
 
 import engine.Game;
 import engine.Settings;
+import imports.OpenSimplex2S;
 
 public class Program {
     public static void main(String[] args) {

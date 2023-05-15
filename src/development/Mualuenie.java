@@ -20,9 +20,6 @@ public class Mualuenie extends ImageObject {
         addComponent(collider);
 
         Animator animator = new Animator();
-        animator.addFrames(new AnimationFrame(3f, () -> {
-            System.out.println("e");
-        }));
         addComponent(animator);
     }
 

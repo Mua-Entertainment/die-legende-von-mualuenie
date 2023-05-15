@@ -8,4 +8,9 @@ public class Button extends ImageObject {
     protected void load() {
         super.load();
     }
+
+    @Override
+    protected void update() {
+        super.update();
+    }
 }
