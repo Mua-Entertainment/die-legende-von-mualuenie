@@ -31,5 +31,7 @@ public class Environment extends GameObject {
         add(label);
         label.setColor(Color.red);
         label.setText("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+
+        Button button = new Button();
     }
 }

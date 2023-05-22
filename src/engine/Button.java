@@ -1,13 +1,15 @@
 package engine;
 
 public class Button extends ImageObject {
-
-    private Label label = new Label();
+    public final Label label = new Label();
     private boolean hover, click;
 
     @Override
     protected void load() {
         super.load();
+
+        label.setSize(this.getSize());
+        addChildren(label);
     }
 
     @Override
