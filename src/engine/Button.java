@@ -2,12 +2,8 @@ package engine;
 
 public class Button extends ImageObject {
 
-    private enum State {
-        DEFAULT, HOVER, CLICK
-    }
-
     private Label label = new Label();
-    private State state;
+    private boolean hover, click;
 
     @Override
     protected void load() {
@@ -17,5 +13,7 @@ public class Button extends ImageObject {
     @Override
     protected void update() {
         super.update();
+
+        
     }
 }

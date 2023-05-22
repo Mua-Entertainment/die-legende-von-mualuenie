@@ -10,7 +10,7 @@ public class Window extends JFrame {
 
     public Window(Settings settings, GameObject environment) {
         // legt Fenstertitel fest
-        super("Die Legende Von Müaluenie");
+        super("Deine Oma");
 
         gamePanel = new GamePanel(settings, environment);
 
