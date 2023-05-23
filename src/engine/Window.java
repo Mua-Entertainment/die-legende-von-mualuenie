@@ -12,7 +12,7 @@ public class Window extends JFrame {
         // legt Fenstertitel fest
         super("Deine Oma");
 
-        gamePanel = new GamePanel(settings, environment);
+        gamePanel = new GamePanel(settings, environment, this);
 
         // konfiguriert das Fenster
         setMinimumSize(new Dimension(settings.xTiles(), settings.yTiles()));

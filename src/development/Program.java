@@ -10,6 +10,8 @@ public class Program {
         Environment environment = new Environment();
         Game game = new Game(settings, environment);
 
+        // Fabi stinkt
+
         game.run();
     }
 }

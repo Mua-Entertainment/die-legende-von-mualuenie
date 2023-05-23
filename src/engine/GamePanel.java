@@ -10,14 +10,16 @@ public class GamePanel extends JPanel implements Runnable {
     InputHandler input = new InputHandler();
     Size canvasSize = Size.ZERO;
     final Settings settings;
+    final Window window;
     float fps;
     GameObject environment;
     private long lastFrame;
     private String fpsDisplay;
 
-    public GamePanel(Settings settings, GameObject environment) {
+    public GamePanel(Settings settings, GameObject environment, Window window) {
         this.settings = settings;
         this.environment = environment;
+        this.window = window;
         this.lastFrame = System.nanoTime();
 
         setBackground(Color.black);

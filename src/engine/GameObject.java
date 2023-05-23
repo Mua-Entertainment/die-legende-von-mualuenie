@@ -170,8 +170,8 @@ public class GameObject {
         } else {
             var pos = MouseInfo.getPointerInfo().getLocation();
 
-            float x = (pos.x - origin.x) * panel.settings.xTiles() / panel.getWidth();
-            float y = (pos.y - origin.y) * panel.settings.yTiles() / panel.getHeight();
+            float x = (pos.x - origin.x - panel.window.getX()) * panel.settings.xTiles() / (panel.getWidth() - 2 * origin.x);
+            float y = (pos.y - origin.y - panel.window.getY() - panel.window.getInsets().top) * panel.settings.yTiles() / (panel.getHeight() - 2 * origin.y);
 
             return new Point(x, y);
         }

@@ -36,13 +36,7 @@ public class Environment extends GameObject {
         Button button = new Button();
         add(button);
         button.label.setText("ohannes");
-        button.setSrc("button.jpg");
+        button.setSrc("button.png");
         button.setPosition(5, 5);
-    }
-
-    @Override
-    protected void update() {
-        super.update();
-        System.out.println(getCursorPosition());
     }
 }
