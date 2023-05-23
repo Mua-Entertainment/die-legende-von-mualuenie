@@ -18,9 +18,6 @@ public class Mualuenie extends ImageObject {
         Collider collider = new Collider();
         collider.collide.subscribe(this::onCollide);
         addComponent(collider);
-
-        Animator animator = new Animator();
-        addComponent(animator);
     }
 
     @Override

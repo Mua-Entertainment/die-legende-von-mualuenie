@@ -4,6 +4,7 @@ import engine.Collider;
 import engine.GameObject;
 import engine.ImageObject;
 import engine.Label;
+import engine.Button;
 
 import java.awt.*;
 
@@ -33,5 +34,15 @@ public class Environment extends GameObject {
         label.setText("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
         Button button = new Button();
+        add(button);
+        button.label.setText("ohannes");
+        button.setSrc("button.jpg");
+        button.setPosition(5, 5);
+    }
+
+    @Override
+    protected void update() {
+        super.update();
+        System.out.println(getCursorPosition());
     }
 }

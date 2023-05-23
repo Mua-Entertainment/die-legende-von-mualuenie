@@ -1,6 +1,7 @@
 package engine;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
 public class GameObject {
@@ -12,6 +13,7 @@ public class GameObject {
     private GameObject parent;
     private int layer;
     GamePanel panel;
+    Point origin;
 
     private SafeList<GameObject> children;
     private SafeList<Component> components;
@@ -160,5 +162,18 @@ public class GameObject {
 
     protected void setCanvasBackground(Color bgColor) {
         panel.setBackground(bgColor);
+    }
+
+    protected Point getCursorPosition() {
+        if (origin == null) {
+            return Point.ZERO;
+        } else {
+            var pos = MouseInfo.getPointerInfo().getLocation();
+
+            float x = (pos.x - origin.x) * panel.settings.xTiles() / panel.getWidth();
+            float y = (pos.y - origin.y) * panel.settings.yTiles() / panel.getHeight();
+
+            return new Point(x, y);
+        }
     }
 }

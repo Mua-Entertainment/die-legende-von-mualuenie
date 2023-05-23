@@ -127,6 +127,7 @@ public class GamePanel extends JPanel implements Runnable {
             int w = (int) (obj.getSize().width() / settings.xTiles() * canvasSize.width());
             int h = (int) (obj.getSize().height() / settings.yTiles() * canvasSize.height());
 
+            obj.origin = origin;
             obj.draw(g2d, x, y, w, h);
         });
 
