@@ -32,11 +32,13 @@ public class Mualuenie extends ImageObject {
     protected void update() {
         super.update();
 
+        //Übergang Boden -> Fallen wip
 
         //Übergang Springen -> Fallen
         if (state==State.JUMP && airtime > JUMPFORCE)
         {
             state=State.AIR;
+            setSrc("mua_jump_3.png");
         }
 
         //Sprung
@@ -50,6 +52,7 @@ public class Mualuenie extends ImageObject {
         if (getInput().keyPressed(KeyEvent.VK_SPACE) && state==State.GROUND) {
             state = State.JUMP;
             move(0, -SPEED / getFPS());
+            setSrc("mua_jump_2.png");
         }
 
         //Schwerkraft
@@ -67,6 +70,7 @@ public class Mualuenie extends ImageObject {
         System.out.println(other);
         airtime = 0;
         state=State.GROUND;
+        setSrc("mua.png");
 
     }
 }
