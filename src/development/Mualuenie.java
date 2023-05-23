@@ -9,8 +9,9 @@ public class Mualuenie extends ImageObject {
     private enum State {
         GROUND, JUMP, AIR
     }
-    private final float SPEED = 5f;
-    private final float GRAVITY = 1f;
+    private final float SPEED = 10f;
+    private final float GRAVITY = 10f;
+    private final float JUMPFORCE = .2f;
     private float airtime = 0;
     private State state = State.GROUND;
 
@@ -31,16 +32,35 @@ public class Mualuenie extends ImageObject {
     protected void update() {
         super.update();
 
-        if (getInput().keyPressed(KeyEvent.VK_W)) move(0, -SPEED / getFPS());
-        if (getInput().keyPressed(KeyEvent.VK_S)) move(0, SPEED / getFPS());
-        if (getInput().keyPressed(KeyEvent.VK_A)) move(-SPEED / getFPS(), 0);
-        if (getInput().keyPressed(KeyEvent.VK_D)) move(SPEED / getFPS(), 0);
 
+        //Übergang Springen -> Fallen
+        if (state==State.JUMP && airtime > JUMPFORCE)
+        {
+            state=State.AIR;
+        }
 
-        if (getInput().keyPressed(KeyEvent.VK_SPACE)) move(0, -SPEED / getFPS());
+        //Sprung
+        if (state==State.JUMP && airtime <= JUMPFORCE)
+        {
+            move(0, -SPEED / getFPS());
+            System.out.println(airtime);
+        }
+
+        //Springen Initial
+        if (getInput().keyPressed(KeyEvent.VK_SPACE) && state==State.GROUND) {
+            state = State.JUMP;
+            move(0, -SPEED / getFPS());
+        }
+
+        //Schwerkraft
         move (0, GRAVITY * airtime / getFPS());
         airtime = airtime + 1f/getFPS();
 
+        // fürs testen (will remove later)
+        if (getInput().keyPressed(KeyEvent.VK_W)) move(0, -SPEED / (airtime*getFPS()));
+        if (getInput().keyPressed(KeyEvent.VK_S)) move(0, SPEED / getFPS());
+        if (getInput().keyPressed(KeyEvent.VK_A)) move(-SPEED / getFPS(), 0);
+        if (getInput().keyPressed(KeyEvent.VK_D)) move(SPEED / getFPS(), 0);
     }
 
     private void onCollide(GameObject other, Collision collision) {
