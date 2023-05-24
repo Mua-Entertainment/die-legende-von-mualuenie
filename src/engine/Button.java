@@ -36,6 +36,7 @@ public class Button extends ImageObject {
             } else {
                 if (getInput().mousePressed()) {
                     setBrightness(30);
+                    Click.invoke();
                     click = true;
                 }
             }

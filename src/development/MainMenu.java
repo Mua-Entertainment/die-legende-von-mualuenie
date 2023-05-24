@@ -29,6 +29,12 @@ public class MainMenu extends GameObject
         Skinbutton.setPosition(4,2);
         Skinbutton.Click.subscribe(this::SkinMenu);
     }
+
+    @Override
+    protected void update() {
+        super.update();
+    }
+
     private void Spielstarten()
     {
         move(5, 2 );
