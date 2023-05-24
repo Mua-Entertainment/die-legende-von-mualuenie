@@ -37,7 +37,6 @@ public class WorldGen extends GameObject {
         }
 
         time = time + 1f / getFPS();
-        System.out.println(time);
 
     }
 
