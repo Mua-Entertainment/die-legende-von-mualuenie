@@ -32,11 +32,14 @@ public class GameObject {
     void draw(Graphics2D g, int x, int y, int width, int height) { }
 
     public void destroy() {
-        panel.gameObjects.remove(this);
+        destroy(this);
     }
 
     protected void destroy(GameObject... objects) {
-        panel.gameObjects.removeAll(Arrays.asList(objects));
+        for (GameObject obj : objects) {
+            destroy(obj.children.toArray(new GameObject[0]));
+            panel.gameObjects.remove(obj);
+        }
     }
 
     protected float getFPS() {
