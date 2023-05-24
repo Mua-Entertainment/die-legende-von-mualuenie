@@ -60,7 +60,7 @@ public class Mualuenie extends ImageObject {
 
         if(getGlobalPosition().y > 5)
         {
-            //game over
+            //game over :)
         }
 
         // fürs testen (will remove later)
