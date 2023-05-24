@@ -44,8 +44,7 @@ public class MainMenu extends GameObject
     }
     private void OpenSettings()
     {
-
-
+        hide();
     }
     private void SkinMenu()
     {
