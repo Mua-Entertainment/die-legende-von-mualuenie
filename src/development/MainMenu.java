@@ -2,7 +2,6 @@ package development;
 
 import engine.Button;
 import engine.GameObject;
-import engine.Settings;
 
 import java.awt.*;
 
@@ -17,20 +16,20 @@ public class MainMenu extends GameObject
         Startbutton.setSize(3, 1 );
         Startbutton.label.setText("         Start");
         Startbutton.setPosition(6,4);
-        Startbutton.Click.subscribe(this::Spielstarten);
+        Startbutton.click.subscribe(this::Spielstarten);
 
         Button Settingsbutton = new Button();
         addChildren(Settingsbutton);
         Settingsbutton.setSrc("img\\ui\\zahnrader.png");
         Settingsbutton.setSize(1,1);
         Settingsbutton.setPosition(2,4);
-        Settingsbutton.Click.subscribe(this::OpenSettings);
+        Settingsbutton.click.subscribe(this::OpenSettings);
 
         Button Skinbutton = new Button();
         addChildren(Skinbutton);
         Skinbutton.setSrc("img\\obj\\mua\\run\\mua-run-6.png");
         Skinbutton.setPosition(4,4);
-        Skinbutton.Click.subscribe(this::SkinMenu);
+        Skinbutton.click.subscribe(this::SkinMenu);
 
         setCanvasBackground(new Color(0x567BB4));
     }
@@ -42,9 +41,9 @@ public class MainMenu extends GameObject
 
     private void Spielstarten()
     {
+        destroy();
         PlayMode playMode = new PlayMode();
         add(playMode);
-        destroy();
     }
     private void OpenSettings()
     {

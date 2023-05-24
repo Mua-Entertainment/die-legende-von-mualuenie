@@ -16,18 +16,17 @@ public class SettingScreen extends GameObject
     @Override
     protected void load() {
         super.load();
-        Button Back =new Button();
+        Button Back = new Button();
         addChildren(Back);
         Back.setSrc("img\\ui\\pfeil.png");
         Back.setPosition(2,4);
         setCanvasBackground(new Color(0x17C255));
-        Back.Click.subscribe(this::back);
+        Back.click.subscribe(this::back);
 
     }
-private void back()
+    private void back()
     {
-        mainMenu.show();
+        mainMenu.load();
         destroy();
     }
-
 }

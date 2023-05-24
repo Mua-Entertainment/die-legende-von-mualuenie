@@ -5,10 +5,10 @@ import java.awt.image.Raster;
 
 public class Button extends ImageObject {
 
-    public final VoidEvent Click = new VoidEvent();
+    public final VoidEvent click = new VoidEvent();
     public final Label label = new Label();
     private Raster imgRaster;
-    private boolean hover, click;
+    private boolean hover;
 
     @Override
     protected void load() {
@@ -22,27 +22,25 @@ public class Button extends ImageObject {
     protected void update() {
         super.update();
 
-        if (hover) {
-            if (!getHover()) {
-                setBrightness(0);
-                hover = false;
-            }
+        if (getVisibility()) {
+            if (hover) {
+                if (!getHover()) {
+                    setBrightness(0);
+                    hover = false;
+                }
 
-            if (click) {
-                if (!getInput().mousePressed()) {
-                    setBrightness(15);
-                    click = false;
-                }
-            } else {
-                if (getInput().mousePressed()) {
+                if (getInput().mouseDown()) {
                     setBrightness(30);
-                    Click.invoke();
-                    click = true;
+                    click.invoke();
                 }
+
+                if (getInput().mouseUp()) {
+                    setBrightness(15);
+                }
+            } else if (getHover()) {
+                setBrightness(15);
+                hover = true;
             }
-        } else if (getHover()) {
-            setBrightness(15);
-            hover = true;
         }
     }
 
