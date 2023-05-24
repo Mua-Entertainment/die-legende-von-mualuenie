@@ -37,7 +37,7 @@ public class MainMenu extends GameObject
 
     private void Spielstarten()
     {
-        move(5, 2 );
+        move(5, 2);
     }
     private void OpenSettings()
     {

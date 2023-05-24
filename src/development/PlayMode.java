@@ -8,6 +8,10 @@ public class PlayMode extends GameObject {
     protected void load() {
         super.load();
 
+        WorldGen wg = new WorldGen();
+        add(wg);
+
         Mualuenie mua = new Mualuenie();
+        add(mua);
     }
 }
