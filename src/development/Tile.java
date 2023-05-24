@@ -12,7 +12,7 @@ public class Tile extends ImageObject {
 
         setSrc("dark_tile.png");
         setGlobalPosition(0,  5);
-        setSize(1f,1f);
+        setSize(.5f,.5f);
 
         Collider collider = new Collider();
         addComponent(collider);
