@@ -4,7 +4,7 @@ import engine.GameObject;
 
 public class WorldGen extends GameObject {
 
-    private Tile[] tiles;
+    private Chunk[] chunks;
     private float time = 0f;
     private int frontTile = 0;
 
@@ -13,11 +13,11 @@ public class WorldGen extends GameObject {
     protected void load() {
         super.load();
 
-        tiles = new Tile[10];
+        chunks = new Chunk[10];
         for (int i = 0; i < 10;i++)
         {
-            add(tiles[i] = new Tile());
-            tiles[i].setGlobalPosition(i + 1f,5f);
+            add(chunks[i] = new Chunk());
+            chunks[i].setGlobalPosition(i + 1f,5f);
         }
     }
 
@@ -25,9 +25,9 @@ public class WorldGen extends GameObject {
     protected void update() {
         super.update();
 
-        if (time >= .4f)
+        if (time >= 1.2f)
         {
-            tiles[frontTile].setGlobalPosition(10f,5f);
+            chunks[frontTile].setGlobalPosition(10f,5f);
             frontTile++;
             if (frontTile > 9)
             {
