@@ -8,25 +8,26 @@ import java.io.IOException;
 
 public class ImageObject extends GameObject {
 
-    private String src;
+    BufferedImage img;
 
     public void setSrc(String src) {
-        this.src = "assets\\" + src;
-    }
-
-    @Override
-    void draw(Graphics2D g, int x, int y, int width, int height) {
         if (src != null) {
-            File file = new File(src);
+            File file = new File("assets\\" + src);
 
             if (file.exists()) {
                 try {
-                    BufferedImage img = ImageIO.read(file);
-                    g.drawImage(img, x, y, width, height, null);
+                    img = ImageIO.read(file);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
             }
+        }
+    }
+
+    @Override
+    void draw(Graphics2D g, int x, int y, int width, int height) {
+        if (img != null) {
+            g.drawImage(img, x, y, width, height, null);
         }
     }
 }
