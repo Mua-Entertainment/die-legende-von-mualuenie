@@ -6,6 +6,8 @@ public class WorldGen extends GameObject {
 
     private Chunk[] chunks;
     private float time = 0f;
+
+    public float GAMESPEED = 1f;
     private int frontTile = 0;
 
 
@@ -25,7 +27,7 @@ public class WorldGen extends GameObject {
     protected void update() {
         super.update();
 
-        if (time >= 1.2f)
+        if (time >= GAMESPEED * 1.25f)
         {
             chunks[frontTile].setGlobalPosition(10f,5f);
             frontTile++;

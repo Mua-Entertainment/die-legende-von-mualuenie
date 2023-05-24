@@ -19,10 +19,10 @@ public class Chunk extends ImageObject {
     @Override
     protected void update() {
         super.update();
-        move(-2f/getFPS(),0);
+        move( -2f/getFPS(),0);
     }
 
-    private void randomize()
+    private void randomizeChunk()
     {
         //zufällig unterschiedliche arten von böden, hindernissen
     }
