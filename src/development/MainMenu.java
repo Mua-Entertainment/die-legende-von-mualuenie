@@ -13,7 +13,7 @@ public class MainMenu extends GameObject
         Startbutton.setSrc("button.png");
         Startbutton.setSize(3, 1 );
         Startbutton.label.setText("Start");
-        Startbutton.setPosition(2,2);
+        Startbutton.setPosition(6,4);
         Startbutton.Click.subscribe(this::Spielstarten);
 
     }
