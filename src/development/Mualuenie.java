@@ -59,6 +59,11 @@ public class Mualuenie extends ImageObject {
         move (0, GRAVITY * airtime / getFPS());
         airtime = airtime + 1f/getFPS();
 
+        if(getGlobalPosition().y > 5)
+        {
+            //game over
+        }
+
         // fürs testen (will remove later)
         if (getInput().keyPressed(KeyEvent.VK_W)) move(0, -SPEED / (airtime*getFPS()));
         if (getInput().keyPressed(KeyEvent.VK_S)) move(0, SPEED / getFPS());
