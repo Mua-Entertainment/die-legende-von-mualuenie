@@ -10,5 +10,7 @@ public class Environment extends GameObject {
 
         MainMenu mainMenu = new MainMenu();
         add(mainMenu);
+
+
     }
 }

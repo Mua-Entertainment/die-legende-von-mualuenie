@@ -53,6 +53,8 @@ public class MainMenu extends GameObject
     }
     private void SkinMenu()
     {
-
+        SkinMenu skinMenu = new SkinMenu(this);
+        add(skinMenu);
+        hide();
     }
 }
