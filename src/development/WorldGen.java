@@ -13,11 +13,11 @@ public class WorldGen extends GameObject {
     protected void load() {
         super.load();
 
-        chunks = new Chunk[10];
-        for (int i = 0; i < 10;i++)
+        chunks = new Chunk[6];
+        for (int i = 0; i < 6;i++)
         {
             add(chunks[i] = new Chunk());
-            chunks[i].setGlobalPosition(i + 1f,5f);
+            chunks[i].setGlobalPosition(i * 2.5f,5f);
         }
     }
 
@@ -29,7 +29,7 @@ public class WorldGen extends GameObject {
         {
             chunks[frontTile].setGlobalPosition(10f,5f);
             frontTile++;
-            if (frontTile > 9)
+            if (frontTile > 5)
             {
                 frontTile = 0;
             }
