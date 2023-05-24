@@ -6,17 +6,36 @@ import java.awt.*;
 // Panel auf das die Spielelemente gezeichnet werden
 public class GamePanel extends JPanel implements Runnable {
 
+    // enthält alle anzuzeigenden GameObjects
     final SafeList<GameObject> gameObjects = new SafeList<>();
+
+    // Input-Event-Handler zum Lauschen auf Eingabe-Events
     InputHandler input = new InputHandler();
+
+    // Größe der Fläche, auf der das Spiel abgebildet wird
     Size canvasSize = Size.ZERO;
+
+    // Einstellungen für die Koordinateneinheiten und Größen
     final Settings settings;
+
+    // Referenz zum Fenster
     final Window window;
+
+    // Frames pro Sekunde
     float fps;
+
+    // Umgebung - das Objekt, dass alle anderen Objekte enthält
     GameObject environment;
+
+    // letzter Frame in Nanosekunden
     private long lastFrame;
+
+    // FPS-Anzeige
     private String fpsDisplay;
 
     public GamePanel(Settings settings, GameObject environment, Window window) {
+
+        // legt Attribute Fest
         this.settings = settings;
         this.environment = environment;
         this.window = window;
@@ -101,33 +120,20 @@ public class GamePanel extends JPanel implements Runnable {
         g2d.setColor(Color.black);
 
         Point origin, end;
-        int width, height;
+        int width, height, borderSize;
 
         Point space1Pos, space2Pos;
         Size space1Size, space2Size;
 
         if (windowRatio > canvasRatio) {
-            int borderSize = (getWidth() - (int) (getHeight() * canvasRatio)) / 2;
-
-            space1Pos = Point.ZERO;
-            space2Pos = new Point(getWidth() - borderSize, 0);
-            space1Size = new Size(borderSize, getHeight());
-            space2Size = new Size(borderSize, getHeight());
+            borderSize = (getWidth() - (int) (getHeight() * canvasRatio)) / 2;
 
             origin = new Point(borderSize, 0);
             end = new Point(getWidth() - borderSize, 0);
 
             canvasSize = new Size(getWidth() - 2 * (int) origin.x, getHeight());
         } else {
-            int borderSize = (getHeight() - (int) (getWidth() / canvasRatio)) / 2;
-
-            space1Pos = Point.ZERO;
-            space2Pos = new Point(getWidth() - borderSize, 0);
-            space1Size = new Size(borderSize, getHeight());
-            space2Size = new Size(borderSize, getHeight());
-
-            g2d.fillRect(0, 0, getWidth(), borderSize);
-            g2d.fillRect(0, getHeight() - borderSize, getWidth(), borderSize);
+            borderSize = (getHeight() - (int) (getWidth() / canvasRatio)) / 2;
 
             origin = new Point(0, borderSize);
             end = new Point(0, getHeight() - borderSize);
@@ -146,6 +152,14 @@ public class GamePanel extends JPanel implements Runnable {
                 obj.draw(g2d, x, y, w, h);
             }
         });
+
+        if (windowRatio > canvasRatio) {
+            g2d.fillRect(0, 0, borderSize, getHeight());
+            g2d.fillRect(getWidth() - borderSize, 0, borderSize, getHeight());
+        } else {
+            g2d.fillRect(0, 0, getWidth(), borderSize);
+            g2d.fillRect(0, getHeight() - borderSize, getWidth(), borderSize);
+        }
 
         g2d.setColor(Color.gray);
         g2d.drawString(fpsDisplay, 0, 10);
