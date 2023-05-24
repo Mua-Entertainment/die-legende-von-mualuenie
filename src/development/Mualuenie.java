@@ -45,7 +45,6 @@ public class Mualuenie extends ImageObject {
         if (state==State.JUMP && airtime <= JUMPFORCE)
         {
             move(0, -SPEED / getFPS());
-            System.out.println(airtime);
         }
 
         //Springen Initial
@@ -61,7 +60,7 @@ public class Mualuenie extends ImageObject {
 
         if(getGlobalPosition().y > 5)
         {
-            //game over
+            //game over :)
         }
 
         // fürs testen (will remove later)
@@ -72,7 +71,6 @@ public class Mualuenie extends ImageObject {
     }
 
     private void onCollide(GameObject other, Collision collision) {
-        System.out.println(other);
         airtime = 0;
         state=State.GROUND;
         setSrc("mua.png");
