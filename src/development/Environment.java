@@ -19,6 +19,9 @@ public class Environment extends GameObject {
         setCanvasBackground(new Color(0xB5DEFF));
         add(mua = new Mualuenie());
 
+        WorldGen worldgen;
+        add(worldgen = new WorldGen());
+
         ImageObject schneggn = new ImageObject();
         add(schneggn);
         schneggn.setSrc("schneggn.png");
