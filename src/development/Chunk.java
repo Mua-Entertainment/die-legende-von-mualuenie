@@ -24,7 +24,7 @@ public class Chunk extends ImageObject {
 
     private void randomize()
     {
-        //random unterschiedliche arten von chunks
+        //zufällig unterschiedliche arten von böden, hindernissen
     }
 
 }
