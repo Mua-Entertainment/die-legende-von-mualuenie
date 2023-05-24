@@ -2,17 +2,17 @@ package development;
 
 import engine.Button;
 import engine.GameObject;
-
 import java.awt.*;
 
 public class SettingScreen extends GameObject
 {
     private final MainMenu mainMenu;
+
     public SettingScreen(MainMenu mainMenu)
     {
         this.mainMenu = mainMenu;
-
     }
+
     @Override
     protected void load() {
         super.load();
@@ -24,6 +24,7 @@ public class SettingScreen extends GameObject
         Back.click.subscribe(this::back);
 
     }
+
     private void back()
     {
         mainMenu.load();
