@@ -6,9 +6,9 @@ import engine.Settings;
 public class Program {
     public static void main(String[] args) {
         Settings settings = new Settings(10, 6, 100);
-        MainMenu menu = new MainMenu();
+        Environment environment = new Environment();
 
-        Game game = new Game(settings, menu);
+        Game game = new Game(settings, environment);
         game.run();
     }
 }
