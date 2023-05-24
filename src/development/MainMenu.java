@@ -44,6 +44,8 @@ public class MainMenu extends GameObject
     }
     private void OpenSettings()
     {
+        SettingScreen settingScreen = new SettingScreen(this);
+        add(settingScreen);
         hide();
     }
     private void SkinMenu()
