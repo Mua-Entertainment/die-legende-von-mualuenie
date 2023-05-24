@@ -26,7 +26,7 @@ public class MainMenu extends GameObject
         Button Skinbutton = new Button();
         addChildren(Skinbutton);
         Skinbutton.setSrc("mua5.png");
-        Skinbutton.setPosition(4,2);
+        Skinbutton.setPosition(4,4);
         Skinbutton.Click.subscribe(this::SkinMenu);
     }
 
@@ -37,7 +37,9 @@ public class MainMenu extends GameObject
 
     private void Spielstarten()
     {
-        move(5, 2);
+        PlayMode playMode = new PlayMode();
+        add(playMode);
+        destroy();
     }
     private void OpenSettings()
     {
