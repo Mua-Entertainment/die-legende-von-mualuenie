@@ -4,6 +4,8 @@ import engine.Button;
 import engine.GameObject;
 import engine.Settings;
 
+import java.awt.*;
+
 public class MainMenu extends GameObject
 {
     @Override
@@ -29,6 +31,8 @@ public class MainMenu extends GameObject
         Skinbutton.setSrc("img\\obj\\mua\\run\\mua-run-6.png");
         Skinbutton.setPosition(4,4);
         Skinbutton.Click.subscribe(this::SkinMenu);
+
+        setCanvasBackground(new Color(0x567BB4));
     }
 
     @Override

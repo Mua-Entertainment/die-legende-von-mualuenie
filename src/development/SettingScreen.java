@@ -3,6 +3,8 @@ package development;
 import engine.Button;
 import engine.GameObject;
 
+import java.awt.*;
+
 public class SettingScreen extends GameObject
 {
     private final MainMenu mainMenu;
@@ -18,6 +20,8 @@ public class SettingScreen extends GameObject
         addChildren(Back);
         Back.setSrc("img\\ui\\pfeil.png");
         Back.setPosition(2,4);
+        setCanvasBackground(new Color(0x17C255));
+        Back.Click.subscribe(this::back);
 
     }
 private void back()
