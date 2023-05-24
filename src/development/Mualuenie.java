@@ -38,7 +38,7 @@ public class Mualuenie extends ImageObject {
         if (state==State.JUMP && airtime > JUMPFORCE)
         {
             state=State.AIR;
-            setSrc("mua_jump_3.png");
+            setSrc("img\\obj\\mua\\jump\\mua-jump-4.png");
         }
 
         //Sprung
@@ -51,7 +51,7 @@ public class Mualuenie extends ImageObject {
         if (getInput().keyPressed(KeyEvent.VK_SPACE) && state==State.GROUND) {
             state = State.JUMP;
             move(0, -SPEED / getFPS());
-            setSrc("mua_jump_2.png");
+            setSrc("img\\obj\\mua\\jump\\mua-jump3.png");
         }
 
         //Schwerkraft
@@ -73,7 +73,7 @@ public class Mualuenie extends ImageObject {
     private void onCollide(GameObject other, Collision collision) {
         airtime = 0;
         state=State.GROUND;
-        setSrc("mua.png");
+        setSrc("img\\obj\\mua\\run\\mua-run-1.png");
 
     }
 }

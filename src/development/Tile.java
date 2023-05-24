@@ -10,7 +10,7 @@ public class Tile extends ImageObject {
     protected void load() {
         super.load();
 
-        setSrc("dark_tile.png");
+        setSrc("dark-tile.png");
         setGlobalPosition(0,  5);
         setSize(.5f,.5f);
 

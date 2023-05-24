@@ -9,7 +9,7 @@ public class Chunk extends ImageObject {
     protected void load() {
         super.load();
 
-        setSrc("dark_chunk.png");
+        setSrc("img\\obj\\world\\dark-chunk\\dark-chunk.png");
         setGlobalPosition(0,  5);
         setSize(2.5f,2f);
 
