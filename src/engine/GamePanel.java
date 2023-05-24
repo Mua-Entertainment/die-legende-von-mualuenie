@@ -103,10 +103,16 @@ public class GamePanel extends JPanel implements Runnable {
         Point origin, end;
         int width, height;
 
+        Point space1Pos, space2Pos;
+        Size space1Size, space2Size;
+
         if (windowRatio > canvasRatio) {
             int borderSize = (getWidth() - (int) (getHeight() * canvasRatio)) / 2;
-            g2d.fillRect(0, 0, borderSize, getHeight());
-            g2d.fillRect(getWidth() - borderSize, 0, borderSize, getHeight());
+
+            space1Pos = Point.ZERO;
+            space2Pos = new Point(getWidth() - borderSize, 0);
+            space1Size = new Size(borderSize, getHeight());
+            space2Size = new Size(borderSize, getHeight());
 
             origin = new Point(borderSize, 0);
             end = new Point(getWidth() - borderSize, 0);
@@ -114,6 +120,12 @@ public class GamePanel extends JPanel implements Runnable {
             canvasSize = new Size(getWidth() - 2 * (int) origin.x, getHeight());
         } else {
             int borderSize = (getHeight() - (int) (getWidth() / canvasRatio)) / 2;
+
+            space1Pos = Point.ZERO;
+            space2Pos = new Point(getWidth() - borderSize, 0);
+            space1Size = new Size(borderSize, getHeight());
+            space2Size = new Size(borderSize, getHeight());
+
             g2d.fillRect(0, 0, getWidth(), borderSize);
             g2d.fillRect(0, getHeight() - borderSize, getWidth(), borderSize);
 
@@ -124,13 +136,15 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         gameObjects.forEach(obj -> {
-            int x = (int) (origin.x + obj.getGlobalPosition().x / settings.xTiles() * canvasSize.width());
-            int y = (int) (origin.y + obj.getGlobalPosition().y / settings.yTiles() * canvasSize.height());
-            int w = (int) (obj.getSize().width() / settings.xTiles() * canvasSize.width());
-            int h = (int) (obj.getSize().height() / settings.yTiles() * canvasSize.height());
+            if (obj.visible) {
+                int x = (int) (origin.x + obj.getGlobalPosition().x / settings.xTiles() * canvasSize.width());
+                int y = (int) (origin.y + obj.getGlobalPosition().y / settings.yTiles() * canvasSize.height());
+                int w = (int) (obj.getSize().width() / settings.xTiles() * canvasSize.width());
+                int h = (int) (obj.getSize().height() / settings.yTiles() * canvasSize.height());
 
-            obj.origin = origin;
-            obj.draw(g2d, x, y, w, h);
+                obj.origin = origin;
+                obj.draw(g2d, x, y, w, h);
+            }
         });
 
         g2d.setColor(Color.gray);

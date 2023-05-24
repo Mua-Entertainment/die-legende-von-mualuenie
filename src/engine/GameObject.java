@@ -14,6 +14,7 @@ public class GameObject {
     private int layer;
     GamePanel panel;
     Point origin;
+    boolean visible;
 
     private SafeList<GameObject> children;
     private SafeList<Component> components;
@@ -23,6 +24,7 @@ public class GameObject {
         size = Size.ONE;
         children = new SafeList<>();
         components = new SafeList<>();
+        visible = true;
     }
 
     protected void update() {
@@ -114,6 +116,20 @@ public class GameObject {
 
     public void move(float x, float y) {
         setPosition(getPosition().x + x, getPosition().y + y);
+    }
+
+    public void show() {
+        visible = true;
+        children.forEach(GameObject::show);
+    }
+
+    public void hide() {
+        visible = false;
+        children.forEach(GameObject::hide);
+    }
+
+    public boolean getVisibility() {
+        return visible;
     }
 
     protected void add(GameObject... objects) {
