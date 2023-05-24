@@ -5,6 +5,6 @@ public record Game(Settings settings, GameObject environment, String iconSrc) {
 
     // öffnet das Fenster
     public void run() {
-        Window window = new Window(settings, environment, iconSrc);
+        new Window(settings, environment, iconSrc);
     }
 }
