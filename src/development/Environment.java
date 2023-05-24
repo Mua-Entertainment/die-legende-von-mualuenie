@@ -33,10 +33,7 @@ public class Environment extends GameObject {
         label.setColor(Color.red);
         label.setText("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
-        Button button = new Button();
-        add(button);
-        button.label.setText("ohannes");
-        button.setSrc("button.png");
-        button.setPosition(5, 5);
+       MainMenu mainMenu = new MainMenu();
+       add (mainMenu);
     }
 }
