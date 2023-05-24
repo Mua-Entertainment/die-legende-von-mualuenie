@@ -2,6 +2,7 @@ package development;
 
 import engine.Button;
 import engine.GameObject;
+import engine.Settings;
 
 public class MainMenu extends GameObject
 {
@@ -43,6 +44,7 @@ public class MainMenu extends GameObject
     }
     private void OpenSettings()
     {
+
 
     }
     private void SkinMenu()
