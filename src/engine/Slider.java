@@ -20,9 +20,18 @@ public class Slider extends ImageObject {
     @Override
     protected void update() {
         super.update();
+
+        if (button.isPressed()) {
+            float x = Math.min(getCursorPosition().x - cursorOriginX, getSize().width() - button.getSize().width());
+            button.setPosition(x, button.getPosition().y);
+        }
     }
 
     private void onButtonClick() {
         cursorOriginX = getCursorPosition().x;
+    }
+
+    public Button getButton() {
+        return button;
     }
 }
