@@ -10,7 +10,7 @@ public class Chunk extends ImageObject {
     @Override
     protected void load() {
         super.load();
-
+        //setzen des bildes, colliders
         setSrc("img\\obj\\world\\dark-chunk\\dark-chunk.png");
         setGlobalPosition(12.5f, 5f);
         setSize(2.5f, 2f);
