@@ -2,6 +2,7 @@ package development;
 
 import engine.GameObject;
 
+// generiert die Welt
 public class WorldGen extends GameObject {
 
     private Chunk[] chunks;
@@ -39,5 +40,4 @@ public class WorldGen extends GameObject {
         time = time + 1f / getFPS();
 
     }
-
 }

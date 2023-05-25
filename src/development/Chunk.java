@@ -3,6 +3,7 @@ package development;
 import engine.Collider;
 import engine.ImageObject;
 
+// Teil der Welt der sich horizontal nach links bewegt
 public class Chunk extends ImageObject {
 
     @Override

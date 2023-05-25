@@ -1,8 +1,12 @@
 package engine;
 
+// zum Überprüfen ob Objekt zusammenstoßen
 public class Collider extends Component{
 
+    // Rand-Verkleinerung des Colliders
     private Padding padding = Padding.ZERO;
+
+    // Zusammenstoß-Ereignis
     public final BiEvent<GameObject, Collision> collide = new BiEvent<>();
 
     @Override
@@ -17,6 +21,7 @@ public class Collider extends Component{
                         var pad = this.padding;
                         var pad2 = c2.padding;
 
+                        // prüft auf Kollision
                         if (
                             owner.getGlobalPosition().x + pad.left() <= obj.getGlobalPosition().x + pad2.left() + obj.getSize().width() - pad2.right() &&
                             owner.getGlobalPosition().x + pad.left() + owner.getSize().width() - pad.right() >= obj.getGlobalPosition().x + pad2.left() &&
@@ -29,6 +34,7 @@ public class Collider extends Component{
                             var vDis = owner.getGlobalPosition().y + pad.top() + owner.getSize().height() - pad.bottom() - obj.getGlobalPosition().y + pad2.top();
                             var vDis2 = obj.getGlobalPosition().y + pad2.top() + obj.getSize().height() - pad2.bottom() - owner.getGlobalPosition().y + pad.top();
 
+                            // berechnet ob die Collider vertikal oder horizontal zusammenstoßen
                             var type = hDis > vDis && hDis >= 0 ? Collision.VERTICAL : Collision.HORIZONTAL;
                             var type2 = hDis2 > vDis2 && hDis2 >= 0 ? Collision.VERTICAL : Collision.HORIZONTAL;
 

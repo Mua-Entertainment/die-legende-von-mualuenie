@@ -4,22 +4,43 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
+// Superklasse für alle Objekte auf der Spieloberfläche
 public class GameObject {
 
+    // gibt an ob Spiel pausiert ist
     protected static boolean paused;
 
+    // Position im Spielfenster
     private Point position;
+
+    // anzuzeigende Größe
     private Size size;
+
+    // GameObject zu dem dieses Objekt sich relativ bewegt
     private GameObject parent;
+
+    // Position in z-Achse
     private int layer;
+
+    // Referenz auf Game-Panel
     GamePanel panel;
+
+    // Ursprungs-Position des Koordinatensystems
     Point origin;
+
+    // Sichtbarkeit des Objektes
     boolean visible;
 
+    // Objekte, die sich relativ zu diesem Objekt bewegen
     private SafeList<GameObject> children;
+
+    // Komponenten, die diesem Objekt weitere Funktionen verleihen
     private SafeList<Component> components;
 
+    // wird nach das Objekt im Spielfeld hinzugefügt wurde aufgerufen
+    // soll den Konstruktor ersetzen, damit zu dem Zeitpunkt die meisten Werte nicht mehr null sind
     protected void load() {
+        // setzt Attribute auf Standard-Werte
         position = Point.ZERO;
         size = Size.ONE;
         children = new SafeList<>();
@@ -27,16 +48,20 @@ public class GameObject {
         visible = true;
     }
 
+    // wird jeden Frame aufgerufen
     protected void update() {
         components.forEach(Component::update);
     }
 
+    // zum Zeichnen grafischer Elemente
     void draw(Graphics2D g, int x, int y, int width, int height) { }
 
+    // löscht dieses Objekt aus dem Spielfeld
     public void destroy() {
         destroy(this);
     }
 
+    // löscht mehere Objekte aus dem Spielfeld
     protected void destroy(GameObject... objects) {
         for (GameObject obj : objects) {
             destroy(obj.children.toArray(new GameObject[0]));
@@ -44,10 +69,12 @@ public class GameObject {
         }
     }
 
+    // gibt die Frames pPro Sekunde zurück
     protected float getFPS() {
         return panel.fps;
     }
 
+    // gibt eine Klasse mit Eingabe-Events zurück
     protected InputHandler getInput() {
         return panel.input;
     }
@@ -64,6 +91,7 @@ public class GameObject {
         return position;
     }
 
+    // Position relativ zum Ursprung
     public Point getGlobalPosition() {
         if (parent == null) {
             return getPosition();
@@ -72,11 +100,13 @@ public class GameObject {
         }
     }
 
+    // setzt Position relativ zum Ursprung
     public void setGlobalPosition(float x, float y) {
         Point pos = new Point(x - parent.getGlobalPosition().x, y - parent.getGlobalPosition().y);
         setPosition(pos);
     }
 
+    // setzt Position relativ zum Ursprung
     public void setGlobalPosition(Point position) {
         setGlobalPosition(position.x, position.y);
     }
@@ -114,15 +144,18 @@ public class GameObject {
         return (SafeList<GameObject>) children.clone();
     }
 
+    // bewegt das Objekt
     public void move(float x, float y) {
         setPosition(getPosition().x + x, getPosition().y + y);
     }
 
+    // macht das Objekt und die Children sichtbar
     public void show() {
         visible = true;
         children.forEach(GameObject::show);
     }
 
+    // macht das Objekt und die Children unsichtbar
     public void hide() {
         visible = false;
         children.forEach(GameObject::hide);
@@ -132,10 +165,12 @@ public class GameObject {
         return visible;
     }
 
+    // fügt GameObjetcts zum Environment-Objekt hinzu
     protected void add(GameObject... objects) {
         panel.environment.addChildren(objects);
     }
 
+    // fügt GameObjetcts als Children dieses Objekts hinzu
     public void addChildren(GameObject... objects) {
         for (GameObject obj : objects) {
             children.add(obj);
@@ -146,15 +181,18 @@ public class GameObject {
         }
     }
 
+    // fügt diesem Objekt einen Komponente hinzu
     public void addComponent(Component component) {
         component.owner = this;
         components.add(component);
     }
 
+    // entfernt von diesem Objekt einen Komponente
     public void removeComponent(Component component) {
         components.remove(component);
     }
 
+    // entfernt von diesem Objekt Komponenten mit einem bestimmten Typ
     public void removeComponents(Class<? super Component> type) {
         components.forEach(c -> {
             if (type.isInstance(c)) {
@@ -163,6 +201,7 @@ public class GameObject {
         });
     }
 
+    // Komponenten von diesem Objekt mit einem bestimmten Typ
     public <T extends Component> SafeList<T> getComponents(Class<T> type) {
         SafeList<T> list = new SafeList<>();
 
@@ -175,20 +214,24 @@ public class GameObject {
         return list;
     }
 
+    // Spielfeld-Größe
     public Size getCanvasSize() {
         return new Size(panel.settings.xTiles(), panel.settings.yTiles());
     }
 
+    // Setzt den Hintergrund vom Spielfeld
     protected void setCanvasBackground(Color bgColor) {
         panel.setBackground(bgColor);
     }
 
+    // Cursor-Position
     protected Point getCursorPosition() {
         if (origin == null) {
             return Point.ZERO;
         } else {
             var pos = MouseInfo.getPointerInfo().getLocation();
 
+            // wandelt Werte entsprechend der in den Settings angegebenen Einheiten um
             float x = (pos.x - origin.x - panel.window.getX()) * panel.settings.xTiles() / (panel.getWidth() - 2 * origin.x);
             float y = (pos.y - origin.y - panel.window.getY() - panel.window.getInsets().top) * panel.settings.yTiles() / (panel.getHeight() - 2 * origin.y);
 

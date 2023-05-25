@@ -41,6 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.window = window;
         this.lastFrame = System.nanoTime();
 
+        // bestimmt Eigenschaften des Spielfeldes
         setBackground(Color.black);
         setPreferredSize(new Dimension(800, 500));
         setDoubleBuffered(true);
@@ -48,19 +49,23 @@ public class GamePanel extends JPanel implements Runnable {
         addKeyListener(input);
         addMouseListener(input);
 
+        // startet Threads
         Thread loopThread = new Thread(this);
         loopThread.start();
 
         Thread fpsThread = new Thread(this::configFPSDisplay);
         fpsThread.start();
 
+        // fügt Objekt, dass alle anderen Objekte beinhaltet hinzu
         environment.panel = this;
         environment.load();
         gameObjects.add(environment);
     }
 
+    // Haupt-Thread
     @Override
     public void run() {
+        // Endlos-Schleife
         while (true) {
             try {
                 update();
@@ -73,6 +78,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    // Konfiguriert jede Sekunde die FPS-Anzeige
     private void configFPSDisplay() {
         while (true) {
             try {
@@ -84,6 +90,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    // wird jeden Frame ausgeführt
     private void update() {
 
         // FPS berechnen
@@ -104,21 +111,25 @@ public class GamePanel extends JPanel implements Runnable {
         // Führt für jedes GameObject update() aus
         gameObjects.forEach(GameObject::update);
 
-        // Überprüft Eingaben
+        // updatet den InputHandler
         input.update();
     }
 
+    // Methode zum Zeichnen von grafischen Elementen
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
 
+        // Seitenverhältnisse von Fenster und Spielfeld
         float canvasRatio = (float) settings.xTiles() / settings.yTiles();
         float windowRatio = (float) getWidth() / getHeight();
 
         g2d.setColor(Color.black);
 
+        // berechnete im Folgenden die Position und Größe der schwarzen Fensterränder,
+        // die dafür sorgen, dass das Spielfeld immer gleich groß ist
         Point origin, end;
         int width, height, borderSize;
 
@@ -141,8 +152,10 @@ public class GamePanel extends JPanel implements Runnable {
             canvasSize = new Size(getWidth(), getHeight() - 2 * (int) origin.y);
         }
 
+        // durchläuft jedes GameObject
         gameObjects.forEach(obj -> {
             if (obj.visible) {
+                // rechnet die Werte von den GameObjects wieder in Pixel-Einheit um
                 int x = (int) (origin.x + obj.getGlobalPosition().x / settings.xTiles() * canvasSize.width());
                 int y = (int) (origin.y + obj.getGlobalPosition().y / settings.yTiles() * canvasSize.height());
                 int w = (int) (obj.getSize().width() / settings.xTiles() * canvasSize.width());
@@ -153,6 +166,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
         });
 
+        // zeichnet schwarzen Rand über die anderen GameObjects
         if (windowRatio > canvasRatio) {
             g2d.fillRect(0, 0, borderSize, getHeight());
             g2d.fillRect(getWidth() - borderSize, 0, borderSize, getHeight());
@@ -161,6 +175,7 @@ public class GamePanel extends JPanel implements Runnable {
             g2d.fillRect(0, getHeight() - borderSize, getWidth(), borderSize);
         }
 
+        // Zeichnet FPS-Anzeige
         g2d.setColor(Color.gray);
         g2d.drawString(fpsDisplay, 0, 10);
     }
