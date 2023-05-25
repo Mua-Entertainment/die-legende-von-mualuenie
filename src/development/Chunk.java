@@ -34,7 +34,7 @@ public class Chunk extends ImageObject {
         setSize(2.5f, 2f);
 
 
-
+        //Zufällige Hindernisse (Momentan nur Vogel)
         Bird bird= new Bird();
         obstacles.add(bird);
 
