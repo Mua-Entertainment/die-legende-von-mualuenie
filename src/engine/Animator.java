@@ -2,7 +2,7 @@ package engine;
 
 import java.util.List;
 
-// ermöglicht es die Grafik von einem ImageObject in bestimmten Zeitabständen zu ändern
+// ermöglicht es Aktionen in bestimmten Zeitabständen auszuführen
 public class Animator extends Component {
 
     // alle Frames die animiert werden
