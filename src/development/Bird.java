@@ -16,7 +16,7 @@ public class Bird extends ImageObject {
         super.load();
 
         setSrc("img\\obj\\obstacles\\bird\\bird_fly0.png");
-        setGlobalPosition(getCanvasSize().width(), (float) (Math.random() * 4f));
+        setGlobalPosition(getCanvasSize().width(), (float) (Math.random() * 2f));
 
         Collider collider = new Collider();
         collider.collide.subscribe(this::onCollide);
@@ -27,7 +27,7 @@ public class Bird extends ImageObject {
     protected void update() {
         super.update();
 
-        if (state == State.FLYING && getGlobalPosition().x > 5 && Math.random() > .98)
+        if (state == State.FLYING && getGlobalPosition().x > 5 && Math.random() > .99)
         {
             state = State.DIVING;
             setSrc("img\\obj\\obstacles\\bird\\bird_dive.png");
@@ -36,7 +36,7 @@ public class Bird extends ImageObject {
 
         if (state == State.DIVING)
         {
-            move(0f, 2f/getFPS());
+            move(0f, 4f/getFPS());
 
             if (getGlobalPosition().y > 4f)
             {
