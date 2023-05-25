@@ -18,6 +18,24 @@ public class Mualuenie extends ImageObject {
     private float airtime = 0;
     private State state = State.GROUND;
 
+    private Animator animator;
+
+    private  final AnimationFrame[] run = new AnimationFrame[]{
+            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\run\\mua-run-1.png")),
+            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\run\\mua-run-2.png")),
+            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\run\\mua-run-3.png")),
+            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\run\\mua-run-4.png")),
+            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\run\\mua-run-5.png")),
+            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\run\\mua-run-6.png"))
+    };
+    private  final AnimationFrame[] jump = new AnimationFrame[]{
+            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-1.png")),
+            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-2.png")),
+            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-3.png")),
+            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-4.png"))
+    };
+
+
 
     @Override
     protected void load() {
@@ -30,6 +48,10 @@ public class Mualuenie extends ImageObject {
         collider.collide.subscribe(this::onCollide);
         addComponent(collider);
         collider.setPadding(1f/32f,0f,2f/32f,9f/32f);
+
+        animator = new Animator();
+        addComponent(animator);
+        animator.setFrames(run);
     }
 
     @Override
@@ -41,7 +63,7 @@ public class Mualuenie extends ImageObject {
             //Übergang Springen -> Fallen
             if (state == State.JUMP && airtime > JUMPFORCE) {
                 state = State.AIR;
-                setSrc("img\\obj\\mua\\jump\\mua-jump-4.png");
+                //setSrc("img\\obj\\mua\\jump\\mua-jump-4.png");
             }
 
             //Sprung
@@ -53,7 +75,7 @@ public class Mualuenie extends ImageObject {
             if (getInput().keyPressed(KeyEvent.VK_SPACE) && state == State.GROUND) {
                 state = State.JUMP;
                 move(0, -SPEED / getFPS());
-                setSrc("img\\obj\\mua\\jump\\mua-jump3.png");
+                animator.setFrames(jump);
             }
 
             //Schwerkraft
@@ -63,7 +85,7 @@ public class Mualuenie extends ImageObject {
             //aus der welt fallen
             if (getGlobalPosition().y > 5) {
                 //game over :)
-                paused = true;
+                //paused = true;
             }
         }
         /* fürs testen (will remove later)
@@ -80,7 +102,7 @@ public class Mualuenie extends ImageObject {
         if(!paused) {
             airtime = 0;
             state = State.GROUND;
-            setSrc("img\\obj\\mua\\run\\mua-run-1.png");
+            animator.setFrames(run);
             setGlobalPosition(getGlobalPosition().x, other.getGlobalPosition().y - getSize().height + 9f / 32f);
         }
     }
