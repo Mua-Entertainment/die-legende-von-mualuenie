@@ -16,7 +16,7 @@ public class Button extends ImageObject {
     private Raster imgRaster;
 
     // gibt an, ob Cursor sich über Button befindet
-    private boolean hover;
+    private boolean hover, pressed;
 
     @Override
     protected void load() {
@@ -45,12 +45,18 @@ public class Button extends ImageObject {
                     click.invoke();
                 }
 
+                if (getInput().mousePressed()) {
+                    pressed = true;
+                }
+
                 if (getInput().mouseUp()) {
                     setBrightness(15);
                 }
             } else if (getHover()) {
                 setBrightness(15);
                 hover = true;
+            } else {
+                pressed = false;
             }
         }
     }
@@ -63,6 +69,10 @@ public class Button extends ImageObject {
         if (img != null) {
             imgRaster = img.getData();
         }
+    }
+
+    public boolean isPressed() {
+        return pressed;
     }
 
     // gibt an, ober Cursor sich über Button berfindet
