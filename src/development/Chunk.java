@@ -20,10 +20,13 @@ public class Chunk extends ImageObject {
             Collider collider = new Collider();
             addComponent(collider);
         }
+
         setGlobalPosition(12.5f, 5f);
         setSize(2.5f, 2f);
 
 
+        Bird bird;
+        getParent().addChildren(bird= new Bird());
     }
 
     @Override
