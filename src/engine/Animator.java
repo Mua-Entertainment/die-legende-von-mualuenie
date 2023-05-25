@@ -22,7 +22,7 @@ public class Animator extends Component {
         if (cooldown > 0) {
             cooldown -= 1f / owner.getFPS();
         } else {
-            if (frameIndex >= frames.size()) {
+            if (frameIndex >= frames.size() - 1) {
                 frameIndex = 0;
             }
 

@@ -2,10 +2,7 @@
 
 package development;
 
-import engine.Collider;
-import engine.Collision;
-import engine.GameObject;
-import engine.ImageObject;
+import engine.*;
 
 public class Bird extends ImageObject {
 
@@ -14,16 +11,28 @@ public class Bird extends ImageObject {
     }
 
     private Bird.State state = Bird.State.FLYING;
+
+    private Animator animator;
+
+    private  final AnimationFrame[] fly = new AnimationFrame[]{
+            new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\bird\\bird-fly-1.png")),
+            new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\bird\\bird-fly-2.png")),
+            new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\bird\\bird-fly-3.png")),
+    };
     protected void load() {
         super.load();
     //Festlegen Bild und Collider
-        setSrc("img\\obj\\obstacles\\bird\\bird_fly0.png");
+        //setSrc("img\\obj\\obstacles\\bird\\bird-fly-1.png");
         setGlobalPosition(12.5f, (float) (Math.random() * 2f));
 
         Collider collider = new Collider();
         collider.collide.subscribe(this::onCollide);
         addComponent(collider);
         collider.setPadding(2f/32f,13f/32f,0f,2f/32f);
+
+        animator = new Animator();
+        addComponent(animator);
+        animator.setFrames(fly);
     }
 
     @Override
@@ -34,7 +43,7 @@ public class Bird extends ImageObject {
             //Übergang Flug -> Sturzflug
             if (state == State.FLYING && getGlobalPosition().x > 5 && Math.random() > .99) {
                 state = State.DIVING;
-                setSrc("img\\obj\\obstacles\\bird\\bird_dive.png");
+                //setSrc("img\\obj\\obstacles\\bird\\bird-dive.png");
 
             }
 
@@ -61,7 +70,7 @@ public class Bird extends ImageObject {
         if (state == State.DIVING)
         {
             state = State.DOVE;
-            setSrc("img\\obj\\obstacles\\bird\\bird_fly0.png");
+            //setSrc("img\\obj\\obstacles\\bird\\bird-fly-1.png");
             setGlobalPosition(getGlobalPosition().x,other.getGlobalPosition().y - getHeight());
         }
 
