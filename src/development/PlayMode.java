@@ -14,6 +14,7 @@ public class PlayMode extends GameObject {
     protected void load() {
         super.load();
 
+        //Hintergrund
         setCanvasBackground(new Color(0xBEF9FF));
 
         // Weltgenerator
@@ -31,6 +32,13 @@ public class PlayMode extends GameObject {
         mua = new Mualuenie();
         add(mua);
     }
-}
 
-//Louis
+    @Override
+    protected void update()
+    {
+        super.update();
+
+
+
+    }
+}

@@ -51,8 +51,10 @@ public class Chunk extends ImageObject {
     @Override
     protected void update() {
         super.update();
-        //bewegung der welt
-        move(-2f / getFPS(), 0);
+        if(!paused) {
+            //bewegung der welt
+            move(-2f / getFPS(), 0);
+        }
 
         //löschen, falls außerhalb des bildschirms
         if (getGlobalPosition().x <= -getWidth()) {
@@ -71,5 +73,3 @@ public class Chunk extends ImageObject {
     }
 
 }
-
-//Louis
