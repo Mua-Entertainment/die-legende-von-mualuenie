@@ -19,7 +19,7 @@ public class Chunk extends ImageObject {
     @Override
     protected void load() {
         super.load();
-        //zufälliges setzen des bildes, colliders
+        //zufälliges setzen des Bodens
 
 
         if (Math.random() < .9) {
