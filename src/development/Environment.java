@@ -15,6 +15,6 @@ public class Environment extends GameObject {
         Slider slider = new Slider();
         add(slider);
         slider.setSrc("img\\ui\\slider.png");
-        slider.getButton().setSrc("img\\ui\\slider-button");
+        slider.getButton().setSrc("img\\ui\\slider-button.png");
     }
 }

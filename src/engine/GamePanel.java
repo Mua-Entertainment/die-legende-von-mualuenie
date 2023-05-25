@@ -100,7 +100,7 @@ public class GamePanel extends JPanel implements Runnable {
         // Bubble-Sort nach Attribut GameObject.layer
         for (int i = 0; i < gameObjects.size(); i++) {
             for (int j = 0; j < gameObjects.size() - 1; j++) {
-                if (gameObjects.get(j).getLayer() < gameObjects.get(j + 1).getLayer()) {
+                if (gameObjects.get(j).getLayer() > gameObjects.get(j + 1).getLayer()) {
                     GameObject temp = gameObjects.get(j);
                     gameObjects.set(j, gameObjects.get(j + 1));
                     gameObjects.set(j + 1, temp);
