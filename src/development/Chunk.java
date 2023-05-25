@@ -2,7 +2,6 @@ package development;
 
 import engine.Collider;
 import engine.ImageObject;
-
 // Teil der Welt der sich horizontal nach links bewegt
 public class Chunk extends ImageObject {
 
@@ -20,10 +19,10 @@ public class Chunk extends ImageObject {
     @Override
     protected void update() {
         super.update();
-        move(-2f/getFPS(),0);
+        move( -2f/getFPS(),0);
     }
 
-    private void randomize()
+    private void randomizeChunk()
     {
         //zufällig unterschiedliche arten von böden, hindernissen
     }
