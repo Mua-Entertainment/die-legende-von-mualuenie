@@ -10,7 +10,9 @@ public class Chunk extends ImageObject {
     @Override
     protected void load() {
         super.load();
-        //setzen des bildes, colliders
+        //zufälliges setzen des bildes, colliders
+
+
         if (Math.random() < .9) {
             setSrc("img\\obj\\world\\dark-chunk\\dark-chunk.png");
             setGlobalPosition(12.5f, 5f);
