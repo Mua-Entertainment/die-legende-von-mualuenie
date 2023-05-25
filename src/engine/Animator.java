@@ -22,12 +22,14 @@ public class Animator extends Component {
         if (cooldown > 0) {
             cooldown -= 1f / owner.getFPS();
         } else {
+            if (frameIndex >= frames.size()) {
+                frameIndex = 0;
+            }
+
             frames.get(frameIndex).action().run();
 
             if (frameIndex < frames.size() - 1) {
                 frameIndex++;
-            } else {
-                frameIndex = 0;
             }
 
             cooldown = frames.get(frameIndex).delay();
