@@ -20,8 +20,7 @@ public class Mualuenie extends ImageObject {
     protected void load() {
         super.load();
 
-        //setzen des bildes, colliders
-        setSrc("mua.png");
+        //setzen des colliders
         setGlobalPosition(1, getCanvasSize().height() - 2);
 
         Collider collider = new Collider();
