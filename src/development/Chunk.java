@@ -11,12 +11,17 @@ public class Chunk extends ImageObject {
     protected void load() {
         super.load();
         //setzen des bildes, colliders
-        setSrc("img\\obj\\world\\dark-chunk\\dark-chunk.png");
+        if (Math.random() < .9) {
+            setSrc("img\\obj\\world\\dark-chunk\\dark-chunk.png");
+            setGlobalPosition(12.5f, 5f);
+            setSize(2.5f, 2f);
+            Collider collider = new Collider();
+            addComponent(collider);
+        }
         setGlobalPosition(12.5f, 5f);
         setSize(2.5f, 2f);
 
-        Collider collider = new Collider();
-        addComponent(collider);
+
     }
 
     @Override
