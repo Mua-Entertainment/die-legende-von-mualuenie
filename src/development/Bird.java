@@ -47,7 +47,7 @@ public class Bird extends ImageObject {
     //
     private void onCollide(GameObject other, Collision collision) {
         //Wenn Müa draufspringt => tot
-        if (other == PlayMode.mua && PlayMode.mua.getGlobalPosition().y < getGlobalPosition().y)
+        if (other == PlayMode.mua && PlayMode.mua.getGlobalPosition().y < getGlobalPosition().y - .5f * getSize().height)
             {
                 destroy();
             }
