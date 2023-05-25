@@ -69,6 +69,12 @@ public class Button extends ImageObject {
         }
     }
 
+    @Override
+    public void setSize(Size size) {
+        super.setSize(size);
+        label.setSize(size);
+    }
+
     public boolean isPressed() {
         return pressed;
     }
