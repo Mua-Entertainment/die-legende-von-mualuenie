@@ -47,7 +47,7 @@ public class Bird extends ImageObject {
             }
         }
 
-        move(2f/getFPS(),0f);
+        move(-2f/getFPS(),0f);
     }
 
     private void onCollide(GameObject other, Collision collision) {
