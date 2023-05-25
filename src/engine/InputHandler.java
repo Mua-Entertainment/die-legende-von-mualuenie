@@ -5,12 +5,23 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+// Überprüft Eingabe-Ereignisse
 public class InputHandler implements KeyListener, MouseListener {
 
+    // keyDown: erster Frame des Tastendrucks
+    // keyPressed: wenn Taste gedrückt ist
+    // keyUp: letzter Frame des Tastendrucks
     private boolean keyDown, keyPressed, keyUp;
+
+    // mouseDown: erster Frame des Mausklicks
+    // mousePressed: wenn Maustaste gedrückt ist
+    // mouseUp: letzter Frame des Mausklicks
     private boolean mouseDown, mousePressed, mouseUp;
+
+    // alle aktuell gedrückten Tastencodes
     private final SafeList<Integer> pressedKeys = new SafeList<>();
 
+    // setzt ...down und ...up false, damit sie nur in einem Frame hintereinander true sind
     void update() {
         if (keyDown) keyDown = false;
         if (keyUp) keyUp = false;
@@ -18,18 +29,22 @@ public class InputHandler implements KeyListener, MouseListener {
         if (mouseUp) mouseUp = false;
     }
 
+    // überprüft ob einer der angegebenen Tasten runtergedrückt wird
     public boolean keyDown(int... keyCodes) {
         return checkKey(keyCodes, keyDown);
     }
 
+    // überprüft ob einer der angegebenen Tasten gedrückt wird
     public boolean keyPressed(int... keyCodes) {
         return checkKey(keyCodes, keyPressed);
     }
 
+    // überprüft ob einer der angegebenen Tasten losgelassen wird
     public boolean keyUp(int... keyCodes) {
         return checkKey(keyCodes, keyUp);
     }
 
+    // überprüft ob einer der angegebenen Tastencodes aktuelle gedrückt wird
     private boolean checkKey(int[] keyCodes, boolean condition) {
         if (condition) {
             for (int code : keyCodes) {
@@ -63,6 +78,7 @@ public class InputHandler implements KeyListener, MouseListener {
             keyDown = keyPressed = true;
         }
 
+        // fügt gedrückte Tastencodes hinzu
         if (!pressedKeys.contains(e.getKeyCode())) {
             pressedKeys.add(e.getKeyCode());
         }
@@ -73,15 +89,14 @@ public class InputHandler implements KeyListener, MouseListener {
         keyPressed = false;
         keyUp = true;
 
+        // entfernt gedrückte Tastencodes
         if (pressedKeys.contains(e.getKeyCode())) {
             pressedKeys.remove((Object) e.getKeyCode());
         }
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
+    public void mouseClicked(MouseEvent e) {}
 
     @Override
     public void mousePressed(MouseEvent e) {

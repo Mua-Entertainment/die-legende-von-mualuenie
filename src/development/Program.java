@@ -8,7 +8,8 @@ public class Program {
         Settings settings = new Settings(10, 6, 100);
         Environment environment = new Environment();
 
-        Game game = new Game(settings, environment);
+        // Starten des Spiels
+        Game game = new Game(settings, environment, "img\\ui\\icon.png");
         game.run();
     }
 }

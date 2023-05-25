@@ -1,7 +1,10 @@
 package engine;
 
-public record Game(Settings settings, GameObject environment) {
+// Klasse mit Grundeinstellungen und Umgebung
+public record Game(Settings settings, GameObject environment, String iconSrc) {
+
+    // öffnet das Fenster
     public void run() {
-        Window window = new Window(settings, environment);
+        new Window(settings, environment, iconSrc);
     }
 }

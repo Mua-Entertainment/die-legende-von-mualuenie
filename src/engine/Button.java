@@ -3,17 +3,26 @@ package engine;
 import java.awt.*;
 import java.awt.image.Raster;
 
+// Button auf den der Nutzer klicken kann
 public class Button extends ImageObject {
 
-    public final VoidEvent Click = new VoidEvent();
+    // Klick-Event
+    public final VoidEvent click = new VoidEvent();
+
+    // Label, dass Text auf Button anzeigt
     public final Label label = new Label();
+
+    // die Bild-Daten der Grafik mit Standard-Helligkeit
     private Raster imgRaster;
-    private boolean hover, click;
+
+    // gibt an, ob Cursor sich über Button befindet
+    private boolean hover;
 
     @Override
     protected void load() {
         super.load();
 
+        // fügt Label hinzu
         label.setSize(this.getSize());
         addChildren(label);
     }
@@ -22,27 +31,27 @@ public class Button extends ImageObject {
     protected void update() {
         super.update();
 
-        if (hover) {
-            if (!getHover()) {
-                setBrightness(0);
-                hover = false;
-            }
+        // setzt die Helligkeit des Button
+        if (getVisibility()) {
+            if (hover) {
+                if (!getHover()) {
+                    setBrightness(0);
+                    hover = false;
+                }
 
-            if (click) {
-                if (!getInput().mousePressed()) {
-                    setBrightness(15);
-                    click = false;
-                }
-            } else {
-                if (getInput().mousePressed()) {
+                if (getInput().mouseDown()) {
                     setBrightness(30);
-                    Click.invoke();
-                    click = true;
+                    // führt Klick-Event aus
+                    click.invoke();
                 }
+
+                if (getInput().mouseUp()) {
+                    setBrightness(15);
+                }
+            } else if (getHover()) {
+                setBrightness(15);
+                hover = true;
             }
-        } else if (getHover()) {
-            setBrightness(15);
-            hover = true;
         }
     }
 
@@ -50,11 +59,13 @@ public class Button extends ImageObject {
     public void setSrc(String src) {
         super.setSrc(src);
 
+        // Überträgt Bilddaten
         if (img != null) {
             imgRaster = img.getData();
         }
     }
 
+    // gibt an, ober Cursor sich über Button berfindet
     private boolean getHover() {
         return getCursorPosition().x >= getGlobalPosition().x &&
             getCursorPosition().x <= getGlobalPosition().x + getSize().width() &&
@@ -62,6 +73,7 @@ public class Button extends ImageObject {
             getCursorPosition().y <= getGlobalPosition().y + getSize().height();
     }
 
+    // setzt die Helligkeit der Grafik
     private void setBrightness(int increase) {
         if (img != null && imgRaster != null) {
             for (int x = 0; x < imgRaster.getWidth(); x++) {
@@ -83,6 +95,7 @@ public class Button extends ImageObject {
         }
     }
 
+    // konvertiert int[] in java.awt.Color
     private Color getColor(int[] rgba) {
         return new Color(rgba[0], rgba[1], rgba[2], rgba[3]);
     }
