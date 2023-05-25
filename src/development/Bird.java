@@ -53,7 +53,7 @@ public class Bird extends ImageObject {
             {
                 destroy();
             }
-        else if (other == PlayMode.mua) paused=true;
+        //else if (other == PlayMode.mua) paused=true;
 
         // muas postion < my position + getSize
 
