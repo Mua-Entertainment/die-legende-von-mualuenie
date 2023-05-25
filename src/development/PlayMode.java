@@ -1,3 +1,5 @@
+// Loui Gabl, Joha Zwin, Simo Münc
+
 package development;
 
 import engine.GameObject;
@@ -17,12 +19,12 @@ public class PlayMode extends GameObject {
         // Weltgenerator
         Chunk chunk;
         addChildren(chunk = new Chunk());
-        chunk.setGlobalPosition(getCanvasSize().width(),5f);
+        chunk.setGlobalPosition(getCanvasSize().width,5f);
 
         Chunk start;
         addChildren(start = new Chunk());
         start.duplicated = true;
-        start.setSize(getCanvasSize().width(), 2f);
+        start.setSize(getCanvasSize().width, 2f);
         start.setGlobalPosition(0,5f);
 
         // Müaluenie

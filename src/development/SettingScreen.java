@@ -1,16 +1,17 @@
+// Joha Zwin
+
 package development;
 
-import engine.Button;
 import engine.GameObject;
-import java.awt.*;
+import engine.Slider;
 
 
 // Einstellungsmenü
-public class SettingScreen extends GameObject
-{
+public class SettingScreen extends GameObject {
     private final MainMenu mainMenu;
-    private Button backButton;
-    private VolumeSlider volumeSlider;
+
+    // bestimmt die Lautstärke
+    private Slider volumeSlider;
 
     public SettingScreen(MainMenu mainMenu)
     {
@@ -22,22 +23,16 @@ public class SettingScreen extends GameObject
         super.load();
 
         // Button mit dem man zum MainMenu zurück kommt
-        backButton = new Button();
-        addChildren(backButton);
-        backButton.setSrc("img\\ui\\pfeil.png");
-        backButton.setPosition(2,4);
-        setCanvasBackground(new Color(0x17C255));
-        backButton.click.subscribe(this::back);
+        createButton(this, "Zurück", this::returnToMainMenu, 0.25f, 0.25f);
 
-        volumeSlider =  new VolumeSlider();
-        add(volumeSlider);
+        // Slider mit dem man die Lautstärke anpassen kann
+        volumeSlider = createMenuSlider(this);
     }
 
     // zurück zum MainMenu
-    private void back()
+    private void returnToMainMenu()
     {
-        volumeSlider.destroy();
-        mainMenu.load();
         destroy();
+        mainMenu.load();
     }
 }

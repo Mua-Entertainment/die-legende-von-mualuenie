@@ -1,3 +1,5 @@
+// Simo Münc
+
 package engine;
 
 import java.awt.*;
@@ -82,9 +84,9 @@ public class Button extends ImageObject {
     // gibt an, ober Cursor sich über Button berfindet
     private boolean getHover() {
         return getCursorPosition().x >= getGlobalPosition().x &&
-            getCursorPosition().x <= getGlobalPosition().x + getSize().width() &&
+            getCursorPosition().x <= getGlobalPosition().x + getSize().width &&
             getCursorPosition().y >= getGlobalPosition().y &&
-            getCursorPosition().y <= getGlobalPosition().y + getSize().height();
+            getCursorPosition().y <= getGlobalPosition().y + getSize().height;
     }
 
     // setzt die Helligkeit der Grafik

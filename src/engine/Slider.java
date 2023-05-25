@@ -1,10 +1,12 @@
+// Simo Münc
+
 package engine;
 
 // Verschiebe-Leiste
 public class Slider extends ImageObject {
 
     // Button der zum Verschieben gedrückt wird
-    private final Button button = new Button();
+    public final Button button = new Button();
 
     private float cursorOriginX, buttonOriginX;
 
@@ -28,7 +30,7 @@ public class Slider extends ImageObject {
         // passt die Button-Position der Cursor-Position an
         if (button.isPressed()) {
             float x = buttonOriginX + getCursorPosition().x - cursorOriginX;
-            float max = getSize().width() - button.getSize().width();
+            float max = getWidth() - button.getWidth();
 
             if (x > max) {
                 x = max;
@@ -36,7 +38,7 @@ public class Slider extends ImageObject {
                 x = 0;
             }
 
-            button.setPosition(x, button.getPosition().y);
+            button.setPosition(x, button.getY());
         }
     }
 
@@ -46,12 +48,8 @@ public class Slider extends ImageObject {
         buttonOriginX = button.getPosition().x;
     }
 
-    public Button getButton() {
-        return button;
-    }
-
     // brechnet Wert zwischen 0 und 1
     public float getValue() {
-        return button.getPosition().x / (getSize().width() - button.getSize().width());
+        return button.getPosition().x / (getWidth() - button.getWidth());
     }
 }

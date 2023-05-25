@@ -1,3 +1,5 @@
+// Simo Münc
+
 package engine;
 
 // zum Überprüfen ob Objekt zusammenstoßen
@@ -23,16 +25,16 @@ public class Collider extends Component{
 
                         // prüft auf Kollision
                         if (
-                            owner.getGlobalPosition().x + pad.left() <= obj.getGlobalPosition().x + pad2.left() + obj.getSize().width() - pad2.right() &&
-                            owner.getGlobalPosition().x + pad.left() + owner.getSize().width() - pad.right() >= obj.getGlobalPosition().x + pad2.left() &&
-                            owner.getGlobalPosition().y + pad.top() <= obj.getGlobalPosition().y + pad2.top() + obj.getSize().height() - pad2.bottom() &&
-                            owner.getGlobalPosition().y + pad.top() + owner.getSize().height() - pad.bottom() >= obj.getGlobalPosition().y + pad2.top()
+                            owner.getGlobalPosition().x + pad.left() <= obj.getGlobalPosition().x + pad2.left() + obj.getSize().width - pad2.right() &&
+                            owner.getGlobalPosition().x + pad.left() + owner.getSize().width - pad.right() >= obj.getGlobalPosition().x + pad2.left() &&
+                            owner.getGlobalPosition().y + pad.top() <= obj.getGlobalPosition().y + pad2.top() + obj.getSize().height - pad2.bottom() &&
+                            owner.getGlobalPosition().y + pad.top() + owner.getSize().height - pad.bottom() >= obj.getGlobalPosition().y + pad2.top()
                         ) {
-                            var hDis = owner.getGlobalPosition().x + pad.left() + owner.getSize().width() - pad.right() - obj.getGlobalPosition().x + pad2.left();
-                            var hDis2 = obj.getGlobalPosition().x + pad2.left() + obj.getSize().width() - pad2.right() - owner.getGlobalPosition().x + pad.left();
+                            var hDis = owner.getGlobalPosition().x + pad.left() + owner.getSize().width - pad.right() - obj.getGlobalPosition().x + pad2.left();
+                            var hDis2 = obj.getGlobalPosition().x + pad2.left() + obj.getSize().width - pad2.right() - owner.getGlobalPosition().x + pad.left();
 
-                            var vDis = owner.getGlobalPosition().y + pad.top() + owner.getSize().height() - pad.bottom() - obj.getGlobalPosition().y + pad2.top();
-                            var vDis2 = obj.getGlobalPosition().y + pad2.top() + obj.getSize().height() - pad2.bottom() - owner.getGlobalPosition().y + pad.top();
+                            var vDis = owner.getGlobalPosition().y + pad.top() + owner.getSize().height - pad.bottom() - obj.getGlobalPosition().y + pad2.top();
+                            var vDis2 = obj.getGlobalPosition().y + pad2.top() + obj.getSize().height - pad2.bottom() - owner.getGlobalPosition().y + pad.top();
 
                             // berechnet ob die Collider vertikal oder horizontal zusammenstoßen
                             var type = hDis > vDis && hDis >= 0 ? Collision.VERTICAL : Collision.HORIZONTAL;

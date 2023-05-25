@@ -1,3 +1,5 @@
+// Loui Gabl
+
 package development;
 
 import engine.Collider;
@@ -53,16 +55,16 @@ public class Chunk extends ImageObject {
         move(-2f / getFPS(), 0);
 
         //löschen, falls außerhalb des bildschirms
-        if (getGlobalPosition().x <= -getSize().width()) {
+        if (getGlobalPosition().x <= -getWidth()) {
             destroy();
         }
 
         //generieren neuer chunks, wenn vollkommen im bildschirm
-        if (!duplicated && getGlobalPosition().x <= getCanvasSize().width() - getSize().width())
+        if (!duplicated && getGlobalPosition().x <= getCanvasSize().width - getWidth())
         {
             Chunk chunk;
             getParent().addChildren(chunk= new Chunk());
-            chunk.setGlobalPosition(getGlobalPosition().x + getSize().width(),5f);
+            chunk.setGlobalPosition(getGlobalPosition().x + getWidth(), 5f);
             duplicated = true;
         }
 

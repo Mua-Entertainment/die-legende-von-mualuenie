@@ -1,10 +1,17 @@
+// Simo Münc
+
 package engine;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 // Superklasse für alle Objekte auf der Spieloberfläche
 public class GameObject {
@@ -38,6 +45,7 @@ public class GameObject {
 
     // Komponenten, die diesem Objekt weitere Funktionen verleihen
     private SafeList<Component> components;
+
 
     // wird nach das Objekt im Spielfeld hinzugefügt wurde aufgerufen
     // soll den Konstruktor ersetzen, damit zu dem Zeitpunkt die meisten Werte nicht mehr null sind
@@ -89,8 +97,24 @@ public class GameObject {
         this.position = position;
     }
 
+    public void setX(float x) {
+        position.x = x;
+    }
+
+    public void setY(float y) {
+        position.y = y;
+    }
+
     public Point getPosition() {
         return position;
+    }
+
+    public float getX() {
+        return position.x;
+    }
+
+    public float getY() {
+        return position.y;
     }
 
     // Position relativ zum Ursprung
@@ -121,8 +145,24 @@ public class GameObject {
         this.size = size;
     }
 
+    public void setWidth(float width) {
+        size.width = width;
+    }
+
+    public void setHeight(float height) {
+        size.height = height;
+    }
+
     public Size getSize() {
         return size;
+    }
+
+    public float getWidth() {
+        return size.width;
+    }
+
+    public float getHeight() {
+        return size.height;
     }
 
     public void setLayer(int layer) {
@@ -257,5 +297,36 @@ public class GameObject {
         }
 
         return font.deriveFont(12.5f);
+    }
+
+    protected Button createMenuButton(GameObject parent, String text, Runnable onClick, float y) {
+        Button btn = createButton(parent, text, onClick, 0, y);
+        btn.getPosition().x = (getCanvasSize().width - btn.getSize().width) / 2f;
+        return btn;
+    }
+
+    protected Button createButton(GameObject parent, String text, Runnable onClick, float x, float y) {
+        Button btn = new Button();
+        parent.addChildren(btn);
+
+        btn.setSize(1.5f, 0.5f);
+        btn.setPosition(x, y);
+        btn.setSrc("img\\ui\\button.png");
+        btn.label.setText(text);
+        btn.label.setFont(getFont("font\\pixel.ttf"));
+        btn.click.subscribe(onClick);
+
+        return btn;
+    }
+
+    protected Slider createMenuSlider(GameObject parent) {
+        Slider sld = new Slider();
+        parent.addChildren(sld);
+
+        sld.setPosition((sld.getCanvasSize().width - sld.getSize().width) / 2f, 0f);
+        sld.setSrc("img\\ui\\slider.png");
+        sld.button.setSrc("img\\ui\\slider-button.png");
+
+        return sld;
     }
 }

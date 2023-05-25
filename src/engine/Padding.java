@@ -1,3 +1,5 @@
+// Simo Münc
+
 package engine;
 
 // Verkleinerung der Ränder eines Objektes
