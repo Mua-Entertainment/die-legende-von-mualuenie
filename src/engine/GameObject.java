@@ -2,6 +2,8 @@ package engine;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 // Superklasse für alle Objekte auf der Spieloberfläche
@@ -241,6 +243,19 @@ public class GameObject {
 
     protected static Font getFont(String src) {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        return null;
+        Font font = null;
+
+        try {
+            File file = new File("assets\\" + src);
+            font = Font.createFont(Font.TRUETYPE_FONT, file);
+
+            if (!Arrays.asList(ge.getAllFonts()).contains(font)) {
+                ge.registerFont(font);
+            }
+        } catch (IOException | FontFormatException ex) {
+            ex.printStackTrace();
+        }
+
+        return font;
     }
 }
