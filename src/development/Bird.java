@@ -1,9 +1,12 @@
+// Loui Gabl
+
 package development;
 
 import engine.Collider;
 import engine.Collision;
 import engine.GameObject;
 import engine.ImageObject;
+
 public class Bird extends ImageObject {
 
     private enum State {

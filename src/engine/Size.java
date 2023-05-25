@@ -1,3 +1,5 @@
+// Simo Münc
+
 package engine;
 
 // Größe eines Objektes
