@@ -34,13 +34,14 @@ public class Animator extends Component {
         }
     }
 
-    // Frames hinzufügen
-    public void addFrames(AnimationFrame... frames) {
+    // Frames setzen
+    public void setFrames(AnimationFrame... frames) {
+        this.frames.clear();
         this.frames.addAll(List.of(frames));
     }
 
-    // Frames entfernen
-    public void removeFrames(AnimationFrame... frames) {
-        this.frames.removeAll(List.of(frames));
+    // Frames hinzufügen
+    public void addFrames(AnimationFrame... frames) {
+        this.frames.addAll(List.of(frames));
     }
 }

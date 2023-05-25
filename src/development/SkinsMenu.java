@@ -18,6 +18,7 @@ public class SkinsMenu extends GameObject {
     protected void load() {
         super.load();
 
+        // Button, der zum Hauptmenü zurückführt
         Button returnButton = new Button();
         addChildren(returnButton);
         returnButton.setSrc("img\\ui\\pfeil.png");
