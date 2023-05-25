@@ -1,7 +1,7 @@
 package development;
 
 import engine.GameObject;
-
+//Generiert die Welt
 public class WorldGen extends GameObject {
 
     private Chunk[] chunks;
