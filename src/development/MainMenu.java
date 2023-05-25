@@ -62,6 +62,8 @@ public class MainMenu extends GameObject
     // öffnet Skin-Menü
     private void SkinMenu()
     {
-
+        SkinMenu skinMenu = new SkinMenu(this);
+        add(skinMenu);
+        hide();
     }
 }
