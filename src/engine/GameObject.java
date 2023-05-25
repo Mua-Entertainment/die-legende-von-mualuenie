@@ -238,4 +238,9 @@ public class GameObject {
             return new Point(x, y);
         }
     }
+
+    protected static Font getFont(String src) {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        return null;
+    }
 }

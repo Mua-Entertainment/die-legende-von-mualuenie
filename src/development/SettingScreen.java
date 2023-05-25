@@ -10,7 +10,7 @@ public class SettingScreen extends GameObject
 {
     private final MainMenu mainMenu;
     private Button backButton;
-    private Lautstaerkenregler lautstaerkenregler;
+    private VolumeSlider volumeSlider;
 
     public SettingScreen(MainMenu mainMenu)
     {
@@ -29,14 +29,14 @@ public class SettingScreen extends GameObject
         setCanvasBackground(new Color(0x17C255));
         backButton.click.subscribe(this::back);
 
-        lautstaerkenregler =  new Lautstaerkenregler();
-        add(lautstaerkenregler);
+        volumeSlider =  new VolumeSlider();
+        add(volumeSlider);
     }
 
     // zurück zum MainMenu
     private void back()
     {
-        lautstaerkenregler.destroy();
+        volumeSlider.destroy();
         mainMenu.load();
         destroy();
     }
