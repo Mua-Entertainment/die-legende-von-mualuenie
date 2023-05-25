@@ -31,7 +31,7 @@ public class Chunk extends ImageObject {
         if (!duplicated && getGlobalPosition().x <= getCanvasSize().width() - getSize().width())
         {
             Chunk chunk;
-            addChildren(chunk= new Chunk());
+            getParent().addChildren(chunk= new Chunk());
             chunk.setGlobalPosition(getGlobalPosition().x + getSize().width(),5f);
             duplicated = true;
         }
