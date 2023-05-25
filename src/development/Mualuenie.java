@@ -21,7 +21,7 @@ public class Mualuenie extends ImageObject {
         super.load();
 
         //setzen des colliders
-        setGlobalPosition(1, getCanvasSize().height() - 2);
+        setGlobalPosition(1, getCanvasSize().height - 2);
 
         Collider collider = new Collider();
         collider.collide.subscribe(this::onCollide);
@@ -79,7 +79,7 @@ public class Mualuenie extends ImageObject {
         airtime = 0;
         state=State.GROUND;
         setSrc("img\\obj\\mua\\run\\mua-run-1.png");
-        setGlobalPosition(getGlobalPosition().x,other.getGlobalPosition().y - getSize().height() + 9f/32f);
+        setGlobalPosition(getGlobalPosition().x,other.getGlobalPosition().y - getSize().height + 9f/32f);
 
     }
 }

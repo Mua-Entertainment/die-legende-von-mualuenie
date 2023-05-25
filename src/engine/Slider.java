@@ -4,7 +4,7 @@ package engine;
 public class Slider extends ImageObject {
 
     // Button der zum Verschieben gedrückt wird
-    private final Button button = new Button();
+    public final Button button = new Button();
 
     private float cursorOriginX, buttonOriginX;
 
@@ -44,10 +44,6 @@ public class Slider extends ImageObject {
     private void onButtonClick() {
         cursorOriginX = getCursorPosition().x;
         buttonOriginX = button.getPosition().x;
-    }
-
-    public Button getButton() {
-        return button;
     }
 
     // brechnet Wert zwischen 0 und 1
