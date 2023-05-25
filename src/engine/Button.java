@@ -9,6 +9,9 @@ public class Button extends ImageObject {
     // Klick-Event
     public final VoidEvent click = new VoidEvent();
 
+    // Loslassen-Event
+    public final VoidEvent release = new VoidEvent();
+
     // Label, dass Text auf Button anzeigt
     public final Label label = new Label();
 
@@ -31,32 +34,27 @@ public class Button extends ImageObject {
     protected void update() {
         super.update();
 
-        // setzt die Helligkeit des Button
         if (getVisibility()) {
-            if (hover) {
-                if (!getHover()) {
-                    setBrightness(0);
-                    hover = false;
-                }
-
-                if (getInput().mouseDown()) {
-                    setBrightness(30);
-                    // führt Klick-Event aus
-                    click.invoke();
-                }
-
-                if (getInput().mousePressed()) {
-                    pressed = true;
-                }
-
-                if (getInput().mouseUp()) {
-                    setBrightness(15);
-                }
-            } else if (getHover()) {
-                setBrightness(15);
+            if (getHover() && !hover) {
                 hover = true;
-            } else {
+                setBrightness(15);
+            }
+
+            if (!getHover() && hover) {
+                hover = false;
+                setBrightness(0);
+            }
+
+            if (getInput().mouseDown() && getHover()) {
+                pressed = true;
+                click.invoke();
+                setBrightness(30);
+            }
+
+            if (getInput().mouseUp()) {
                 pressed = false;
+                release.invoke();
+                setBrightness(0);
             }
         }
     }
