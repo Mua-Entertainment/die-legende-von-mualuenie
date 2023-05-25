@@ -28,7 +28,7 @@ public class Slider extends ImageObject {
         // passt die Button-Position der Cursor-Position an
         if (button.isPressed()) {
             float x = buttonOriginX + getCursorPosition().x - cursorOriginX;
-            float max = getSize().width() - button.getSize().width();
+            float max = getWidth() - button.getWidth();
 
             if (x > max) {
                 x = max;
@@ -36,7 +36,7 @@ public class Slider extends ImageObject {
                 x = 0;
             }
 
-            button.setPosition(x, button.getPosition().y);
+            button.setPosition(x, button.getY());
         }
     }
 
@@ -48,6 +48,6 @@ public class Slider extends ImageObject {
 
     // brechnet Wert zwischen 0 und 1
     public float getValue() {
-        return button.getPosition().x / (getSize().width() - button.getSize().width());
+        return button.getPosition().x / (getWidth() - button.getWidth());
     }
 }
