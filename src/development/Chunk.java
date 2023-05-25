@@ -10,7 +10,7 @@ public class Chunk extends ImageObject {
     @Override
     protected void load() {
         super.load();
-
+        //setzen des bildes, colliders
         setSrc("img\\obj\\world\\dark-chunk\\dark-chunk.png");
         setGlobalPosition(12.5f, 5f);
         setSize(2.5f, 2f);
@@ -22,12 +22,15 @@ public class Chunk extends ImageObject {
     @Override
     protected void update() {
         super.update();
+        //bewegung der welt
         move(-2f / getFPS(), 0);
 
+        //löschen, falls außerhalb des bildschirms
         if (getGlobalPosition().x <= -getSize().width()) {
             destroy();
         }
 
+        //generieren neuer chunks, wenn vollkommen im bildschirm
         if (!duplicated && getGlobalPosition().x <= getCanvasSize().width() - getSize().width())
         {
             Chunk chunk;

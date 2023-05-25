@@ -8,7 +8,7 @@ public class WorldGen extends GameObject {
 
     private Chunk chunk;
 
-    private RectObject rect;
+    private Chunk start;
 
 
     @Override
@@ -18,8 +18,10 @@ public class WorldGen extends GameObject {
         addChildren(chunk = new Chunk());
         chunk.setGlobalPosition(getCanvasSize().width(),5f);
 
-        addChildren(rect = new RectObject());
-        //rect.
+        addChildren(start = new Chunk());
+        start.duplicated = true;
+        start.setSize(getCanvasSize().width(), 2f);
+        start.setGlobalPosition(0,5f);
 
     }
 
