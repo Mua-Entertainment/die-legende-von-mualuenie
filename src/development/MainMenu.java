@@ -1,45 +1,21 @@
 package development;
 
-import engine.Button;
-import engine.GameObject;
-
 import java.awt.*;
 
-public class MainMenu extends GameObject
-{
+public class MainMenu extends Menu {
     @Override
     protected void load() {
         super.load();
 
-        createButton(2, "Start", this::Spielstarten);
-        createButton(2.7f, "Einstellungen", this::OpenSettings);
-        createButton(3.4f, "Skins", this::SkinMenu);
+        createButton(2, "Start", this::runGame);
+        createButton(2.7f, "Einstellungen", this::openSettings);
+        createButton(3.4f, "Skins", this::openSkinsMenu);
 
         setCanvasBackground(new Color(0x567BB4));
     }
 
-    @Override
-    protected void update() {
-        super.update();
-    }
-
-    private void createButton(float y, String text, Runnable action) {
-        Button button = new Button();
-        addChildren(button);
-
-        button.setSize(3/2f, 1/2f);
-        button.setSrc("img\\ui\\button.png");
-
-        float x = (getCanvasSize().width() - button.getSize().width()) / 2f;
-        button.setPosition(x, y);
-
-        button.label.setText(text);
-        button.label.setFont(getFont("font\\pixel.ttf"));
-        button.click.subscribe(action);
-    }
-
     // startet Spiel
-    private void Spielstarten()
+    private void runGame()
     {
         destroy();
         PlayMode playMode = new PlayMode();
@@ -47,7 +23,7 @@ public class MainMenu extends GameObject
     }
 
     // öffnet Einstellungen
-    private void OpenSettings()
+    private void openSettings()
     {
         SettingScreen settingScreen = new SettingScreen(this);
         add(settingScreen);
@@ -55,9 +31,9 @@ public class MainMenu extends GameObject
     }
 
     // öffnet Skin-Menü
-    private void SkinMenu()
+    private void openSkinsMenu()
     {
-        SkinMenu skinMenu = new SkinMenu(this);
+        SkinsMenu skinMenu = new SkinsMenu(this);
         add(skinMenu);
         hide();
     }
