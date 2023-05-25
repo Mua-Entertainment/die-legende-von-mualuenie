@@ -12,6 +12,7 @@ public class Mualuenie extends ImageObject {
     private final float SPEED = 10f;
     private final float GRAVITY = 10f;
     private final float JUMPFORCE = .2f;
+
     private float airtime = 0;
     private State state = State.GROUND;
 
@@ -83,3 +84,5 @@ public class Mualuenie extends ImageObject {
 
     }
 }
+
+//Louis

@@ -1,11 +1,18 @@
 package development;
 
 import engine.Collider;
+import engine.GameObject;
 import engine.ImageObject;
+import engine.SafeList;
+
 // Teil der Welt der sich horizontal nach links bewegt
 public class Chunk extends ImageObject {
 
     boolean duplicated = false;
+
+    SafeList<GameObject> obstacles = new SafeList<>();
+
+
 
     @Override
     protected void load() {
@@ -25,8 +32,18 @@ public class Chunk extends ImageObject {
         setSize(2.5f, 2f);
 
 
-        Bird bird;
-        getParent().addChildren(bird= new Bird());
+
+        Bird bird= new Bird();
+        obstacles.add(bird);
+
+        if (Math.random() > .3)
+        {
+            addChildren(obstacles.get((int) (Math.random() * obstacles.size())));
+        }
+
+
+
+
     }
 
     @Override
@@ -52,3 +69,5 @@ public class Chunk extends ImageObject {
     }
 
 }
+
+//Louis
