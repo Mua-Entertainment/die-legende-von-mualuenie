@@ -18,7 +18,7 @@ public class WorldGen extends GameObject {
         chunks = new Chunk[6];
         for (int i = 0; i < 6;i++)
         {
-            add(chunks[i] = new Chunk());
+            addChildren(chunks[i] = new Chunk());
             chunks[i].setGlobalPosition(i * 2.5f,5f);
         }
     }
