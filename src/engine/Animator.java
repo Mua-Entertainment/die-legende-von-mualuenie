@@ -19,6 +19,23 @@ public class Animator extends Component {
     @Override
     void update() {
         // spielt den aktuellen Frame ab
+
+        if (cooldown > 0) {
+            cooldown -= 1f / owner.getFPS();
+        } else {
+            if (frameIndex < frames.size() - 1) {
+                frameIndex++;
+            } else {
+                frameIndex = 0;
+            }
+
+            var frame = frames.get(frameIndex);
+            frame.action().run();
+
+            cooldown = frame.delay();
+        }
+
+        /*
         if (cooldown > 0) {
             cooldown -= 1f / owner.getFPS();
         } else {
@@ -34,6 +51,7 @@ public class Animator extends Component {
 
             cooldown = frames.get(frameIndex).delay();
         }
+        */
     }
 
     // Frames setzen
