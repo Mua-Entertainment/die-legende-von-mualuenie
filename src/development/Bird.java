@@ -13,7 +13,7 @@ public class Bird extends ImageObject {
     private Bird.State state = Bird.State.FLYING;
     protected void load() {
         super.load();
-
+    //Festlegen Bild und Collider
         setSrc("img\\obj\\obstacles\\bird\\bird_fly0.png");
         setGlobalPosition(getCanvasSize().width(), (float) (Math.random() * 2f));
 
@@ -26,6 +26,7 @@ public class Bird extends ImageObject {
     protected void update() {
         super.update();
 
+        //Übergang Flug -> Sturzflug
         if (state == State.FLYING && getGlobalPosition().x > 5 && Math.random() > .99)
         {
             state = State.DIVING;
@@ -33,19 +34,22 @@ public class Bird extends ImageObject {
 
         }
 
+        //Sturzflug
         if (state == State.DIVING) move(0f, 4f/getFPS());
 
-
+        //bewegung
         move(-2f/getFPS(),0f);
     }
 
+    //
     private void onCollide(GameObject other, Collision collision) {
-
-        if (other == PlayMode.mua)
+        //Wenn Müa draufspringt => tot
+        if (other == PlayMode.mua && PlayMode.mua.getGlobalPosition().y < getGlobalPosition().y)
             {
                 destroy();
             }
 
+        // Übergang Sturzflug ->Flug
         if (state == State.DIVING)
         {
             state = State.DOVE;
