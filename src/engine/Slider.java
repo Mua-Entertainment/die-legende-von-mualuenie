@@ -1,5 +1,6 @@
 package engine;
 
+// Verschiebe-Leiste
 public class Slider extends ImageObject {
 
     // Button der zum Verschieben gedrückt wird
@@ -39,6 +40,7 @@ public class Slider extends ImageObject {
         }
     }
 
+    // wird beim Drücken des Slider-Buttons ausgedführt
     private void onButtonClick() {
         cursorOriginX = getCursorPosition().x;
         buttonOriginX = button.getPosition().x;

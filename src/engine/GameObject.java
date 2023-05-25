@@ -256,6 +256,6 @@ public class GameObject {
             ex.printStackTrace();
         }
 
-        return font;
+        return font.deriveFont(12.5f);
     }
 }
