@@ -33,27 +33,26 @@ public class Bird extends ImageObject {
 
         }
 
-        if (state == State.DIVING)
-        {
-            move(0f, 4f/getFPS());
+        if (state == State.DIVING) move(0f, 4f/getFPS());
 
-            if (getGlobalPosition().y > 4f)
-            {
-                setGlobalPosition(getGlobalPosition().x,4f);
-                state = State.DOVE;
-                setSrc("img\\obj\\obstacles\\bird\\bird_fly0.png");
-
-            }
-        }
 
         move(-2f/getFPS(),0f);
     }
 
     private void onCollide(GameObject other, Collision collision) {
 
+        if (other == PlayMode.mua)
+            {
+                destroy();
+            }
+
+        if (state == State.DIVING)
         {
-            //die
+            state = State.DOVE;
+            setSrc("img\\obj\\obstacles\\bird\\bird_fly0.png");
+            setGlobalPosition(getGlobalPosition().x,other.getGlobalPosition().y - getSize().height());
         }
+
     }
 }
 
