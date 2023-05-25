@@ -23,7 +23,7 @@ public class WorldGen extends GameObject {
         }
 
  */
-        chunk = new Chunk();
+        addChildren(chunk = new Chunk());
         chunk.setGlobalPosition(getCanvasSize().width(),5f);
 
     }
