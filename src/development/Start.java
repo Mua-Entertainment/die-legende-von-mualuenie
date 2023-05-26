@@ -2,10 +2,7 @@
 
 package development;
 
-import engine.Collider;
-import engine.GameObject;
-import engine.ImageObject;
-import engine.SafeList;
+import engine.*;
 
 // Teil der Welt der sich horizontal nach links bewegt
 public class Start extends ImageObject {
@@ -14,7 +11,11 @@ public class Start extends ImageObject {
 
     SafeList<GameObject> obstacles = new SafeList<>();
 
-
+    private  final AnimationFrame[] idle = new AnimationFrame[]{
+            new AnimationFrame(.3f, () -> setSrc("img\\obj\\world\\dark-chunk\\dark-start-1.png")),
+            new AnimationFrame(.2f, () -> setSrc("img\\obj\\world\\dark-chunk\\dark-start-2.png")),
+            new AnimationFrame(.2f, () -> setSrc("img\\obj\\world\\dark-chunk\\dark-start-3.png"))
+    };
 
     @Override
     protected void load() {
@@ -22,8 +23,10 @@ public class Start extends ImageObject {
         // setzen des Bodens
 
 
+        Animator animator = new Animator();
+        addComponent(animator);
+        animator.setFrames(idle);
 
-        setSrc("img\\obj\\world\\dark-chunk\\dark-start.png");
         Collider collider = new Collider();
         addComponent(collider);
         setGlobalPosition(0f, 5f);

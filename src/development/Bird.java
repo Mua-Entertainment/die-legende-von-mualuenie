@@ -17,12 +17,14 @@ public class Bird extends ImageObject {
     private  final AnimationFrame[] fly = new AnimationFrame[]{
             new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\bird\\bird-fly-1.png")),
             new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\bird\\bird-fly-2.png")),
-            new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\bird\\bird-fly-3.png")),
+            new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\bird\\bird-fly-3.png"))
+    };
+    private  final AnimationFrame[] dive = new AnimationFrame[]{
+            new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\bird\\bird-dive.png"))
     };
     protected void load() {
         super.load();
     //Festlegen Bild und Collider
-        //setSrc("img\\obj\\obstacles\\bird\\bird-fly-1.png");
         setGlobalPosition(12.5f, (float) (Math.random() * 2f));
 
         Collider collider = new Collider();
@@ -43,7 +45,7 @@ public class Bird extends ImageObject {
             //Übergang Flug -> Sturzflug
             if (state == State.FLYING && getGlobalPosition().x > 5 && Math.random() > .99) {
                 state = State.DIVING;
-                //setSrc("img\\obj\\obstacles\\bird\\bird-dive.png");
+                animator.setFrames(dive);
 
             }
 
@@ -70,7 +72,7 @@ public class Bird extends ImageObject {
         if (state == State.DIVING)
         {
             state = State.DOVE;
-            //setSrc("img\\obj\\obstacles\\bird\\bird-fly-1.png");
+            animator.setFrames(fly);
             setGlobalPosition(getGlobalPosition().x,other.getGlobalPosition().y - getHeight());
         }
 

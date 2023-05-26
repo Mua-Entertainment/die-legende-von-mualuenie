@@ -37,6 +37,8 @@ public class Chunk extends ImageObject {
         //Zufällige Hindernisse (Momentan nur Vogel)
         Bird bird= new Bird();
         obstacles.add(bird);
+        Obstacle obstacle = new Obstacle();
+        obstacles.add(obstacle);
 
         if (Math.random() > .3)
         {
