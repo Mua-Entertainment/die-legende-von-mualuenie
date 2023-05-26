@@ -12,7 +12,7 @@ public class Obstacle extends ImageObject {
         //Festlegen Bild und Collider
         setSrc("img\\obj\\obstacles\\spears.png");
         setSize(1f,2f);
-        setGlobalPosition(getParent().getGlobalPosition().x +(float) Math.random() * getParent().getWidth(), 3f);
+        setGlobalPosition(getParent().getGlobalPosition().x +(float) Math.random() * (getParent().getWidth() - getWidth()), 3f);
 
         Collider collider = new Collider();
         collider.collide.subscribe(this::onCollide);
