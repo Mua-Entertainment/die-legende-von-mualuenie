@@ -1,7 +1,6 @@
 // Simo Münc
 
 package development;
-
 import engine.Game;
 import engine.Settings;
 
