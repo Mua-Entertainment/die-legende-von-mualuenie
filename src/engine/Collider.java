@@ -45,8 +45,8 @@ public class Collider extends Component{
 
     private Point getPosition() {
         return new Point(
-            owner.getGlobalPosition().x - padding.left(),
-            owner.getGlobalPosition().y - padding.top()
+            owner.getGlobalPosition().x + padding.left(),
+            owner.getGlobalPosition().y + padding.top()
         );
     }
 
