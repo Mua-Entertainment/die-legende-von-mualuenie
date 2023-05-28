@@ -24,10 +24,17 @@ public class Chunk extends ImageObject {
         //zufälliges setzen des Bodens
 
 
-        if (Math.random() < .5) {
-            setSrc("img\\obj\\world\\dark-chunk\\dark-chunk.png");
-            setGlobalPosition(12.5f, 5f);
-            setSize(2.5f, 2f);
+        if (Math.random() < .7) {
+            if (Math.random() < .5) {
+                setSrc("img\\obj\\world\\dark-chunk\\dark-chunk.png");
+                setGlobalPosition(12.5f, 5f);
+                setSize(2.5f, 2f);
+            }
+            else {
+                setSrc("img\\obj\\world\\dark-chunk\\dark-clock-tower.png");
+                setGlobalPosition(12.5f, 1.5f);
+                setSize(2f, 5.5f);
+            }
             Collider collider = new Collider();
             addComponent(collider);
         }
@@ -78,7 +85,7 @@ public class Chunk extends ImageObject {
         {
             Chunk chunk;
             getParent().addChildren(chunk= new Chunk());
-            chunk.setGlobalPosition(getGlobalPosition().x + getWidth(), 5f);
+            chunk.setGlobalPosition(getGlobalPosition().x + getWidth(), chunk.getY());
             duplicated = true;
         }
 
