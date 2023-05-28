@@ -29,14 +29,21 @@ public class Chunk extends ImageObject {
                 setSrc("img\\obj\\world\\dark-chunk\\dark-chunk.png");
                 setGlobalPosition(12.5f, 5f);
                 setSize(2.5f, 2f);
+                Collider collider = new Collider();
+                addComponent(collider);
             }
             else {
                 setSrc("img\\obj\\world\\dark-chunk\\dark-clock-tower.png");
                 setGlobalPosition(12.5f, 1.5f);
                 setSize(2f, 5.5f);
+                Collider colliderRoof = new Collider();
+                addComponent(colliderRoof);
+                colliderRoof.setPadding(8f/64f*2f,10f/176f*5.5f,8f/64f*2f,144f/176f*5.5f);
+                Collider colliderFloor = new Collider();
+                addComponent(colliderFloor);
+                colliderFloor.setPadding(0f,112f/176f*5.5f,0f,0f);
             }
-            Collider collider = new Collider();
-            addComponent(collider);
+
         }
         else {
             setSrc("img\\obj\\world\\dark-chunk\\dark-chunk-hole.png");
