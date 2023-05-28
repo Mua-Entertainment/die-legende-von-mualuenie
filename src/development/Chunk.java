@@ -35,12 +35,13 @@ public class Chunk extends ImageObject {
             setSrc("img\\obj\\world\\dark-chunk\\dark-chunk-hole.png");
             setGlobalPosition(12.5f, 5f);
             setSize(2.5f, 2f);
-            Collider colliderR = new Collider();
-            addComponent(colliderR);
-            colliderR.setPadding(63f/80f,0f, 0f, 58f/64f);
+
             Collider colliderL = new Collider();
             addComponent(colliderL);
-            colliderL.setPadding(0f, 0f,63f/80f, 58/64f);
+            colliderL.setPadding(0f, 0f,63f/80f*2.5f, 58/64f*2f);
+            Collider colliderR = new Collider();
+            addComponent(colliderR);
+            colliderR.setPadding(63f/80f*2.5f, 0f,0f, 58/64f*2f);
         }
 
         //Zufällige Hindernisse (Momentan nur Vogel)
