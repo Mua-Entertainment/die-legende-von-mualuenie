@@ -103,7 +103,7 @@ public class Mualuenie extends ImageObject {
             airtime = 0;
             state = State.GROUND;
             animator.setFrames(run);
-            setGlobalPosition(getGlobalPosition().x, other.getGlobalPosition().y - getSize().height + 9f / 32f);
+            setGlobalPosition(getGlobalPosition().x, other.getGlobalPosition().y + other.getComponents(Collider.class).get(0).getPadding().top() - getSize().height + 9f / 32f);
         }
     }
 }
