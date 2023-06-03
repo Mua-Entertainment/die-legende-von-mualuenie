@@ -53,10 +53,15 @@ public class Chunk extends ImageObject {
 
             Collider colliderL = new Collider();
             addComponent(colliderL);
-            colliderL.setPadding(0f, 0f,63f/80f*2.5f, 58/64f*2f);
+            colliderL.setPadding(0f, 0f, 63f / 80f * 2.5f, 58 / 64f * 2f);
             Collider colliderR = new Collider();
             addComponent(colliderR);
-            colliderR.setPadding(63f/80f*2.5f, 0f,0f, 58/64f*2f);
+            colliderR.setPadding(63f / 80f * 2.5f, 0f, 0f, 58 / 64f * 2f);
+
+            if (Math.random() > .5) {
+                Platform platform = new Platform();
+                addChildren(platform);
+            }
         }
         if (id >= 3)
         {
