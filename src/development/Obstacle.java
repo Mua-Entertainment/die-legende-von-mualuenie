@@ -31,6 +31,10 @@ public class Obstacle extends ImageObject {
 
     private void onCollide(GameObject other, Collision collision) {
 
-        //kill mua
+        if (other == PlayMode.mua)
+        {
+            paused = true;
+            System.out.println("game over");
+        }
     }
     }

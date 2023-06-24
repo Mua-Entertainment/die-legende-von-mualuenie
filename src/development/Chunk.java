@@ -71,13 +71,13 @@ public class Chunk extends ImageObject {
             Collider collider = new Collider();
             addComponent(collider);
 
-            Graves graves = new Graves();
+            ObstacleGraves graves = new ObstacleGraves();
             addChildren(graves);
         }
 
         //Zufällige Hindernisse (Momentan nur Vogel)
-        Bird bird= new Bird();
-        obstacles.add(bird);
+        ObstacleBird obstacleBird = new ObstacleBird();
+        obstacles.add(obstacleBird);
         Obstacle obstacle = new Obstacle();
         obstacles.add(obstacle);
 

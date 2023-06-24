@@ -3,7 +3,7 @@ package development;
 import engine.Collider;
 import engine.ImageObject;
 
-public class Graves extends ImageObject {
+public class ObstacleGraves extends ImageObject {
 
 int id = 0;
     protected void load() {
