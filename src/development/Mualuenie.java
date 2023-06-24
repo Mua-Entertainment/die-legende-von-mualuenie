@@ -47,7 +47,7 @@ public class Mualuenie extends ImageObject {
         Collider collider = new Collider();
         collider.collide.subscribe(this::onCollide);
         addComponent(collider);
-        collider.setPadding(1f/32f,0f,2f/32f,9f/32f);
+        collider.setPadding(1f/32f,9f/32f,2f/32f,9f/32f);
 
         animator = new Animator();
         addComponent(animator);
@@ -103,7 +103,7 @@ public class Mualuenie extends ImageObject {
             airtime = 0;
             state = State.GROUND;
             animator.setFrames(run);
-            setGlobalPosition(getGlobalPosition().x, other.getGlobalPosition().y - getSize().height + 9f / 32f);
+            setGlobalPosition(getGlobalPosition().x, other.getGlobalPosition().y + other.getComponents(Collider.class).get(0).getPadding().top() - getSize().height + 9f / 32f);
         }
     }
 }

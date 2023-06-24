@@ -11,8 +11,11 @@ import engine.SafeList;
 public class Chunk extends ImageObject {
 
     boolean duplicated = false;
+    int id = 0;
 
     SafeList<GameObject> obstacles = new SafeList<>();
+
+
 
 
 
@@ -21,18 +24,56 @@ public class Chunk extends ImageObject {
         super.load();
         //zufälliges setzen des Bodens
 
+        id = (int)(Math.random() * 4);
+        if (id == 0) {
 
-        if (Math.random() < .9) {
-            setSrc("img\\obj\\world\\dark-chunk\\dark-chunk.png");
+                setSrc("img\\obj\\world\\dark-chunk\\dark-chunk.png");
+                setGlobalPosition(12.5f, 5f);
+                setSize(2.5f, 2f);
+                Collider collider = new Collider();
+                addComponent(collider);
+            }
+        if (id == 1) {
+                setSrc("img\\obj\\world\\dark-chunk\\dark-clock-tower.png");
+                setGlobalPosition(12.5f, 1.5f);
+                setSize(2f, 5.5f);
+                Collider colliderRoof = new Collider();
+                addComponent(colliderRoof);
+                colliderRoof.setPadding(8f/64f*2f,10f/176f*5.5f,8f/64f*2f,144f/176f*5.5f);
+                Collider colliderFloor = new Collider();
+                addComponent(colliderFloor);
+                colliderFloor.setPadding(0f,112f/176f*5.5f,0f,0f);
+
+
+        }
+        if (id == 2) {
+            setSrc("img\\obj\\world\\dark-chunk\\dark-chunk-hole.png");
+            setGlobalPosition(12.5f, 5f);
+            setSize(2.5f, 2f);
+
+            Collider colliderL = new Collider();
+            addComponent(colliderL);
+            colliderL.setPadding(0f, 0f, 63f / 80f * 2.5f, 58 / 64f * 2f);
+            Collider colliderR = new Collider();
+            addComponent(colliderR);
+            colliderR.setPadding(63f / 80f * 2.5f, 0f, 0f, 58 / 64f * 2f);
+
+            if (Math.random() > .5) {
+                Platform platform = new Platform();
+                addChildren(platform);
+            }
+        }
+        if (id >= 3)
+        {
+            setSrc("img\\obj\\world\\dark-chunk\\dark-graveyard.png");
             setGlobalPosition(12.5f, 5f);
             setSize(2.5f, 2f);
             Collider collider = new Collider();
             addComponent(collider);
+
+            Graves graves = new Graves();
+            addChildren(graves);
         }
-
-        setGlobalPosition(12.5f, 5f);
-        setSize(2.5f, 2f);
-
 
         //Zufällige Hindernisse (Momentan nur Vogel)
         Bird bird= new Bird();
@@ -68,7 +109,7 @@ public class Chunk extends ImageObject {
         {
             Chunk chunk;
             getParent().addChildren(chunk= new Chunk());
-            chunk.setGlobalPosition(getGlobalPosition().x + getWidth(), 5f);
+            chunk.setGlobalPosition(getGlobalPosition().x + getWidth(), chunk.getY());
             duplicated = true;
         }
 
