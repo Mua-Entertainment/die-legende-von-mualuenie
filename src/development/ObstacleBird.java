@@ -4,13 +4,13 @@ package development;
 
 import engine.*;
 
-public class Bird extends ImageObject {
+public class ObstacleBird extends ImageObject {
 
     private enum State {
         FLYING, DIVING, DOVE
     }
 
-    private Bird.State state = Bird.State.FLYING;
+    private ObstacleBird.State state = ObstacleBird.State.FLYING;
 
     private Animator animator;
 
