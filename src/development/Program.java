@@ -5,7 +5,12 @@ import engine.Game;
 import engine.Settings;
 
 public class Program {
+
+    // Instanz der Datenbank-Klasse
+    public static Database database;
+
     public static void main(String[] args) {
+
         Settings settings = new Settings(10, 6, 100);
         Environment environment = new Environment();
 
