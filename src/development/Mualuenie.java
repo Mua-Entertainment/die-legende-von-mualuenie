@@ -36,7 +36,9 @@ public class Mualuenie extends ImageObject {
             new AnimationFrame(.05f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-3.png")),
             new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-4.png"))
     };
-
+    private final AnimationFrame[] air = new AnimationFrame[]{
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\jump\\mua-jump-4.png"))
+    };
 
 
     @Override
@@ -64,12 +66,13 @@ public class Mualuenie extends ImageObject {
             if (state == State.GROUND && airtime > 5f / getFPS()) {
                 state = State.AIR;
                 currentJumpSpeed = 0;
+                animator.setFrames(air);
             }
 
             //Übergang Springen -> Fallen
-            if (state == State.JUMP && airtime > JUMPFORCE) {
+            if (state == State.JUMP && airtime > .3f) {
                 state = State.AIR;
-                //setSrc("img\\obj\\mua\\jump\\mua-jump-4.png");
+                animator.setFrames(air);
             }
 
 
@@ -108,7 +111,7 @@ public class Mualuenie extends ImageObject {
     public void gameOver()
     {
         paused = true;
-        System.out.println("game over");
+        System.out.println("game over: ");
     }
 
     //Kollidieren mit Boden
