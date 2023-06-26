@@ -1,6 +1,8 @@
 package development;
 
 public class Coin extends engine.ImageObject {
+    float timer  = 0f;
+    boolean movingUp = true;
 
     @Override
     protected void load() {
@@ -16,5 +18,12 @@ public class Coin extends engine.ImageObject {
     @Override
     protected void update() {
         super.update();
+        if (movingUp) move(0,-1);
+        if (!movingUp) move(0,1);
+        timer += 1f / getFPS();
+        if (timer > 2f) {
+            timer = 0;
+            
+        }
     }
 }
