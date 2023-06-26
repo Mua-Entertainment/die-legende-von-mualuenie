@@ -14,6 +14,13 @@ public class Program {
         database = new Database();
         database.setHighscore(1254);
 
+        database = new Database();
+        database.setHighscore((int) (Math.random() * 9999));
+
+        database.getSortedHighscores().forEach((uuid, score) -> {
+            System.out.println(uuid + ": " + score);
+        });
+
         Settings settings = new Settings(10, 6, 100);
         Environment environment = new Environment();
 
