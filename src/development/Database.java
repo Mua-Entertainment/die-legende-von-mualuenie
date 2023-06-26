@@ -22,7 +22,7 @@ public class Database {
         data = new DataFile();
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             this.con = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -45,9 +45,10 @@ public class Database {
             data.setHighscore(value);
 
             if (connected) {
-                String query = "INSERT INTO highscores (id, value) VALUE ('" + data.getUUID() + "', " + value + ")";
                 Statement stmt = con.createStatement();
-                stmt.executeUpdate(query);
+
+                stmt.executeUpdate("INSERT INTO highscores (id, value) VALUE ('" + data.getUUID() + "', " + value + ")");
+                stmt.executeUpdate("DELETE FROM highscores WHERE id='" + data.getUUID() + "' AND value<>" + value);
             }
         } catch (SQLException e) {
             disconnect(e);
