@@ -33,8 +33,7 @@ public class Obstacle extends ImageObject {
 
         if (other == PlayMode.mua)
         {
-            paused = true;
-            System.out.println("game over: " + PlayMode.score);
+            PlayMode.gameOver();
         }
     }
     }

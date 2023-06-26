@@ -110,16 +110,11 @@ public class Mualuenie extends ImageObject {
 
             //aus der welt fallen
             if (getGlobalPosition().y > 5) {
-                gameOver();
+                PlayMode.gameOver();
             }
         }
     }
 
-    public void gameOver()
-    {
-        paused = true;
-        System.out.println("game over: " + PlayMode.score);
-    }
 
     //Kollidieren mit Boden
     private void onCollide(GameObject other, Collision collision) {
