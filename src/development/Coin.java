@@ -11,17 +11,17 @@ public class Coin extends engine.ImageObject {
         setSrc("img\\obj\\mua_coin.png");
 
         setSize(.5f,.5f);
-        setGlobalPosition(getParent().getGlobalPosition().x +(float) Math.random() * (getParent().getWidth() - getWidth()), 3f * (float) Math.random());
+        setGlobalPosition(getParent().getGlobalPosition().x +(float) Math.random() * (getParent().getWidth() - getWidth()), 4f * (float) Math.random());
 
     }
 
     @Override
     protected void update() {
         super.update();
-        if (movingUp) move(0,-1);
-        if (!movingUp) move(0,1);
+        if (movingUp) move(0,-.5f/getFPS());
+        if (!movingUp) move(0,.5f/getFPS());
         timer += 1f / getFPS();
-        if (timer > 2f) {
+        if (timer > .1f) {
             timer = 0;
             
         }
