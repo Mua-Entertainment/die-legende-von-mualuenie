@@ -8,7 +8,7 @@ import org.json.*;
 
 public class DataFile {
 
-    private final Path PATH = Path.of("data.json");
+    private final Path PATH = Path.of("data");
     private JSONObject jo;
 
     public DataFile() {

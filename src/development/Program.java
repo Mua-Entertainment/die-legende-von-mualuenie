@@ -11,6 +11,9 @@ public class Program {
 
     public static void main(String[] args) {
 
+        database = new Database();
+        database.setHighscore(1254);
+
         Settings settings = new Settings(10, 6, 100);
         Environment environment = new Environment();
 
