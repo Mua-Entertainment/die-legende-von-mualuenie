@@ -67,16 +67,18 @@ public class GamePanel extends JPanel implements Runnable {
     // Haupt-Thread
     @Override
     public void run() {
-        // Endlos-Schleife
-        while (true) {
-            try {
+        try {
+            Thread.sleep(1000);
+
+            // Endlos-Schleife
+            while (true) {
                 update();
                 repaint();
 
                 Thread.sleep((int) (1000f / settings.maxFps()));
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
             }
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
         }
     }
 

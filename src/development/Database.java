@@ -1,8 +1,9 @@
 package development;
 
+import engine.SafeList;
 import java.sql.*;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.Collections;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 public class Database {
@@ -51,25 +52,29 @@ public class Database {
         return data.getHighscore();
     }
 
-    public HashMap<UUID, Integer> getSortedHighscores() {
-        HashMap<UUID, Integer> result = new HashMap<>();
+    public SafeList<Integer> getSortedHighscores() throws SQLException {
+        SafeList<Integer> result = new SafeList<>();
+        AtomicReference<SQLException> ex = new AtomicReference<>(null);
 
         connect(con -> {
             try {
-                String query = "SELECT * FROM highscores ORDER BY value ASC";
+                String query = "SELECT * FROM highscores";
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(query);
 
                 while (rs.next()) {
-                    UUID uuid = UUID.fromString(rs.getString("id"));
-                    int value = rs.getInt("value");
-                    result.put(uuid, value);
+                    result.add(rs.getInt("value"));
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (SQLException e) {
+                ex.set(e);
             }
         });
 
+        if (ex.get() != null) {
+            throw ex.get();
+        }
+
+        result.sort(Collections.reverseOrder());
         return result;
     }
 }

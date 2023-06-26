@@ -319,6 +319,24 @@ public class GameObject {
         return btn;
     }
 
+    protected Label createMenuLabel(GameObject parent, String text, float y) {
+        Label label = createLabel(parent, text, 0, y);
+        label.getPosition().x = (getCanvasSize().width - label.getSize().width) / 2f;
+        return label;
+    }
+
+    protected Label createLabel(GameObject parent, String text, float x, float y) {
+        Label label = new Label();
+        parent.addChildren(label);
+
+        label.setSize(2f, 0.5f);
+        label.setPosition(x, y);
+        label.setText(text);
+        label.setFont(getFont("font\\pixel.ttf"));
+
+        return label;
+    }
+
     protected Slider createMenuSlider(GameObject parent) {
         Slider sld = new Slider();
         parent.addChildren(sld);
