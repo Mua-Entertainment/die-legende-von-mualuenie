@@ -2,6 +2,8 @@
 
 package engine;
 
+import java.util.List;
+
 // zum Überprüfen ob Objekt zusammenstoßen
 public class Collider extends Component{
 
@@ -10,10 +12,15 @@ public class Collider extends Component{
     // Zusammenstoß-Ereignis
     public final BiEvent<GameObject, Collision> collide = new BiEvent<>();
 
+    // alle Objekte deren Collider gerade mit diesem Collider zusammenstößt
+    private final SafeList<GameObject> collidingObjects = new SafeList<>();
+
     @Override
     void update() {
         SafeList<GameObject> list = new SafeList<>();
         list.addAll(owner.panel.gameObjects);
+
+        collidingObjects.clear();
 
         list.forEach(obj -> {
             if (obj != owner) {
@@ -26,17 +33,13 @@ public class Collider extends Component{
                         getPosition().y + getSize().height >= c2.getPosition().y
                     ) {
                         var hDis = getPosition().x + getSize().width - c2.getPosition().x;
-                        var hDis2 = c2.getPosition().x + c2.getSize().width - getPosition().x;
-
                         var vDis = getPosition().y + getSize().height - c2.getPosition().y;
-                        var vDis2 = c2.getPosition().y + c2.getSize().height - getPosition().y;
 
                         // berechnet ob die Collider vertikal oder horizontal zusammenstoßen
                         var type = hDis > vDis && hDis >= 0 ? Collision.VERTICAL : Collision.HORIZONTAL;
-                        var type2 = hDis2 > vDis2 && hDis2 >= 0 ? Collision.VERTICAL : Collision.HORIZONTAL;
 
                         collide.invoke(obj, type);
-                        c2.collide.invoke(owner, type2);
+                        collidingObjects.add(obj);
                     }
                 });
             }
@@ -67,5 +70,23 @@ public class Collider extends Component{
 
     public Padding getPadding() {
         return padding;
+    }
+
+    public boolean getCollision(GameObject... others) {
+        if (collidingObjects.size() > 0) {
+            if (others.length > 0) {
+                for (GameObject obj : others) {
+                    if (collidingObjects.contains(obj)) {
+                        return true;
+                    }
+                }
+
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 }

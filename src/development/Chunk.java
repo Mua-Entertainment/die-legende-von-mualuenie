@@ -59,8 +59,8 @@ public class Chunk extends ImageObject {
             colliderR.setPadding(63f / 80f * 2.5f, 0f, 0f, 58 / 64f * 2f);
 
             if (Math.random() > .5) {
-                //Platform platform = new Platform();
-                //addChildren(platform);
+                Platform platform = new Platform();
+                addChildren(platform);
             }
         }
         if (id >= 3)
@@ -71,13 +71,13 @@ public class Chunk extends ImageObject {
             Collider collider = new Collider();
             addComponent(collider);
 
-            Graves graves = new Graves();
+            ObstacleGraves graves = new ObstacleGraves();
             addChildren(graves);
         }
 
         //Zufällige Hindernisse (Momentan nur Vogel)
-        Bird bird= new Bird();
-        obstacles.add(bird);
+        ObstacleBird obstacleBird = new ObstacleBird();
+        obstacles.add(obstacleBird);
         Obstacle obstacle = new Obstacle();
         obstacles.add(obstacle);
 

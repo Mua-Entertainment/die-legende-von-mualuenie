@@ -2,8 +2,7 @@
 
 package development;
 
-import engine.GameObject;
-import engine.Slider;
+import engine.*;
 
 // GameObject in dem alle Objekte sich befinden
 public class Environment extends GameObject {
@@ -16,4 +15,5 @@ public class Environment extends GameObject {
         MainMenu mainMenu = new MainMenu();
         add(mainMenu);
     }
+
 }

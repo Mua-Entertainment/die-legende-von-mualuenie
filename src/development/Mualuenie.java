@@ -13,7 +13,9 @@ public class Mualuenie extends ImageObject {
     }
     private final float SPEED = 10f;
     private final float GRAVITY = 10f;
-    private final float JUMPFORCE = .2f;
+    private final float JUMPFORCE = 7f;
+
+    private float currentJumpSpeed = 0f;
 
     private float airtime = 0;
     private State state = State.GROUND;
@@ -29,12 +31,14 @@ public class Mualuenie extends ImageObject {
             new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\run\\mua-run-6.png"))
     };
     private  final AnimationFrame[] jump = new AnimationFrame[]{
-            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-1.png")),
-            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-2.png")),
-            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-3.png")),
+            new AnimationFrame(.05f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-1.png")),
+            new AnimationFrame(.05f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-2.png")),
+            new AnimationFrame(.05f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-3.png")),
             new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-4.png"))
     };
-
+    private final AnimationFrame[] air = new AnimationFrame[]{
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\jump\\mua-jump-4.png"))
+    };
 
 
     @Override
@@ -58,43 +62,56 @@ public class Mualuenie extends ImageObject {
     protected void update() {
         super.update();
         if(!paused) {
-            //Übergang Boden -> Fallen (wip)
+            //Übergang Boden -> Fallen
+            if (state == State.GROUND && airtime > 5f / getFPS()) {
+                state = State.AIR;
+                currentJumpSpeed = 0;
+                animator.setFrames(air);
+            }
 
             //Übergang Springen -> Fallen
-            if (state == State.JUMP && airtime > JUMPFORCE) {
+            if (state == State.JUMP && airtime > .3f) {
                 state = State.AIR;
-                //setSrc("img\\obj\\mua\\jump\\mua-jump-4.png");
+                animator.setFrames(air);
             }
 
-            //Sprung
-            if (state == State.JUMP && airtime <= JUMPFORCE) {
-                move(0, -SPEED / getFPS());
-            }
 
-            //Springen Initial
+            //Springen
             if (getInput().keyPressed(KeyEvent.VK_SPACE) && state == State.GROUND) {
                 state = State.JUMP;
-                move(0, -SPEED / getFPS());
+                currentJumpSpeed = -JUMPFORCE;
                 animator.setFrames(jump);
             }
 
-            //Schwerkraft
-            move(0, GRAVITY * airtime / getFPS());
+            if (getInput().keyPressed(KeyEvent.VK_D))
+            {
+                move(5 / getFPS(),0);
+            }
+            if (getInput().keyPressed(KeyEvent.VK_A))
+            {
+                move(-5 / getFPS(),0);
+            }
+
+
+            if (state != State.GROUND) {
+                //Schwerkraft
+                move(0, currentJumpSpeed / getFPS());
+                currentJumpSpeed += GRAVITY / getFPS();
+
+            }
             airtime = airtime + 1f / getFPS();
 
             //aus der welt fallen
             if (getGlobalPosition().y > 5) {
-                //game over :)
-                //paused = true;
+                gameOver();
             }
         }
-        /* fürs testen (will remove later)
-        if (getInput().keyPressed(KeyEvent.VK_W)) move(0, -SPEED / (airtime*getFPS()));
-        if (getInput().keyPressed(KeyEvent.VK_S)) move(0, SPEED / getFPS());
-        if (getInput().keyPressed(KeyEvent.VK_A)) move(-SPEED / getFPS(), 0);
-        if (getInput().keyPressed(KeyEvent.VK_D)) move(SPEED / getFPS(), 0);
+    }
 
-         */
+    public void gameOver()
+    {
+        paused = true;
+        System.out.println("game over: ");
     }
 
     //Kollidieren mit Boden

@@ -10,6 +10,8 @@ public class PlayMode extends GameObject {
 
     public static Mualuenie mua;
 
+    public float score = 0f;
+
     @Override
     protected void load() {
         super.load();
@@ -36,7 +38,9 @@ public class PlayMode extends GameObject {
     {
         super.update();
 
+        if (!paused) score += 100 / getFPS();
 
+        System.out.println(score);
 
     }
 }
