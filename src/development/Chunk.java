@@ -97,7 +97,7 @@ public class Chunk extends ImageObject {
         super.update();
         if(!paused) {
             //bewegung der welt
-            move(-2f / getFPS(), 0);
+            move((-2 - 0.0001f * PlayMode.score)/ getFPS(), 0);
         }
 
         //löschen, falls außerhalb des bildschirms

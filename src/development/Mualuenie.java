@@ -22,6 +22,10 @@ public class Mualuenie extends ImageObject {
 
     private Animator animator;
 
+    private float score = 0f;
+
+    private int coins = 0;
+
     private  final AnimationFrame[] run = new AnimationFrame[]{
             new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\run\\mua-run-1.png")),
             new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\run\\mua-run-2.png")),
@@ -114,7 +118,7 @@ public class Mualuenie extends ImageObject {
     public void gameOver()
     {
         paused = true;
-        System.out.println("game over: ");
+        System.out.println("game over: " + PlayMode.score);
     }
 
     //Kollidieren mit Boden
