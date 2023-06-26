@@ -1,11 +1,9 @@
 package development;
 
-import engine.SafeList;
-
 import java.sql.*;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class Database {
     private final String HOST = "sql7.freesqldatabase.com";
@@ -13,46 +11,40 @@ public class Database {
     private final String PASSWORD = "ua2Jkhhx4J";
     private final String PORT = "3306";
     private final String CONNECTION_URL = "jdbc:mysql://" + HOST + ':' + PORT + '/' + USER;
-    private DataFile data;
-    private Connection con;
-    private boolean connected;
+    private final DataFile data = new DataFile();
 
-    public Database() {
-        connected = true;
-        data = new DataFile();
+    private void connect(Consumer<Connection> func) {
+        Connection con = null;
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            this.con = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
-
-        } catch (SQLException | ClassNotFoundException e) {
-            connected = false;
+            con = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
+            func.accept(con);
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                assert con != null;
+                con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-    }
-
-    public boolean isConnected() {
-        return connected;
-    }
-
-    private void disconnect(SQLException e) {
-        connected = false;
-        e.printStackTrace();
     }
 
     public void setHighscore(int value) {
-        try {
-            data.setHighscore(value);
+        connect(con -> {
+            try {
+                data.setHighscore(value);
 
-            if (connected) {
                 Statement stmt = con.createStatement();
 
+                stmt.executeUpdate("DELETE FROM highscores WHERE id='" + data.getUUID() + '\'');
                 stmt.executeUpdate("INSERT INTO highscores (id, value) VALUE ('" + data.getUUID() + "', " + value + ")");
-                stmt.executeUpdate("DELETE FROM highscores WHERE id='" + data.getUUID() + "' AND value<>" + value);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            disconnect(e);
-        }
+        });
     }
 
     public int getHighscore() {
@@ -62,19 +54,21 @@ public class Database {
     public HashMap<UUID, Integer> getSortedHighscores() {
         HashMap<UUID, Integer> result = new HashMap<>();
 
-        try {
-            String query = "SELECT * FROM highscores ORDER BY value ASC";
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+        connect(con -> {
+            try {
+                String query = "SELECT * FROM highscores ORDER BY value ASC";
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
 
-            while (rs.next()) {
-                UUID uuid = UUID.fromString(rs.getString("id"));
-                int value = rs.getInt("value");
-                result.put(uuid, value);
+                while (rs.next()) {
+                    UUID uuid = UUID.fromString(rs.getString("id"));
+                    int value = rs.getInt("value");
+                    result.put(uuid, value);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            disconnect(e);
-        }
+        });
 
         return result;
     }
