@@ -86,7 +86,8 @@ public class Chunk extends ImageObject {
             addChildren(obstacles.get((int) (Math.random() * obstacles.size())));
         }
 
-
+        Coin coin = new Coin();
+        addChildren(coin);
 
 
     }

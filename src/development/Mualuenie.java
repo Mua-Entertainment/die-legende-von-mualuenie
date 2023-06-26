@@ -92,6 +92,9 @@ public class Mualuenie extends ImageObject {
                 move(-5 / getFPS(),0);
             }
 
+            if (getInput().keyPressed(KeyEvent.VK_ESCAPE)) paused = true;
+            //pausenmenü
+
 
             if (state != State.GROUND) {
                 //Schwerkraft
