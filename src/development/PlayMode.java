@@ -61,7 +61,7 @@ public class PlayMode extends GameObject {
 
     public static void gameOver()
     {
-        Program.database.setHighscore((int) score);
+        if (Program.database.getHighscore() < score) Program.database.setHighscore((int) score);
         paused = true;
     }
 
