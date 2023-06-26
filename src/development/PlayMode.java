@@ -3,6 +3,8 @@
 package development;
 
 import engine.GameObject;
+import engine.Label;
+
 import java.awt.*;
 
 // Objekt, indem die "Action" abläuft
@@ -13,6 +15,8 @@ public class PlayMode extends GameObject {
     public static int coins;
 
     public static float score;
+
+    private Label scoreUI = new Label();
 
 
     @Override
@@ -30,10 +34,18 @@ public class PlayMode extends GameObject {
         Start start;
         addChildren(start = new Start());
 
+        //scoreboard
+        addChildren(scoreUI);
+        scoreUI.setGlobalPosition((getCanvasSize().width-getWidth())/2f,0f);
+        scoreUI.setFont(getFont("font\\pixel.ttf").deriveFont(25f));
+        scoreUI.setColor(Color.black);
 
         // Müaluenie
         mua = new Mualuenie();
         add(mua);
+
+
+
     }
 
     @Override
@@ -43,6 +55,7 @@ public class PlayMode extends GameObject {
 
         if(!paused) score += 100f / getFPS();
 
+        scoreUI.setText("score: " + (int) score );
 
     }
 

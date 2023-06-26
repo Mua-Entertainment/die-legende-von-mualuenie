@@ -87,11 +87,11 @@ public class Mualuenie extends ImageObject {
                 animator.setFrames(jump);
             }
 
-            if (getInput().keyPressed(KeyEvent.VK_D))
+            if (getInput().keyPressed(KeyEvent.VK_D) && getGlobalPosition().x < getCanvasSize().width - getWidth())
             {
                 move(5 / getFPS(),0);
             }
-            if (getInput().keyPressed(KeyEvent.VK_A))
+            if (getInput().keyPressed(KeyEvent.VK_A) && getGlobalPosition().x > 0f)
             {
                 move(-5 / getFPS(),0);
             }
