@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.UUID;
-
 import org.json.*;
 
 public class DataFile {
 
-    private final Path PATH = Path.of("data.json");
+    private final Path PATH = Path.of("data");
     private JSONObject jo;
 
     public DataFile() {
