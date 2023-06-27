@@ -82,9 +82,7 @@ public class Mualuenie extends ImageObject {
 
             //Springen
             if (getInput().keyPressed(KeyEvent.VK_SPACE) && state == State.GROUND) {
-                state = State.JUMP;
-                currentJumpSpeed = -JUMPFORCE;
-                animator.setFrames(jump);
+                jump();
             }
 
             if (getInput().keyPressed(KeyEvent.VK_D) && getGlobalPosition().x < getCanvasSize().width - getWidth())
@@ -113,6 +111,13 @@ public class Mualuenie extends ImageObject {
                 PlayMode.gameOver();
             }
         }
+    }
+
+    public void jump()
+    {
+        state = State.JUMP;
+        currentJumpSpeed = -JUMPFORCE;
+        animator.setFrames(jump);
     }
 
 
