@@ -11,10 +11,13 @@ public class Start extends ImageObject {
 
     SafeList<GameObject> obstacles = new SafeList<>();
 
-    private  final AnimationFrame[] idle = new AnimationFrame[]{
+    private  final AnimationFrame[] dw = new AnimationFrame[]{
             new AnimationFrame(.3f, () -> setSrc("img\\obj\\world\\dark-chunk\\dark-start-1.png")),
             new AnimationFrame(.2f, () -> setSrc("img\\obj\\world\\dark-chunk\\dark-start-2.png")),
             new AnimationFrame(.2f, () -> setSrc("img\\obj\\world\\dark-chunk\\dark-start-3.png"))
+    };
+    private  final AnimationFrame[] ow = new AnimationFrame[]{
+            new AnimationFrame(.3f, () -> setSrc("img\\obj\\world\\ow\\ow-start.png"))
     };
 
     @Override
@@ -25,7 +28,12 @@ public class Start extends ImageObject {
 
         Animator animator = new Animator();
         addComponent(animator);
-        animator.setFrames(idle);
+        if (PlayMode.scenes == PlayMode.Scenes.OW) {
+            animator.setFrames(ow);
+        } else {
+            animator.setFrames(dw);
+        }
+        ;
 
         Collider collider = new Collider();
         addComponent(collider);

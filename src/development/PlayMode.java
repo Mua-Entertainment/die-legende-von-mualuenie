@@ -10,6 +10,10 @@ import java.awt.*;
 // Objekt, indem die "Action" abläuft
 public class PlayMode extends GameObject {
 
+    public enum Scenes {
+        OW, DW
+    }
+
     public static Mualuenie mua;
 
     public static int coins;
@@ -17,6 +21,8 @@ public class PlayMode extends GameObject {
     public static float score;
 
     private Label scoreUI = new Label();
+
+    public static Scenes scenes = Scenes.OW;
 
 
     @Override

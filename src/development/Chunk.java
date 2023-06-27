@@ -23,26 +23,35 @@ public class Chunk extends ImageObject {
     protected void load() {
         super.load();
         //zufälliges setzen des Bodens
-
-        id = (int)(Math.random() * 4);
+        if (PlayMode.scenes == PlayMode.Scenes.OW) {
+            //Overworld Böden
+            setSrc("img\\obj\\world\\ow\\ow-chunk.png");
+            setGlobalPosition(12.5f, 5f);
+            setSize(2.5f, 2f);
+            Collider collider = new Collider();
+            addComponent(collider);
+        }
+        else {
+            //Dark World Böden
+        id = (int) (Math.random() * 4);
         if (id == 0) {
 
-                setSrc("img\\obj\\world\\dark-chunk\\dark-chunk.png");
-                setGlobalPosition(12.5f, 5f);
-                setSize(2.5f, 2f);
-                Collider collider = new Collider();
-                addComponent(collider);
-            }
+            setSrc("img\\obj\\world\\dark-chunk\\dark-chunk.png");
+            setGlobalPosition(12.5f, 5f);
+            setSize(2.5f, 2f);
+            Collider collider = new Collider();
+            addComponent(collider);
+        }
         if (id == 1) {
-                setSrc("img\\obj\\world\\dark-chunk\\dark-clock-tower.png");
-                setGlobalPosition(12.5f, 1.5f);
-                setSize(2f, 5.5f);
-                Collider colliderRoof = new Collider();
-                addComponent(colliderRoof);
-                colliderRoof.setPadding(8f/64f*2f,10f/176f*5.5f,8f/64f*2f,144f/176f*5.5f);
-                Collider colliderFloor = new Collider();
-                addComponent(colliderFloor);
-                colliderFloor.setPadding(0f,112f/176f*5.5f,0f,0f);
+            setSrc("img\\obj\\world\\dark-chunk\\dark-clock-tower.png");
+            setGlobalPosition(12.5f, 1.5f);
+            setSize(2f, 5.5f);
+            Collider colliderRoof = new Collider();
+            addComponent(colliderRoof);
+            colliderRoof.setPadding(8f / 64f * 2f, 10f / 176f * 5.5f, 8f / 64f * 2f, 144f / 176f * 5.5f);
+            Collider colliderFloor = new Collider();
+            addComponent(colliderFloor);
+            colliderFloor.setPadding(0f, 112f / 176f * 5.5f, 0f, 0f);
 
 
         }
@@ -63,8 +72,7 @@ public class Chunk extends ImageObject {
                 addChildren(platform);
             }
         }
-        if (id >= 3)
-        {
+        if (id >= 3) {
             setSrc("img\\obj\\world\\dark-chunk\\dark-graveyard.png");
             setGlobalPosition(12.5f, 5f);
             setSize(2.5f, 2f);
@@ -74,6 +82,7 @@ public class Chunk extends ImageObject {
             ObstacleGraves graves = new ObstacleGraves();
             addChildren(graves);
         }
+    }
 
         //Zufällige Hindernisse (Momentan nur Vogel)
         ObstacleBird obstacleBird = new ObstacleBird();
