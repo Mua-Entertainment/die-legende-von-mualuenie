@@ -11,38 +11,65 @@ public class Mualuenie extends ImageObject {
     private enum State {
         GROUND, JUMP, AIR
     }
-    private final float SPEED = 10f;
+
+    private enum Skin {
+        DEFAULT, KNIGHT
+    }
+
     private final float GRAVITY = 10f;
     private final float JUMPFORCE = 7f;
 
     private float currentJumpSpeed = 0f;
 
     private float airtime = 0;
-    private State state = State.GROUND;
-
-    private Animator animator;
 
     private float score = 0f;
 
     private int coins = 0;
+    private State state = State.GROUND;
 
-    private  final AnimationFrame[] run = new AnimationFrame[]{
-            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\run\\mua-run-1.png")),
-            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\run\\mua-run-2.png")),
-            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\run\\mua-run-3.png")),
-            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\run\\mua-run-4.png")),
-            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\run\\mua-run-5.png")),
-            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\run\\mua-run-6.png"))
+    private Skin skin = Skin.KNIGHT;
+
+    private Animator animator;
+
+
+
+    private final AnimationFrame[] run = new AnimationFrame[]{
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\run\\mua-run-1.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\run\\mua-run-2.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\run\\mua-run-3.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\run\\mua-run-4.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\run\\mua-run-5.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\run\\mua-run-6.png"))
     };
-    private  final AnimationFrame[] jump = new AnimationFrame[]{
-            new AnimationFrame(.05f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-1.png")),
-            new AnimationFrame(.05f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-2.png")),
-            new AnimationFrame(.05f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-3.png")),
-            new AnimationFrame(.1f,() -> setSrc("img\\obj\\mua\\jump\\mua-jump-4.png"))
+    private final AnimationFrame[] jump = new AnimationFrame[]{
+            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\jump\\mua-jump-1.png")),
+            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\jump\\mua-jump-2.png")),
+            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\jump\\mua-jump-3.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\jump\\mua-jump-4.png"))
     };
     private final AnimationFrame[] air = new AnimationFrame[]{
             new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\jump\\mua-jump-4.png"))
     };
+
+    private final AnimationFrame[] runKnight = new AnimationFrame[]{
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\knight-run-1.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\knight-run-2.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\knight-run-3.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\knight-run-4.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\knight-run-5.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\knight-run-6.png"))
+    };
+    private final AnimationFrame[] jumpKnight = new AnimationFrame[]{
+            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\knight\\knight-jump-1.png")),
+            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\knight\\knight-jump-2.png")),
+            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\knight\\knight-jump-3.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\knight-jump-4.png"))
+    };
+    private final AnimationFrame[] airKnight = new AnimationFrame[]{
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\knight-jump-4.png"))
+    };
+
 
 
     @Override
@@ -59,7 +86,8 @@ public class Mualuenie extends ImageObject {
 
         animator = new Animator();
         addComponent(animator);
-        animator.setFrames(run);
+        if (skin == Skin.DEFAULT) animator.setFrames(run);
+        if (skin == Skin.KNIGHT) animator.setFrames(runKnight);
     }
 
     @Override
@@ -70,13 +98,15 @@ public class Mualuenie extends ImageObject {
             if (state == State.GROUND && airtime > 5f / getFPS()) {
                 state = State.AIR;
                 currentJumpSpeed = 0;
-                animator.setFrames(air);
+                if (skin == Skin.DEFAULT) animator.setFrames(air);
+                if (skin == Skin.KNIGHT) animator.setFrames(airKnight);
             }
 
             //Übergang Springen -> Fallen
             if (state == State.JUMP && airtime > .3f) {
                 state = State.AIR;
-                animator.setFrames(air);
+                if (skin == Skin.DEFAULT) animator.setFrames(air);
+                if (skin == Skin.KNIGHT) animator.setFrames(airKnight);
             }
 
 
@@ -113,11 +143,16 @@ public class Mualuenie extends ImageObject {
         }
     }
 
-    public void jump()
-    {
+    public void jump() {
         state = State.JUMP;
         currentJumpSpeed = -JUMPFORCE;
-        animator.setFrames(jump);
+        if (skin == Skin.DEFAULT) animator.setFrames(jump);
+        if (skin == Skin.KNIGHT) animator.setFrames(jumpKnight);
+    }
+
+    public void setSkin ()
+    {
+
     }
 
 
@@ -126,7 +161,8 @@ public class Mualuenie extends ImageObject {
         if(!paused) {
             airtime = 0;
             state = State.GROUND;
-            animator.setFrames(run);
+            if (skin == Skin.DEFAULT) animator.setFrames(run);
+            if (skin == Skin.KNIGHT) animator.setFrames(runKnight);
             setGlobalPosition(getGlobalPosition().x, other.getGlobalPosition().y + other.getComponents(Collider.class).get(0).getPadding().top() - getSize().height + 9f / 32f);
         }
     }
