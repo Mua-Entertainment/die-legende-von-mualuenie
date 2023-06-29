@@ -2,8 +2,6 @@
 
 package engine;
 
-import java.util.List;
-
 // zum Überprüfen ob Objekt zusammenstoßen
 public class Collider extends Component{
 

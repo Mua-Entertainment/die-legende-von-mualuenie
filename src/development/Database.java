@@ -19,15 +19,18 @@ public class Database {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
-            func.accept(con);
+            if (con != null) {
+                func.accept(con);
+            }
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
+            System.out.println(e.getClass().getTypeName());
+        }
+
+        if (con != null) {
             try {
-                assert con != null;
                 con.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (SQLException e) {
+                System.out.println(e.getClass().getTypeName());
             }
         }
     }
@@ -42,7 +45,7 @@ public class Database {
                 stmt.executeUpdate("DELETE FROM highscores WHERE id='" + Program.data.getUUID() + '\'');
                 stmt.executeUpdate("INSERT INTO highscores (id, value) VALUE ('" + Program.data.getUUID() + "', " + value + ")");
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(e.getClass().getTypeName());
             }
         });
     }

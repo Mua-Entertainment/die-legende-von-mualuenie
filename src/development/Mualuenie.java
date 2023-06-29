@@ -122,9 +122,10 @@ public class Mualuenie extends ImageObject {
             }
 
             //pausenmenü
-            if (getInput().keyPressed(KeyEvent.VK_ESCAPE)) paused = true;
-
-
+            if (getInput().keyPressed(KeyEvent.VK_ESCAPE)) {
+                paused = true;
+                add(new PauseScreen());
+            }
 
             if (state != State.GROUND) {
                 //Schwerkraft
@@ -136,7 +137,7 @@ public class Mualuenie extends ImageObject {
 
             //aus der welt fallen
             if (getGlobalPosition().y > 5) {
-                PlayMode.gameOver();
+                PlayMode.getInstance().gameOver(true, false);
             }
         }
     }

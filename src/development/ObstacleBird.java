@@ -66,7 +66,9 @@ public class ObstacleBird extends ImageObject {
                 destroy();
             }
         //Wenn Müa drunter ist => Müa tot
-        else if (other == PlayMode.mua) PlayMode.gameOver();
+        else if (other == PlayMode.mua) {
+            PlayMode.getInstance().gameOver(true, false);
+        }
 
 
         // Übergang Sturzflug ->Flug
