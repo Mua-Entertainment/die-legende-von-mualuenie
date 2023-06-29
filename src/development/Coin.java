@@ -1,3 +1,5 @@
+//Loui Gabl
+
 package development;
 
 import engine.Collider;
@@ -11,7 +13,7 @@ public class Coin extends engine.ImageObject {
     @Override
     protected void load() {
         super.load();
-
+        //Setzen des Bildes un des Colliders
         setSrc("img\\obj\\mua_coin.png");
 
         setSize(.5f,.5f);
@@ -25,6 +27,7 @@ public class Coin extends engine.ImageObject {
     @Override
     protected void update() {
         super.update();
+        //hoch und runterschweben
         if (movingUp) move(0,-.5f/getFPS());
         if (!movingUp) move(0,.5f/getFPS());
         timer += 1f / getFPS();
@@ -34,6 +37,7 @@ public class Coin extends engine.ImageObject {
         }
     }
 
+    //wenn eingesammelt
     private void onCollide(GameObject other, Collision collision) {
         PlayMode.coins += 1;
         PlayMode.score += 100;

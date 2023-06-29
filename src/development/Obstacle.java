@@ -67,7 +67,7 @@ public class Obstacle extends ImageObject {
     }
 
     private void onCollide(GameObject other, Collision collision) {
-
+        //Wenn Müa draufspringt => Müa tot
         if (other == PlayMode.mua && PlayMode.scenes == PlayMode.Scenes.DW)
         {
             PlayMode.gameOver();

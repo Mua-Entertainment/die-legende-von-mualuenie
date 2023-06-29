@@ -84,7 +84,7 @@ public class Chunk extends ImageObject {
         }
     }
 
-        //Zufällige Hindernisse (Momentan nur Vogel)
+        //Zufällige Hindernisse
         ObstacleBird obstacleBird = new ObstacleBird();
         obstacles.add(obstacleBird);
         Obstacle obstacle = new Obstacle();

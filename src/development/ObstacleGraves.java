@@ -1,3 +1,5 @@
+//Loui Gabl
+
 package development;
 
 import engine.Collider;
@@ -8,7 +10,7 @@ public class ObstacleGraves extends ImageObject {
 int id = 0;
     protected void load() {
         super.load();
-        //Festlegen Bild und Collider
+        //Zufälliges Festlegen Bild und Collider
 
         id = (int) (Math.random()* 2);
 

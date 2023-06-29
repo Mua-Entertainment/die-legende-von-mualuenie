@@ -33,7 +33,7 @@ public class Mualuenie extends ImageObject {
     private Animator animator;
 
 
-
+    //setzen der Animationen
     private final AnimationFrame[] run = new AnimationFrame[]{
             new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\run\\mua-run-1.png")),
             new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\run\\mua-run-2.png")),
@@ -114,7 +114,7 @@ public class Mualuenie extends ImageObject {
             if (getInput().keyPressed(KeyEvent.VK_SPACE) && state == State.GROUND) {
                 jump();
             }
-
+            //Horizontale Bewegung
             if (getInput().keyPressed(KeyEvent.VK_D) && getGlobalPosition().x < getCanvasSize().width - getWidth())
             {
                 move(5 / getFPS(),0);
@@ -124,8 +124,9 @@ public class Mualuenie extends ImageObject {
                 move(-5 / getFPS(),0);
             }
 
-            if (getInput().keyPressed(KeyEvent.VK_ESCAPE)) paused = true;
             //pausenmenü
+            if (getInput().keyPressed(KeyEvent.VK_ESCAPE)) paused = true;
+
 
 
             if (state != State.GROUND) {
@@ -143,6 +144,7 @@ public class Mualuenie extends ImageObject {
         }
     }
 
+    //springen
     public void jump() {
         state = State.JUMP;
         currentJumpSpeed = -JUMPFORCE;
@@ -150,6 +152,7 @@ public class Mualuenie extends ImageObject {
         if (skin == Skin.KNIGHT) animator.setFrames(jumpKnight);
     }
 
+    //setzen des Skins
     public void setSkin ()
     {
 

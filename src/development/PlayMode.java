@@ -22,7 +22,7 @@ public class PlayMode extends GameObject {
 
     private Label scoreUI = new Label();
 
-    public static Scenes scenes = Scenes.OW;
+    public static Scenes scenes = Scenes.DW;
 
 
     @Override
@@ -59,6 +59,7 @@ public class PlayMode extends GameObject {
     {
         super.update();
 
+        //erhöhung des scores
         if(!paused) score += 100f / getFPS();
 
         scoreUI.setText("score: " + (int) score );
@@ -67,6 +68,7 @@ public class PlayMode extends GameObject {
 
     public static void gameOver()
     {
+        //setzen des Highscores in der Datenbank
         if (Program.database.getHighscore() < score) Program.database.setHighscore((int) score);
         paused = true;
     }

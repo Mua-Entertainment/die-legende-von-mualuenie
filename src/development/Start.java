@@ -11,6 +11,7 @@ public class Start extends ImageObject {
 
     SafeList<GameObject> obstacles = new SafeList<>();
 
+    //setzen der Animation Frames für den Boden
     private  final AnimationFrame[] dw = new AnimationFrame[]{
             new AnimationFrame(.3f, () -> setSrc("img\\obj\\world\\dark-chunk\\dark-start-1.png")),
             new AnimationFrame(.2f, () -> setSrc("img\\obj\\world\\dark-chunk\\dark-start-2.png")),
@@ -23,9 +24,8 @@ public class Start extends ImageObject {
     @Override
     protected void load() {
         super.load();
-        // setzen des Bodens
 
-
+        // setzen des Bodens Oberwelt oder Dark World
         Animator animator = new Animator();
         addComponent(animator);
         if (PlayMode.scenes == PlayMode.Scenes.OW) {
