@@ -13,13 +13,19 @@ public class DataFile {
 
     public DataFile() {
         try {
+            String defaultJson = "{\"uuid\":\"\",\"highscore\":0,\"skin\":\"DEFAULT\",\"music\":true,\"sfx\":true}";
+
             // Erstellt JSON-Datei, falls nicht vorhanden
             if (!Files.exists(PATH)) {
-                Files.writeString(PATH, "{\"uuid\":\"\",\"highscore\":0,\"skin\":\"DEFAULT\",\"music\":true,\"sfx\":true}");
+                Files.writeString(PATH, defaultJson);
             }
 
             String json = Files.readString(PATH);
             jo = new JSONObject(json);
+
+            if (!(jo.has("uuid") && jo.has("highscore") && jo.has("skin") && jo.has("music") && jo.has("sfx"))) {
+                Files.writeString(PATH, defaultJson);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
