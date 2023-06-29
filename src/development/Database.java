@@ -12,7 +12,6 @@ public class Database {
     private final String PASSWORD = "ua2Jkhhx4J";
     private final String PORT = "3306";
     private final String CONNECTION_URL = "jdbc:mysql://" + HOST + ':' + PORT + '/' + USER;
-    private final DataFile data = new DataFile();
 
     private void connect(Consumer<Connection> func) {
         Connection con = null;
@@ -36,12 +35,12 @@ public class Database {
     public void setHighscore(int value) {
         connect(con -> {
             try {
-                data.setHighscore(value);
+                Program.data.setHighscore(value);
 
                 Statement stmt = con.createStatement();
 
-                stmt.executeUpdate("DELETE FROM highscores WHERE id='" + data.getUUID() + '\'');
-                stmt.executeUpdate("INSERT INTO highscores (id, value) VALUE ('" + data.getUUID() + "', " + value + ")");
+                stmt.executeUpdate("DELETE FROM highscores WHERE id='" + Program.data.getUUID() + '\'');
+                stmt.executeUpdate("INSERT INTO highscores (id, value) VALUE ('" + Program.data.getUUID() + "', " + value + ")");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -49,7 +48,7 @@ public class Database {
     }
 
     public int getHighscore() {
-        return data.getHighscore();
+        return Program.data.getHighscore();
     }
 
     public SafeList<Integer> getSortedHighscores() throws SQLException {

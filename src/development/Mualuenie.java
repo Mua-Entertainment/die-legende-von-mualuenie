@@ -8,12 +8,13 @@ import java.awt.event.KeyEvent;
 
 public class Mualuenie extends ImageObject {
 
-    private enum State {
-        GROUND, JUMP, AIR
+
+    public enum Skin {
+        DEFAULT, KNIGHT
     }
 
-    private enum Skin {
-        DEFAULT, KNIGHT
+    private enum State {
+        GROUND, JUMP, AIR
     }
 
     private final float GRAVITY = 10f;
@@ -28,46 +29,46 @@ public class Mualuenie extends ImageObject {
     private int coins = 0;
     private State state = State.GROUND;
 
-    private Skin skin = Skin.KNIGHT;
+    private Skin skin;
 
     private Animator animator;
 
 
     //setzen der Animationen
     private final AnimationFrame[] run = new AnimationFrame[]{
-            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\run\\mua-run-1.png")),
-            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\run\\mua-run-2.png")),
-            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\run\\mua-run-3.png")),
-            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\run\\mua-run-4.png")),
-            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\run\\mua-run-5.png")),
-            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\run\\mua-run-6.png"))
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\default\\run-1.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\default\\run-2.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\default\\run-3.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\default\\run-4.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\default\\run-5.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\default\\run-6.png"))
     };
     private final AnimationFrame[] jump = new AnimationFrame[]{
-            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\jump\\mua-jump-1.png")),
-            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\jump\\mua-jump-2.png")),
-            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\jump\\mua-jump-3.png")),
-            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\jump\\mua-jump-4.png"))
+            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\default\\jump-1.png")),
+            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\default\\jump-2.png")),
+            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\default\\jump-3.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\default\\jump-4.png"))
     };
     private final AnimationFrame[] air = new AnimationFrame[]{
-            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\jump\\mua-jump-4.png"))
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\default\\jump-4.png"))
     };
 
     private final AnimationFrame[] runKnight = new AnimationFrame[]{
-            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\knight-run-1.png")),
-            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\knight-run-2.png")),
-            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\knight-run-3.png")),
-            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\knight-run-4.png")),
-            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\knight-run-5.png")),
-            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\knight-run-6.png"))
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\run-1.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\run-2.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\run-3.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\run-4.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\run-5.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\run-6.png"))
     };
     private final AnimationFrame[] jumpKnight = new AnimationFrame[]{
-            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\knight\\knight-jump-1.png")),
-            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\knight\\knight-jump-2.png")),
-            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\knight\\knight-jump-3.png")),
-            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\knight-jump-4.png"))
+            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\knight\\jump-1.png")),
+            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\knight\\jump-2.png")),
+            new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\knight\\jump-3.png")),
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\jump-4.png"))
     };
     private final AnimationFrame[] airKnight = new AnimationFrame[]{
-            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\knight-jump-4.png"))
+            new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\jump-4.png"))
     };
 
 
@@ -86,6 +87,9 @@ public class Mualuenie extends ImageObject {
 
         animator = new Animator();
         addComponent(animator);
+
+        skin = Program.data.getMuaSkin();
+
         if (skin == Skin.DEFAULT) animator.setFrames(run);
         if (skin == Skin.KNIGHT) animator.setFrames(runKnight);
     }

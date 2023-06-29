@@ -8,7 +8,7 @@ import org.json.*;
 
 public class DataFile {
 
-    private final Path PATH = Path.of("data");
+    private final Path PATH = Path.of("data.json");
     private JSONObject jo;
 
     public DataFile() {
@@ -25,18 +25,21 @@ public class DataFile {
         }
     }
 
+    private void write() {
+        try {
+            Files.writeString(PATH, jo.toString());
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
+    }
+
     // gibt die UUID des Nutzers zurück
     public UUID getUUID() {
         try {
             return UUID.fromString(jo.get("uuid").toString());
         } catch (IllegalArgumentException e1) {
             jo.put("uuid", UUID.randomUUID());
-
-            try {
-                Files.writeString(PATH, jo.toString());
-            } catch (IOException e2) {
-                e2.printStackTrace();
-            }
+            write();
 
             return UUID.fromString(jo.get("uuid").toString());
         }
@@ -48,11 +51,15 @@ public class DataFile {
 
     public void setHighscore(int value) {
         jo.put("highscore", value);
+        write();
+    }
 
-        try {
-            Files.writeString(PATH, jo.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public Mualuenie.Skin getMuaSkin() {
+        return Mualuenie.Skin.valueOf(jo.get("skin").toString());
+    }
+
+    public void setMuaSkin(Mualuenie.Skin skin) {
+        jo.put("skin", skin);
+        write();
     }
 }
