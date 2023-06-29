@@ -5,13 +5,17 @@ package development;
 import engine.Button;
 import engine.GameObject;
 import engine.ImageObject;
+import engine.SafeList;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SkinsMenu extends GameObject {
 
     private final MainMenu mainMenu;
-    private Mualuenie.Skin skin;
+    private Skin skin;
+
     // Aktuelle Skin-Anzeige
     private final ImageObject skinDisplay = new ImageObject();
 
@@ -24,16 +28,27 @@ public class SkinsMenu extends GameObject {
     protected void load() {
         super.load();
 
-        // Button, der zum Hauptmenü zurückführt
-        Button returnButton = new Button();
-        addChildren(returnButton);
-        returnButton.setSrc("img\\ui\\pfeil.png");
-        returnButton.setPosition(2,4);
         setCanvasBackground(new Color(0x17C255));
-        returnButton.click.subscribe(this::returnToMainMenu);
+
+        // Button, der zum Hauptmenü zurückführt
+        createButton(this, "Zurück", this::returnToMainMenu, 0.5f, 0.5f);
 
         // Button, der Skin auswählt
         createMenuButton(this, "Auswählen", this::selectSkin, 4);
+
+        Button leftBtn = new Button();
+        addChildren(leftBtn);
+        leftBtn.setSize(0.5f, 0.5f);
+        leftBtn.setPosition((getCanvasSize().width - leftBtn.getWidth()) / 2 - 1.5f, 4);
+        leftBtn.setSrc("img\\ui\\arrow-left.png");
+        leftBtn.click.subscribe(this::switchLeft);
+
+        Button rightBtn = new Button();
+        addChildren(rightBtn);
+        rightBtn.setSize(0.5f, 0.5f);
+        rightBtn.setPosition((getCanvasSize().width - rightBtn.getWidth()) / 2 + 1.5f, 4);
+        rightBtn.setSrc("img\\ui\\arrow-right.png");
+        rightBtn.click.subscribe(this::switchRight);
 
         addChildren(skinDisplay);
         skinDisplay.setSize(2, 2);
@@ -42,14 +57,38 @@ public class SkinsMenu extends GameObject {
         loadSkin();
     }
 
-    private void returnToMainMenu()
-    {
+    private void returnToMainMenu() {
         mainMenu.load();
         destroy();
     }
 
-    private void selectSkin() {
+    private void switchLeft() {
+        int index = List.of(Skin.values()).indexOf(skin);
+        index--;
 
+        if (index < 0) {
+            index = Skin.values().length - 1;
+        }
+
+        skin = Skin.values()[index];
+        loadSkin();
+    }
+
+    private void switchRight() {
+        int index = List.of(Skin.values()).indexOf(skin);
+        index++;
+
+        if (index >= Skin.values().length) {
+            index = 0;
+        }
+
+        skin = Skin.values()[index];
+        loadSkin();
+    }
+
+    private void selectSkin() {
+        Program.data.setMuaSkin(skin);
+        returnToMainMenu();
     }
 
     // lädt den Skin in skinDisplay

@@ -8,30 +8,22 @@ import java.awt.event.KeyEvent;
 
 public class Mualuenie extends ImageObject {
 
-
-    public enum Skin {
-        DEFAULT, KNIGHT
-    }
-
     private enum State {
         GROUND, JUMP, AIR
     }
 
     private final float GRAVITY = 10f;
     private final float JUMPFORCE = 7f;
-
+    private final float YIHAA_PROBABILITY = 0.2f;
     private float currentJumpSpeed = 0f;
-
     private float airtime = 0;
-
     private float score = 0f;
-
     private int coins = 0;
     private State state = State.GROUND;
-
     private Skin skin;
-
     private Animator animator;
+    private boolean yihaaEnabled;
+
 
 
     //setzen der Animationen
@@ -77,6 +69,9 @@ public class Mualuenie extends ImageObject {
     protected void load() {
         super.load();
 
+        // lädt Wert aus JSON-Datei, damit dies wöhrend dem Spiel nicht wiederholt werden muss
+        yihaaEnabled = Program.data.getSFXEnabled();
+
         //setzen des colliders
         setGlobalPosition(1, getCanvasSize().height - 2);
 
@@ -119,12 +114,10 @@ public class Mualuenie extends ImageObject {
                 jump();
             }
             //Horizontale Bewegung
-            if (getInput().keyPressed(KeyEvent.VK_D) && getGlobalPosition().x < getCanvasSize().width - getWidth())
-            {
+            if (getInput().keyPressed(KeyEvent.VK_D) && getGlobalPosition().x < getCanvasSize().width - getWidth()) {
                 move(5 / getFPS(),0);
             }
-            if (getInput().keyPressed(KeyEvent.VK_A) && getGlobalPosition().x > 0f)
-            {
+            if (getInput().keyPressed(KeyEvent.VK_A) && getGlobalPosition().x > 0f) {
                 move(-5 / getFPS(),0);
             }
 
@@ -137,8 +130,8 @@ public class Mualuenie extends ImageObject {
                 //Schwerkraft
                 move(0, currentJumpSpeed / getFPS());
                 currentJumpSpeed += GRAVITY / getFPS();
-
             }
+
             airtime = airtime + 1f / getFPS();
 
             //aus der welt fallen
@@ -152,14 +145,15 @@ public class Mualuenie extends ImageObject {
     public void jump() {
         state = State.JUMP;
         currentJumpSpeed = -JUMPFORCE;
-        if (skin == Skin.DEFAULT) animator.setFrames(jump);
-        if (skin == Skin.KNIGHT) animator.setFrames(jumpKnight);
-    }
 
-    //setzen des Skins
-    public void setSkin ()
-    {
+        switch (skin) {
+            case DEFAULT -> animator.setFrames(jump);
+            case KNIGHT -> animator.setFrames(jumpKnight);
+        }
 
+        if (yihaaEnabled && Math.random() < YIHAA_PROBABILITY) {
+            new WaveAudio("audio\\yihaa.wav").play(false);
+        }
     }
 
 
@@ -168,8 +162,12 @@ public class Mualuenie extends ImageObject {
         if(!paused) {
             airtime = 0;
             state = State.GROUND;
-            if (skin == Skin.DEFAULT) animator.setFrames(run);
-            if (skin == Skin.KNIGHT) animator.setFrames(runKnight);
+
+            switch (skin) {
+                case DEFAULT -> animator.setFrames(run);
+                case KNIGHT -> animator.setFrames(runKnight);
+            }
+
             setGlobalPosition(getGlobalPosition().x, other.getGlobalPosition().y + other.getComponents(Collider.class).get(0).getPadding().top() - getSize().height + 9f / 32f);
         }
     }

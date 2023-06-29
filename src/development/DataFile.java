@@ -15,7 +15,7 @@ public class DataFile {
         try {
             // Erstellt JSON-Datei, falls nicht vorhanden
             if (!Files.exists(PATH)) {
-                Files.writeString(PATH, "{\"uuid\":\"\",\"highscore\":0}");
+                Files.writeString(PATH, "{\"uuid\":\"\",\"highscore\":0,\"skin\":\"DEFAULT\",\"music\":true,\"sfx\":true}");
             }
 
             String json = Files.readString(PATH);
@@ -46,7 +46,7 @@ public class DataFile {
     }
 
     public int getHighscore() {
-        return (int) jo.get("highscore");
+        return jo.getInt("highscore");
     }
 
     public void setHighscore(int value) {
@@ -54,12 +54,30 @@ public class DataFile {
         write();
     }
 
-    public Mualuenie.Skin getMuaSkin() {
-        return Mualuenie.Skin.valueOf(jo.get("skin").toString());
+    public Skin getMuaSkin() {
+        return Skin.valueOf(jo.get("skin").toString());
     }
 
-    public void setMuaSkin(Mualuenie.Skin skin) {
+    public void setMuaSkin(Skin skin) {
         jo.put("skin", skin);
+        write();
+    }
+
+    public boolean getMusicEnabled() {
+        return jo.getBoolean("music");
+    }
+
+    public void setMusicEnabled(boolean enabled) {
+        jo.put("music", enabled);
+        write();
+    }
+
+    public boolean getSFXEnabled() {
+        return jo.getBoolean("sfx");
+    }
+
+    public void setSFXEnabled(boolean enabled) {
+        jo.put("sfx", enabled);
         write();
     }
 }

@@ -3,16 +3,19 @@
 package development;
 import engine.Game;
 import engine.Settings;
+import engine.WaveAudio;
 
 public class Program {
 
-    public static Database database;
-    public static DataFile data;
+    public static final Database database = new Database();
+    public static final DataFile data = new DataFile();
+    public static final WaveAudio music = new WaveAudio("audio\\music.wav");
 
     public static void main(String[] args) {
 
-        database = new Database();
-        data = new DataFile();
+        if (data.getMusicEnabled()) {
+            music.play(true);
+        }
 
         Settings settings = new Settings(10, 6, 100);
         Environment environment = new Environment();
