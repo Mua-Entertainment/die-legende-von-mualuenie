@@ -337,11 +337,11 @@ public class GameObject {
         return label;
     }
 
-    protected Slider createMenuSlider(GameObject parent) {
+    protected Slider createMenuSlider(GameObject parent, float y) {
         Slider sld = new Slider();
         parent.addChildren(sld);
 
-        sld.setPosition((sld.getCanvasSize().width - sld.getSize().width) / 2f, 0f);
+        sld.setPosition((sld.getCanvasSize().width - sld.getSize().width) / 2f, y);
         sld.setSrc("img\\ui\\slider.png");
         sld.button.setSrc("img\\ui\\slider-button.png");
 

@@ -2,6 +2,8 @@
 
 package engine;
 
+import development.Program;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -75,7 +77,7 @@ public class GamePanel extends JPanel implements Runnable {
                 update();
                 repaint();
 
-                Thread.sleep((int) (1000f / settings.maxFps()));
+                Thread.sleep((int) (1000f / Program.data.getMaxFPS()));
             }
         } catch (InterruptedException ex) {
             ex.printStackTrace();
@@ -86,7 +88,7 @@ public class GamePanel extends JPanel implements Runnable {
     private void configFPSDisplay() {
         while (true) {
             try {
-                fpsDisplay = Math.round(fps) + "/" + settings.maxFps() + " FPS";
+                fpsDisplay = Math.round(fps) + "/" + Program.data.getMaxFPS() + " FPS";
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();

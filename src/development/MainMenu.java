@@ -2,11 +2,10 @@
 
 package development;
 
+import engine.*;
 import engine.Button;
-import engine.GameObject;
 import engine.Label;
-import engine.RectObject;
-import engine.SafeList;
+
 import java.awt.*;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -24,7 +23,7 @@ public class MainMenu extends GameObject {
         headBar.setSize(getCanvasSize().width, 0.5f);
 
         // Zeigt Name und Coins an
-        String text = Program.data.getName() + " - " + Program.data.getCoins() + " Coins";
+        String text = Program.data.getName() + "  -  " + Program.data.getCoins() + " Coins  -  Highscore: " + Program.data.getHighscore();
         createMenuLabel(this, text, 0).setColor(Color.white);
 
         // Listet die globalen Highscores auf

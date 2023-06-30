@@ -15,7 +15,7 @@ public class DataFile {
     public DataFile() {
         try {
             boolean loaded;
-            String json = "{\"uid\":\"" + generateUID() + "\",\"highscore\":0,\"date\":0,\"skin\":\"DEFAULT\",\"music\":true,\"sfx\":true,\"coins\":0,\"skins\":[\"DEFAULT\"],\"name\":\"\"}";
+            String json = "{\"uid\":\"" + generateUID() + "\",\"highscore\":0,\"date\":0,\"skin\":\"DEFAULT\",\"music\":true,\"sfx\":true,\"coins\":0,\"skins\":[\"DEFAULT\"],\"name\":\"\",\"fps\":100}";
 
             do {
                 // Erstellt JSON-Datei, falls nicht vorhanden
@@ -30,7 +30,7 @@ public class DataFile {
                     }
 
                     loaded = false;
-                } else if (!(jo.has("uid") && jo.has("highscore") && jo.has("date") && jo.has("skin") && jo.has("music") && jo.has("sfx") && jo.has("coins") && jo.has("skins") && jo.has("name"))) {
+                } else if (!(jo.has("uid") && jo.has("highscore") && jo.has("date") && jo.has("skin") && jo.has("music") && jo.has("sfx") && jo.has("coins") && jo.has("skins") && jo.has("name") && jo.has("fps"))) {
                     Files.writeString(PATH, decode(json, SEED));
                     jo = null;
                     loaded = false;
@@ -160,5 +160,14 @@ public class DataFile {
         }
 
         return result + ran;
+    }
+
+    public int getMaxFPS() {
+        return jo.getInt("fps");
+    }
+
+    public void setMaxFPS(int fps) {
+        jo.put("fps", fps);
+        write();
     }
 }

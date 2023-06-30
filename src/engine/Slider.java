@@ -7,7 +7,6 @@ public class Slider extends ImageObject {
 
     // Button der zum Verschieben gedrückt wird
     public final Button button = new Button();
-
     private float cursorOriginX, buttonOriginX;
 
     @Override
@@ -50,6 +49,10 @@ public class Slider extends ImageObject {
 
     // brechnet Wert zwischen 0 und 1
     public float getValue() {
-        return button.getPosition().x / (getWidth() - button.getWidth());
+        return button.getX() / (getWidth() - button.getWidth());
+    }
+
+    public void setValue(float value) {
+        button.setPosition(button.getWidth() / 2 + (getWidth() - button.getWidth()) * value, button.getY());
     }
 }

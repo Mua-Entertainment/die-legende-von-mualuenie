@@ -34,6 +34,7 @@ public class PlayMode extends GameObject {
         instance = this;
         paused = false;
         coins = 0;
+        score = 0;
 
         //Hintergrund
         setCanvasBackground(new Color(0xBEF9FF));
