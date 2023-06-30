@@ -14,7 +14,7 @@ public class GameOverScreen extends RectObject {
         setColor(new Color(0x7C000000, true));
 
         createMenuButton(this, "Nochmal", this::tryAgain, 2);
-        createMenuButton(this, "Weiter", this::returnToMainMenu, 3);
+        createMenuButton(this, "Hauptmenü", this::returnToMainMenu, 3);
     }
 
     private void tryAgain() {

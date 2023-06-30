@@ -4,39 +4,66 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.UUID;
+
+import engine.SafeList;
 import org.json.*;
 
 public class DataFile {
 
-    private final Path PATH = Path.of("data.json");
+    private final int SEED = 2;
+    private final Path PATH = Path.of("player.dat");
     private JSONObject jo;
 
     public DataFile() {
         try {
-            String defaultJson = "{\"uuid\":\"\",\"highscore\":0,\"skin\":\"DEFAULT\",\"music\":true,\"sfx\":true}";
+            boolean loaded;
+            String json = "{\"uuid\":\"\",\"highscore\":0,\"skin\":\"DEFAULT\",\"music\":true,\"sfx\":true,\"coins\":0,\"skins\":[]}";
 
-            // Erstellt JSON-Datei, falls nicht vorhanden
-            if (!Files.exists(PATH)) {
-                Files.writeString(PATH, defaultJson);
-            }
+            do {
+                // Erstellt JSON-Datei, falls nicht vorhanden
+                if (!Files.exists(PATH)) {
+                    Files.writeString(PATH, decode(json, SEED));
+                    loaded = false;
+                } else if (jo == null) {
+                    try {
+                        jo = new JSONObject(decode(Files.readString(PATH), -SEED));
+                    } catch (JSONException e) {
+                        Files.writeString(PATH, decode(json, SEED));
+                    }
 
-            String json = Files.readString(PATH);
-            jo = new JSONObject(json);
-
-            if (!(jo.has("uuid") && jo.has("highscore") && jo.has("skin") && jo.has("music") && jo.has("sfx"))) {
-                Files.writeString(PATH, defaultJson);
-            }
+                    loaded = false;
+                } else if (!(jo.has("uuid") && jo.has("highscore") && jo.has("skin") && jo.has("music") && jo.has("sfx") && jo.has("coins") && jo.has("skins"))) {
+                    Files.writeString(PATH, decode(json, SEED));
+                    jo = null;
+                    loaded = false;
+                } else {
+                    loaded = true;
+                }
+            } while (!loaded);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    // verschlüsselt Text
+    private String decode(String text, int seed) {
+        StringBuilder result = new StringBuilder();
+
+        for (char c : text.toCharArray()) {
+            result.append((char) ((byte) c + seed));
+        }
+
+        return result.toString();
+    }
+
     private void write() {
         try {
-            Files.writeString(PATH, jo.toString());
+            Files.writeString(PATH, decode(jo.toString(), SEED));
         } catch (IOException e2) {
             e2.printStackTrace();
         }
+
+        System.out.println(jo.toString());
     }
 
     // gibt die UUID des Nutzers zurück
@@ -85,5 +112,28 @@ public class DataFile {
     public void setSFXEnabled(boolean enabled) {
         jo.put("sfx", enabled);
         write();
+    }
+
+    public int getCoins() {
+        return jo.getInt("coins");
+    }
+
+    public void addCoins(int coins) {
+        jo.put("coins", getCoins() + coins);
+        write();
+    }
+
+    public SafeList<Skin> getUnlockedSkins() {
+        SafeList<Skin> result = new SafeList<>();
+
+        jo.getJSONArray("skins").forEach(s -> {
+            result.add(Skin.valueOf(s.toString()));
+        });
+
+        return result;
+    }
+
+    public void unlockSkin(Skin skin) {
+        jo.getJSONArray("skins").put(skin.name());
     }
 }

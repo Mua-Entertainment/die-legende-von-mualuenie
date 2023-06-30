@@ -22,7 +22,7 @@ public class PlayMode extends GameObject {
 
     public static float score;
 
-    private Label scoreUI = new Label();
+    private Label scoreLabel = new Label();
 
     public static Scenes scenes = Scenes.DW;
 
@@ -33,6 +33,7 @@ public class PlayMode extends GameObject {
 
         instance = this;
         paused = false;
+        coins = 0;
 
         //Hintergrund
         setCanvasBackground(new Color(0xBEF9FF));
@@ -46,10 +47,10 @@ public class PlayMode extends GameObject {
         addChildren(start = new Start());
 
         //scoreboard
-        addChildren(scoreUI);
-        scoreUI.setGlobalPosition((getCanvasSize().width - getWidth())/2f,0f);
-        scoreUI.setFont(getFont("font\\pixel.ttf").deriveFont(25f));
-        scoreUI.setColor(Color.black);
+        addChildren(scoreLabel);
+        scoreLabel.setGlobalPosition((getCanvasSize().width - getWidth())/2f,0f);
+        scoreLabel.setFont(getFont("font\\pixel.ttf").deriveFont(25f));
+        scoreLabel.setColor(Color.black);
 
         // Müaluenie
         mua = new Mualuenie();
@@ -66,17 +67,21 @@ public class PlayMode extends GameObject {
         //erhöhung des scores
         if(!paused) score += 100f / getFPS();
 
-        scoreUI.setText("score: " + (int) score );
-
+        scoreLabel.setText("Score: " + (int) score + "  -  " + coins + " coins");
     }
 
     public void gameOver(boolean showGameOverScreen, boolean executeAlways)
     {
         if (!paused || executeAlways) {
-            //setzen des Highscores in der Datenbank
-            if (Program.database.getHighscore() < score) {
+            if (Program.data.getHighscore() < score) {
+                //setzen des Highscores in der Datenbank
                 Program.database.setHighscore((int) score);
+
+                // lokales Speichern des Highscores
+                Program.data.setHighscore((int) score);
             }
+
+            Program.data.addCoins(coins);
 
             if (showGameOverScreen) {
                 add(new GameOverScreen());

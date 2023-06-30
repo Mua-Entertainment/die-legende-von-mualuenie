@@ -3,7 +3,7 @@ package development;
 import engine.SafeList;
 import java.sql.*;
 import java.util.Collections;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 public class Database {
@@ -56,7 +56,7 @@ public class Database {
 
     public SafeList<Integer> getSortedHighscores() throws SQLException {
         SafeList<Integer> result = new SafeList<>();
-        AtomicReference<SQLException> ex = new AtomicReference<>(null);
+        AtomicBoolean connected = new AtomicBoolean(false);
 
         connect(con -> {
             try {
@@ -68,12 +68,14 @@ public class Database {
                     result.add(rs.getInt("value"));
                 }
             } catch (SQLException e) {
-                ex.set(e);
+                System.out.println(e.getClass().getTypeName());
             }
+
+            connected.set(true);
         });
 
-        if (ex.get() != null) {
-            throw ex.get();
+        if (!connected.get()) {
+            throw new SQLException("database connection failed");
         }
 
         result.sort(Collections.reverseOrder());

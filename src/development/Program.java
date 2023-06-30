@@ -13,6 +13,8 @@ public class Program {
 
     public static void main(String[] args) {
 
+        System.out.println((byte) 270);
+
         if (data.getMusicEnabled()) {
             music.play(true);
         }

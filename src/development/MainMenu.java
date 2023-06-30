@@ -4,27 +4,31 @@ package development;
 
 import engine.GameObject;
 import engine.SafeList;
-
 import java.awt.*;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class MainMenu extends GameObject {
     @Override
     protected void load() {
         super.load();
 
-        createMenuLabel(this, "Global Highscores:", 0.5f);
+        String highscores = "Highscores: ";
 
         try {
             SafeList<Integer> scores = Program.database.getSortedHighscores();
 
             for (int i = 0; i < Math.min(scores.size(), 3); i++) {
-                createMenuLabel(this, (i + 1) + ".  " + scores.get(i), i * 0.5f + 1f);
+                highscores += (i + 1) + ". " + scores.get(i) + "  ";
             }
         } catch (SQLException e) {
-            createMenuLabel(this, "Error", 1.5f).setColor(new Color(0x5D1010));
+            highscores += "Error";
         }
+
+        // Zeigt die globale Ranglist der Highscores an
+        createLabel(this, highscores, 0, 0).setWidth(getCanvasSize().width);
+
+        String coins = Program.data.getCoins() + " Coins";
+        createLabel(this, coins, 0, 0.5f).setWidth(getCanvasSize().width);
 
         createMenuButton(this, "Start", this::runGame, 3f);
         createMenuButton(this, "Einstellungen", this::openSettings, 3.75f);

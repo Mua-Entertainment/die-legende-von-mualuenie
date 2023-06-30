@@ -54,7 +54,7 @@ public class Obstacle extends ImageObject {
             Collider collider = new Collider();
             collider.collide.subscribe(this::onCollide);
             addComponent(collider);
-            collider.setPadding(0f, 23f / 32f, 21f / 32f, 0f);
+            collider.setPadding(10f/32f, 28f/32f, 21f/32f, 0f);
         }
 
 

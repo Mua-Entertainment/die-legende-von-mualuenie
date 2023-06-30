@@ -13,8 +13,10 @@ import java.util.List;
 
 public class SkinsMenu extends GameObject {
 
+    private final int SKIN_PRICE = 50;
     private final MainMenu mainMenu;
     private Skin skin;
+    private Button selectBtn;
 
     // Aktuelle Skin-Anzeige
     private final ImageObject skinDisplay = new ImageObject();
@@ -34,7 +36,7 @@ public class SkinsMenu extends GameObject {
         createButton(this, "Zurück", this::returnToMainMenu, 0.5f, 0.5f);
 
         // Button, der Skin auswählt
-        createMenuButton(this, "Auswählen", this::selectSkin, 4);
+        selectBtn = createMenuButton(this, "Auswählen", this::selectSkin, 4);
 
         Button leftBtn = new Button();
         addChildren(leftBtn);
@@ -87,14 +89,23 @@ public class SkinsMenu extends GameObject {
     }
 
     private void selectSkin() {
-        Program.data.setMuaSkin(skin);
-        returnToMainMenu();
+        if (Program.data.getUnlockedSkins().contains(skin)) {
+            Program.data.setMuaSkin(skin);
+            returnToMainMenu();
+        } else if (Program.data.getCoins() >= SKIN_PRICE) {
+            Program.data.addCoins(-SKIN_PRICE);
+            Program.data.unlockSkin(skin);
+            loadSkin();
+        }
     }
 
     // lädt den Skin in skinDisplay
     private void loadSkin() {
         String fileName = skin.name().toLowerCase();
         String src = "img\\obj\\mua\\" + fileName + "\\run-6.png";
+
+        String btnText = Program.data.getUnlockedSkins().contains(skin) ? "Auswählen" : (SKIN_PRICE + " Coins");
+        selectBtn.label.setText(btnText);
 
         skinDisplay.setSrc(src);
     }

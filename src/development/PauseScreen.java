@@ -13,7 +13,7 @@ public class PauseScreen extends RectObject {
         setColor(new Color(0x7C000000, true));
 
         createMenuButton(this,"Weiter", this::continuePlaying, 2);
-        createMenuButton(this, "Aufgeben", this::surrender, 3.5f);
+        createMenuButton(this, "Aufgeben", this::surrender, 3f);
     }
 
     private void continuePlaying() {
