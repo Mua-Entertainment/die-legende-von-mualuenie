@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Arrays;
+import java.util.List;
 
 // Überprüft Eingabe-Ereignisse
 public class InputHandler implements KeyListener, MouseListener {
@@ -36,14 +38,26 @@ public class InputHandler implements KeyListener, MouseListener {
         return checkKey(keyCodes, keyDown);
     }
 
+    public boolean anyKeyDown() {
+        return keyDown;
+    }
+
     // überprüft ob einer der angegebenen Tasten gedrückt wird
     public boolean keyPressed(int... keyCodes) {
         return checkKey(keyCodes, keyPressed);
     }
 
+    public boolean anyKeyPressed() {
+        return keyPressed;
+    }
+
     // überprüft ob einer der angegebenen Tasten losgelassen wird
     public boolean keyUp(int... keyCodes) {
         return checkKey(keyCodes, keyUp);
+    }
+
+    public boolean anyKeyUp() {
+        return keyUp;
     }
 
     // überprüft ob einer der angegebenen Tastencodes aktuelle gedrückt wird
@@ -69,6 +83,10 @@ public class InputHandler implements KeyListener, MouseListener {
 
     public boolean mouseUp() {
         return mouseUp;
+    }
+
+    public SafeList<Integer> getPressedKeys() {
+        return (SafeList<Integer>) pressedKeys.clone();
     }
 
     @Override

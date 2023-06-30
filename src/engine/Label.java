@@ -49,11 +49,19 @@ public class Label extends GameObject {
         this.text = text;
     }
 
+    public String getText() {
+        return text;
+    }
+
     public void setColor(Color color) {
         this.color = color;
     }
 
     public void setFont(Font font) {
         this.font = font;
+    }
+
+    public Font getFont() {
+        return font;
     }
 }

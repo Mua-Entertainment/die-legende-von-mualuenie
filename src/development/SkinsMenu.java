@@ -14,22 +14,17 @@ import java.util.List;
 public class SkinsMenu extends GameObject {
 
     private final int SKIN_PRICE = 50;
-    private final MainMenu mainMenu;
     private Skin skin;
     private Button selectBtn;
 
     // Aktuelle Skin-Anzeige
     private final ImageObject skinDisplay = new ImageObject();
 
-    public SkinsMenu(MainMenu mainMenu) {
-        this.mainMenu = mainMenu;
-        skin = Program.data.getMuaSkin();
-    }
-
     @Override
     protected void load() {
         super.load();
 
+        skin = Program.data.getMuaSkin();
         setCanvasBackground(new Color(0x17C255));
 
         // Button, der zum Hauptmenü zurückführt
@@ -60,7 +55,7 @@ public class SkinsMenu extends GameObject {
     }
 
     private void returnToMainMenu() {
-        mainMenu.load();
+        add(new MainMenu());
         destroy();
     }
 

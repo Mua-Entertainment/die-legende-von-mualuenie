@@ -11,9 +11,12 @@ public class Environment extends GameObject {
     protected void load() {
         super.load();
 
-        // Anzeigen von Hauptmenü
-        MainMenu mainMenu = new MainMenu();
-        add(mainMenu);
+        if (Program.data.getName().equals("")) {
+            // Anzeigen von Namen-Eingabe
+            add(new NameInput(new MainMenu()));
+        } else {
+            // Anzeigen von Hauptmenü
+            add(new MainMenu());
+        }
     }
-
 }

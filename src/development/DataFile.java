@@ -3,8 +3,6 @@ package development;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.UUID;
-
 import engine.SafeList;
 import org.json.*;
 
@@ -17,7 +15,7 @@ public class DataFile {
     public DataFile() {
         try {
             boolean loaded;
-            String json = "{\"uuid\":\"\",\"highscore\":0,\"skin\":\"DEFAULT\",\"music\":true,\"sfx\":true,\"coins\":0,\"skins\":[]}";
+            String json = "{\"uid\":\"" + generateUID() + "\",\"highscore\":0,\"date\":0,\"skin\":\"DEFAULT\",\"music\":true,\"sfx\":true,\"coins\":0,\"skins\":[\"DEFAULT\"],\"name\":\"\"}";
 
             do {
                 // Erstellt JSON-Datei, falls nicht vorhanden
@@ -32,7 +30,7 @@ public class DataFile {
                     }
 
                     loaded = false;
-                } else if (!(jo.has("uuid") && jo.has("highscore") && jo.has("skin") && jo.has("music") && jo.has("sfx") && jo.has("coins") && jo.has("skins"))) {
+                } else if (!(jo.has("uid") && jo.has("highscore") && jo.has("date") && jo.has("skin") && jo.has("music") && jo.has("sfx") && jo.has("coins") && jo.has("skins") && jo.has("name"))) {
                     Files.writeString(PATH, decode(json, SEED));
                     jo = null;
                     loaded = false;
@@ -62,19 +60,17 @@ public class DataFile {
         } catch (IOException e2) {
             e2.printStackTrace();
         }
-
-        System.out.println(jo.toString());
     }
 
     // gibt die UUID des Nutzers zurück
-    public UUID getUUID() {
+    public String getUID() {
         try {
-            return UUID.fromString(jo.get("uuid").toString());
+            return jo.getString("uid");
         } catch (IllegalArgumentException e1) {
-            jo.put("uuid", UUID.randomUUID());
+            jo.put("uuid", generateUID());
             write();
 
-            return UUID.fromString(jo.get("uuid").toString());
+            return jo.getString("uid");
         }
     }
 
@@ -84,6 +80,15 @@ public class DataFile {
 
     public void setHighscore(int value) {
         jo.put("highscore", value);
+        write();
+    }
+
+    public long getDate() {
+        return jo.getLong("date");
+    }
+
+    public void setDate(long date) {
+        jo.put("date", date);
         write();
     }
 
@@ -135,5 +140,25 @@ public class DataFile {
 
     public void unlockSkin(Skin skin) {
         jo.getJSONArray("skins").put(skin.name());
+    }
+
+    public String getName() {
+        return jo.getString("name");
+    }
+
+    public void setName(String name) {
+        jo.put("name", name);
+        write();
+    }
+
+    private String generateUID() {
+        String result = String.valueOf(System.nanoTime());
+        String ran = String.valueOf((int) (Math.random() * 100000));
+
+        for (int i = 0; i < 5 - ran.length(); i++) {
+            result += '0';
+        }
+
+        return result + ran;
     }
 }

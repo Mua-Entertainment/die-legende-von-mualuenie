@@ -13,6 +13,12 @@ public class Database {
     private final String PORT = "3306";
     private final String CONNECTION_URL = "jdbc:mysql://" + HOST + ':' + PORT + '/' + USER;
 
+    public Database() {
+        // trägt offline gespeicherte Dateien in die Datenbank ein
+        setHighscore(Program.data.getHighscore(), Program.data.getDate());
+        setName(Program.data.getName());
+    }
+
     private void connect(Consumer<Connection> func) {
         Connection con = null;
 
@@ -35,37 +41,51 @@ public class Database {
         }
     }
 
-    public void setHighscore(int value) {
+    public void setHighscore(int value, long date) {
         connect(con -> {
             try {
                 Program.data.setHighscore(value);
+                Program.data.setDate(date);
 
                 Statement stmt = con.createStatement();
 
-                stmt.executeUpdate("DELETE FROM highscores WHERE id='" + Program.data.getUUID() + '\'');
-                stmt.executeUpdate("INSERT INTO highscores (id, value) VALUE ('" + Program.data.getUUID() + "', " + value + ")");
+                stmt.executeUpdate("DELETE FROM users WHERE id='" + Program.data.getUID() + '\'');
+                stmt.executeUpdate("INSERT INTO users (id, name, highscore, date) VALUE (" + Program.data.getUID() + ", '" + Program.data.getName() + "', " + value + ", " + date + ")");
             } catch (Exception e) {
                 System.out.println(e.getClass().getTypeName());
             }
         });
     }
 
-    public int getHighscore() {
-        return Program.data.getHighscore();
+    public void setName(String name) {
+        connect(con -> {
+            try {
+                Program.data.setName(name);
+
+                Statement stmt = con.createStatement();
+
+                stmt.executeUpdate("DELETE FROM users WHERE id=" + Program.data.getUID());
+                stmt.executeUpdate("INSERT INTO users (id, name, highscore, date) VALUE (" + Program.data.getUID() + ", '" + name + "', " + Program.data.getHighscore() + ", " + Program.data.getDate()+ ")");
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println(e.getClass().getTypeName());
+            }
+        });
     }
 
-    public SafeList<Integer> getSortedHighscores() throws SQLException {
-        SafeList<Integer> result = new SafeList<>();
+    public SafeList<User> getSortedHighscores() throws SQLException {
+        SafeList<User> result = new SafeList<>();
         AtomicBoolean connected = new AtomicBoolean(false);
 
         connect(con -> {
             try {
-                String query = "SELECT * FROM highscores";
+                String query = "SELECT * FROM users ORDER BY highscore DESC";
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(query);
 
                 while (rs.next()) {
-                    result.add(rs.getInt("value"));
+                    User user = new User(rs.getString("id"), rs.getString("name"), rs.getInt("highscore"), rs.getLong("date"));
+                    result.add(user);
                 }
             } catch (SQLException e) {
                 System.out.println(e.getClass().getTypeName());
@@ -78,7 +98,6 @@ public class Database {
             throw new SQLException("database connection failed");
         }
 
-        result.sort(Collections.reverseOrder());
         return result;
     }
 }

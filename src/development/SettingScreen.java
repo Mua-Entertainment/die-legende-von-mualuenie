@@ -4,18 +4,11 @@ package development;
 
 import engine.Button;
 import engine.GameObject;
-import engine.Slider;
 
 
 // Einstellungsmenü
 public class SettingScreen extends GameObject {
-    private final MainMenu mainMenu;
     private Button musicButton, sfxButton;
-
-    public SettingScreen(MainMenu mainMenu)
-    {
-        this.mainMenu = mainMenu;
-    }
 
     @Override
     protected void load() {
@@ -29,12 +22,20 @@ public class SettingScreen extends GameObject {
 
         text = Program.data.getSFXEnabled() ? "SFX aus" : "SFX ein";
         sfxButton = createMenuButton(this, text, this::switchSFXSettings, 3f);
+
+        createMenuLabel(this, "Name: " + Program.data.getName(), 4f);
+        createMenuButton(this, "Ändern", this::openNameInput, 4.5f);
     }
 
     // zurück zum MainMenu
     private void returnToMainMenu() {
+        add(new MainMenu());
         destroy();
-        mainMenu.load();
+    }
+
+    private void openNameInput() {
+        add(new NameInput(new SettingScreen()));
+        destroy();
     }
 
     private void switchMusicSettings() {

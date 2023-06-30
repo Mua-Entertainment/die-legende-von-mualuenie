@@ -75,7 +75,7 @@ public class PlayMode extends GameObject {
         if (!paused || executeAlways) {
             if (Program.data.getHighscore() < score) {
                 //setzen des Highscores in der Datenbank
-                Program.database.setHighscore((int) score);
+                Program.database.setHighscore((int) score, System.nanoTime());
 
                 // lokales Speichern des Highscores
                 Program.data.setHighscore((int) score);
