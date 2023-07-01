@@ -28,7 +28,7 @@ public class Start extends ImageObject {
         // setzen des Bodens Oberwelt oder Dark World
         Animator animator = new Animator();
         addComponent(animator);
-        if (PlayMode.getInstance().scenes == PlayMode.Scenes.OW) {
+        if (PlayMode.getInstance().getScene() == Scene.OVERWORLD) {
             animator.setFrames(ow);
         } else {
             animator.setFrames(dw);

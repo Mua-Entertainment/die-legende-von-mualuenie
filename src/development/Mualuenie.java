@@ -72,7 +72,7 @@ public class Mualuenie extends ImageObject {
 
 
         //Springen
-        if (getInput().keyPressed(KeyEvent.VK_SPACE) && state == State.GROUND) {
+        if (getInput().keyPressed(KeyEvent.VK_SPACE, KeyEvent.VK_W) && state == State.GROUND) {
             jump();
         }
         //Horizontale Bewegung
