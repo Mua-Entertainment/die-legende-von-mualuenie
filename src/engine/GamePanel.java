@@ -177,6 +177,8 @@ public class GamePanel extends JPanel implements Runnable {
             }
         });
 
+        g2d.setColor(Color.black);
+
         // zeichnet schwarzen Rand über die anderen GameObjects
         if (windowRatio > canvasRatio) {
             g2d.fillRect(0, 0, borderSize, getHeight());

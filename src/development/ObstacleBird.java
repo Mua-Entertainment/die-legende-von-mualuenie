@@ -57,14 +57,15 @@ public class ObstacleBird extends ImageObject {
 
     //
     private void onCollide(GameObject other, Collision collision) {
+        PlayMode pm = PlayMode.getInstance();
+
         //Wenn Müa draufspringt => tot
-        if (other == PlayMode.mua && PlayMode.mua.getGlobalPosition().y + PlayMode.mua.getHeight() - 12f/32f < getGlobalPosition().y + 13f/32f)
-            {
-                PlayMode.mua.jump();
-                destroy();
-            }
+        if (other == pm.mua && pm.mua.getGlobalPosition().y + pm.mua.getHeight() - 12f/32f < getGlobalPosition().y + 13f/32f) {
+            pm.mua.jump();
+            destroy();
+        }
         //Wenn Müa drunter ist => Müa tot
-        else if (other == PlayMode.mua) {
+        else if (other == pm.mua) {
             PlayMode.getInstance().gameOver(true, false);
         }
 

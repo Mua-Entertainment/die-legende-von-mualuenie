@@ -28,7 +28,7 @@ public class Start extends ImageObject {
         // setzen des Bodens Oberwelt oder Dark World
         Animator animator = new Animator();
         addComponent(animator);
-        if (PlayMode.scenes == PlayMode.Scenes.OW) {
+        if (PlayMode.getInstance().scenes == PlayMode.Scenes.OW) {
             animator.setFrames(ow);
         } else {
             animator.setFrames(dw);
@@ -51,7 +51,7 @@ public class Start extends ImageObject {
         super.update();
 
         //bewegung der welt
-        move((-2 - 0.0001f * PlayMode.score)/ getFPS(), 0);
+        move((-2 - 0.0001f * PlayMode.getInstance().score)/ getFPS(), 0);
 
         //löschen, falls außerhalb des bildschirms
         if (getGlobalPosition().x <= -getWidth()) {

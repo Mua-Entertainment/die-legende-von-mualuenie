@@ -352,4 +352,9 @@ public class GameObject {
 
         return sld;
     }
+
+    // führt einen Thread (asynchron) aus
+    protected void async(Runnable func) {
+        new Thread(func).start();
+    }
 }

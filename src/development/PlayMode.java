@@ -2,26 +2,24 @@
 
 package development;
 
-import engine.Button;
 import engine.GameObject;
 import engine.ImageObject;
 import engine.Label;
-
 import java.awt.*;
 
 // Objekt, indem die "Action" abläuft
 public class PlayMode extends GameObject {
 
     private static PlayMode instance;
-    public static Scenes scenes = Scenes.DW;
+    public Scenes scenes = Scenes.DW;
 
     public enum Scenes {
         OW, DW
     }
 
-    public static Mualuenie mua;
-    public static int coins;
-    public static float score;
+    public Mualuenie mua;
+    public int coins;
+    public float score;
     private final Label scoreLabel = new Label();
     private final Label coinsLabel = new Label();
 

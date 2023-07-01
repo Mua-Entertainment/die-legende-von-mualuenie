@@ -15,15 +15,11 @@ public class Chunk extends ImageObject {
 
     SafeList<GameObject> obstacles = new SafeList<>();
 
-
-
-
-
     @Override
     protected void load() {
         super.load();
         //zufälliges setzen des Bodens
-        if (PlayMode.scenes == PlayMode.Scenes.OW) {
+        if (PlayMode.getInstance().scenes == PlayMode.Scenes.OW) {
             //Overworld Böden
             setSrc("img\\obj\\world\\ow\\ow-chunk.png");
             setGlobalPosition(12.5f, 5f);
@@ -104,7 +100,7 @@ public class Chunk extends ImageObject {
     @Override
     protected void update() {
         super.update();
-        move((-2 - 0.0001f * PlayMode.score)/ getFPS(), 0);
+        move((-2 - 0.0001f * PlayMode.getInstance().score)/ getFPS(), 0);
 
         //löschen, falls außerhalb des bildschirms
         if (getGlobalPosition().x <= -getWidth()) {

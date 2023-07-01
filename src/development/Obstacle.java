@@ -11,7 +11,7 @@ public class Obstacle extends ImageObject {
     protected void load() {
         super.load();
         //Festlegen Bild und Collider
-        if (PlayMode.scenes == PlayMode.Scenes.OW) {
+        if (PlayMode.getInstance().scenes == PlayMode.Scenes.OW) {
 
             //Overworld Obstacles
 
@@ -68,7 +68,7 @@ public class Obstacle extends ImageObject {
 
     private void onCollide(GameObject other, Collision collision) {
         //Wenn Müa draufspringt => Müa tot
-        if (other == PlayMode.mua && PlayMode.scenes == PlayMode.Scenes.DW) {
+        if (other == PlayMode.getInstance().mua && PlayMode.getInstance().scenes == PlayMode.Scenes.DW) {
             PlayMode.getInstance().gameOver(true, false);
         }
     }
