@@ -7,15 +7,14 @@ import engine.Button;
 import engine.Label;
 import java.awt.*;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class MainMenu extends GameObject {
 
     @Override
     protected void load() {
         super.load();
+
+        setCanvasBackground(new Color(0x567BB4));
 
         RectObject headBar = new RectObject();
         addChildren(headBar);
@@ -52,23 +51,21 @@ public class MainMenu extends GameObject {
             } catch (SQLException e) {
                 createMenuLabel(this, "Connection Error", 2.5f).setColor(new Color(0x873434));
             }
+
+            Button settingsBtn = createMenuButton(this, "Einstellungen", this::openSettings, 4.5f);
+            settingsBtn.setX((getCanvasSize().width - settingsBtn.getWidth()) / 2 - 2);
+
+            createMenuButton(this, "Start", this::runGame, 4.5f);
+
+            Button skinsBtn = createMenuButton(this, "Skins", this::openSkinsMenu, 4.5f);
+            skinsBtn.setX((getCanvasSize().width - skinsBtn.getWidth()) / 2 + 2);
         });
-
-        Button settingsBtn = createMenuButton(this, "Einstellungen", this::openSettings, 4.5f);
-        settingsBtn.setX((getCanvasSize().width - settingsBtn.getWidth()) / 2 - 2);
-
-        createMenuButton(this, "Start", this::runGame, 4.5f);
-
-        Button skinsBtn = createMenuButton(this, "Skins", this::openSkinsMenu, 4.5f);
-        skinsBtn.setX((getCanvasSize().width - skinsBtn.getWidth()) / 2 + 2);
-
-        setCanvasBackground(new Color(0x567BB4));
     }
 
     // startet Spiel
     private void runGame()
     {
-        add(new PlayMode());
+        add(new SceneSelection());
         destroy();
     }
 

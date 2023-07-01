@@ -18,8 +18,10 @@ public class GameOverScreen extends RectObject {
     }
 
     private void tryAgain() {
+        Scene scene = PlayMode.getInstance().getScene();
         PlayMode.getInstance().destroy();
-        add(new PlayMode());
+
+        add(new PlayMode(scene));
         destroy();
     }
 

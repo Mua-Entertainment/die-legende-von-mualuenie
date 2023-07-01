@@ -19,7 +19,7 @@ public class Chunk extends ImageObject {
     protected void load() {
         super.load();
         //zufälliges setzen des Bodens
-        if (PlayMode.getInstance().scenes == PlayMode.Scenes.OW) {
+        if (PlayMode.getInstance().getScene() == Scene.OVERWORLD) {
             //Overworld Böden
             id = (int) (Math.random() * 4);
             if (id >= 1) {
