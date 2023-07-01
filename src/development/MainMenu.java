@@ -8,6 +8,7 @@ import engine.Label;
 import java.awt.*;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class MainMenu extends GameObject {
@@ -44,7 +45,7 @@ public class MainMenu extends GameObject {
                         scoreLabel.setColor(new Color(0x9200A7));
                     }
 
-                    Label infoLabel = createMenuLabel(this, "von " + name + " am " + getDateString(user.date()), 1.75f + i * 0.7f);
+                    Label infoLabel = createMenuLabel(this, "von " + name + " am " + user.date(), 1.75f + i * 0.7f);
                     infoLabel.setFont(infoLabel.getFont().deriveFont(10f));
                     infoLabel.setColor(isThisUser ? new Color(0xAE00C5) : new Color(0x232323));
                 }
@@ -83,10 +84,5 @@ public class MainMenu extends GameObject {
     {
         add(new SkinsMenu());
         destroy();
-    }
-
-    private String getDateString(long date) {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        return format.format(new Date());
     }
 }

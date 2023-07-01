@@ -15,7 +15,7 @@ public final class DataFile {
     public static void update() {
         try {
             boolean loaded;
-            String json = "{\"uid\":\"" + generateUID() + "\",\"highscore\":0,\"date\":0,\"skin\":\"DEFAULT\",\"music\":true,\"sfx\":true,\"coins\":0,\"skins\":[\"DEFAULT\"],\"name\":\"\",\"fps\":100}";
+            String json = "{\"uid\":\"" + generateUID() + "\",\"highscore\":0,\"date\":\"01.01.2023\",\"skin\":\"DEFAULT\",\"music\":true,\"sfx\":true,\"coins\":0,\"skins\":[\"DEFAULT\"],\"name\":\"\",\"fps\":100}";
 
             do {
                 // Erstellt JSON-Datei, falls nicht vorhanden
@@ -83,11 +83,11 @@ public final class DataFile {
         write();
     }
 
-    public static long getDate() {
-        return jo.getLong("date");
+    public static String getDate() {
+        return jo.getString("date");
     }
 
-    public static void setDate(long date) {
+    public static void setDate(String date) {
         jo.put("date", date);
         write();
     }

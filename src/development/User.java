@@ -1,4 +1,4 @@
 package development;
 
-public record User(String id, String name, int highscore, long date) {
+public record User(String id, String name, int highscore, String date) {
 }

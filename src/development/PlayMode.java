@@ -6,6 +6,10 @@ import engine.GameObject;
 import engine.ImageObject;
 import engine.Label;
 import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 // Objekt, indem die "Action" abläuft
 public class PlayMode extends GameObject {
@@ -68,8 +72,7 @@ public class PlayMode extends GameObject {
     }
 
     @Override
-    protected void update()
-    {
+    protected void update() {
         super.update();
 
         //erhöhung des scores
@@ -84,7 +87,9 @@ public class PlayMode extends GameObject {
         if (getActive() || executeAlways) {
             if (DataFile.getHighscore() < score) {
                 //setzen des Highscores in der Datenbank
-                Database.setHighscore((int) score, System.nanoTime());
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                async(() -> Database.setHighscore((int) score, dtf.format(now)));
 
                 // lokales Speichern des Highscores
                 DataFile.setHighscore((int) score);

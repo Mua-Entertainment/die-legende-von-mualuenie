@@ -40,7 +40,7 @@ public final class Database {
         }
     }
 
-    public static void setHighscore(int value, long date) {
+    public static void setHighscore(int value, String date) {
         connect(con -> {
             try {
                 DataFile.setHighscore(value);
@@ -49,7 +49,7 @@ public final class Database {
                 Statement stmt = con.createStatement();
 
                 stmt.executeUpdate("DELETE FROM users WHERE id='" + DataFile.getUID() + '\'');
-                stmt.executeUpdate("INSERT INTO users (id, name, highscore, date) VALUE (" + DataFile.getUID() + ", '" + DataFile.getName() + "', " + value + ", " + date + ")");
+                stmt.executeUpdate("INSERT INTO users (id, name, highscore, date) VALUE (" + DataFile.getUID() + ", '" + DataFile.getName() + "', " + value + ", '" + date + "')");
             } catch (Exception e) {
                 System.out.println(e.getClass().getTypeName());
             }
@@ -64,7 +64,7 @@ public final class Database {
                 Statement stmt = con.createStatement();
 
                 stmt.executeUpdate("DELETE FROM users WHERE id=" + DataFile.getUID());
-                stmt.executeUpdate("INSERT INTO users (id, name, highscore, date) VALUE (" + DataFile.getUID() + ", '" + name + "', " + DataFile.getHighscore() + ", " + DataFile.getDate()+ ")");
+                stmt.executeUpdate("INSERT INTO users (id, name, highscore, date) VALUE (" + DataFile.getUID() + ", '" + name + "', " + DataFile.getHighscore() + ", '" + DataFile.getDate()+ "')");
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println(e.getClass().getTypeName());
@@ -83,7 +83,7 @@ public final class Database {
                 ResultSet rs = stmt.executeQuery(query);
 
                 while (rs.next()) {
-                    User user = new User(rs.getString("id"), rs.getString("name"), rs.getInt("highscore"), rs.getLong("date"));
+                    User user = new User(rs.getString("id"), rs.getString("name"), rs.getInt("highscore"), rs.getString("date"));
                     result.add(user);
                 }
             } catch (SQLException e) {
