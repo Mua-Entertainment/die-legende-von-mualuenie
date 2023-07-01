@@ -27,7 +27,7 @@ public class Mualuenie extends ImageObject {
 
 
     //setzen der Animationen
-    private final AnimationFrame[] run = new AnimationFrame[]{
+    private AnimationFrame[] run = new AnimationFrame[]{
             new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\default\\run-1.png")),
             new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\default\\run-2.png")),
             new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\default\\run-3.png")),
@@ -35,13 +35,13 @@ public class Mualuenie extends ImageObject {
             new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\default\\run-5.png")),
             new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\default\\run-6.png"))
     };
-    private final AnimationFrame[] jump = new AnimationFrame[]{
+    private AnimationFrame[] jump = new AnimationFrame[]{
             new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\default\\jump-1.png")),
             new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\default\\jump-2.png")),
             new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\default\\jump-3.png")),
             new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\default\\jump-4.png"))
     };
-    private final AnimationFrame[] air = new AnimationFrame[]{
+    private AnimationFrame[] air = new AnimationFrame[]{
             new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\default\\jump-4.png"))
     };
 
@@ -83,10 +83,53 @@ public class Mualuenie extends ImageObject {
         animator = new Animator();
         addComponent(animator);
 
+        //setze des skins
+
         skin = Program.data.getMuaSkin();
 
-        if (skin == Skin.DEFAULT) animator.setFrames(run);
-        if (skin == Skin.KNIGHT) animator.setFrames(runKnight);
+        if (skin == Skin.KNIGHT) air[0] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\jump-4.png"));
+        if (skin == Skin.KNIGHT) {
+            jump[0] = new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\knight\\jump-1.png"));
+            jump[1] = new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\knight\\jump-2.png"));
+            jump[2] = new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\knight\\jump-3.png"));
+            jump[3] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\jump-4.png"));}
+        if (skin == Skin.KNIGHT) {
+            run[0] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\run-1.png"));
+            run[1] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\run-2.png"));
+            run[2] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\run-3.png"));
+            run[3] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\run-4.png"));
+            run[4] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\run-5.png"));
+            run[5] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\knight\\run-6.png"));}
+
+        if (skin == Skin.PIRATE) air[0] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\pirate\\jump-4.png"));
+        if (skin == Skin.PIRATE) {
+            jump[0] = new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\pirate\\jump-1.png"));
+            jump[1] = new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\pirate\\jump-2.png"));
+            jump[2] = new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\pirate\\jump-3.png"));
+            jump[3] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\pirate\\jump-4.png"));}
+        if (skin == Skin.PIRATE) {
+            run[0] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\pirate\\run-1.png"));
+            run[1] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\pirate\\run-2.png"));
+            run[2] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\pirate\\run-3.png"));
+            run[3] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\pirate\\run-4.png"));
+            run[4] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\pirate\\run-5.png"));
+            run[5] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\pirate\\run-6.png"));}
+
+        if (skin == Skin.MARTIAN) air[0] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\martian\\jump-4.png"));
+        if (skin == Skin.MARTIAN) {
+            jump[0] = new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\martian\\jump-1.png"));
+            jump[1] = new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\martian\\jump-2.png"));
+            jump[2] = new AnimationFrame(.05f, () -> setSrc("img\\obj\\mua\\martian\\jump-3.png"));
+            jump[3] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\martian\\jump-4.png"));}
+        if (skin == Skin.MARTIAN) {
+            run[0] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\martian\\run-1.png"));
+            run[1] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\martian\\run-2.png"));
+            run[2] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\martian\\run-3.png"));
+            run[3] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\martian\\run-4.png"));
+            run[4] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\martian\\run-5.png"));
+            run[5] = new AnimationFrame(.1f, () -> setSrc("img\\obj\\mua\\martian\\run-6.png"));}
+
+        animator.setFrames(run);
     }
 
     @Override
@@ -97,15 +140,13 @@ public class Mualuenie extends ImageObject {
             if (state == State.GROUND && airtime > 5f / getFPS()) {
                 state = State.AIR;
                 currentJumpSpeed = 0;
-                if (skin == Skin.DEFAULT) animator.setFrames(air);
-                if (skin == Skin.KNIGHT) animator.setFrames(airKnight);
+                animator.setFrames(air);
             }
 
             //Übergang Springen -> Fallen
             if (state == State.JUMP && airtime > .3f) {
                 state = State.AIR;
-                if (skin == Skin.DEFAULT) animator.setFrames(air);
-                if (skin == Skin.KNIGHT) animator.setFrames(airKnight);
+                animator.setFrames(air);
             }
 
 
@@ -147,10 +188,9 @@ public class Mualuenie extends ImageObject {
         state = State.JUMP;
         currentJumpSpeed = -JUMPFORCE;
 
-        switch (skin) {
-            case DEFAULT -> animator.setFrames(jump);
-            case KNIGHT -> animator.setFrames(jumpKnight);
-        }
+
+        animator.setFrames(jump);
+
 
         if (yihaaEnabled && Math.random() < YIHAA_PROBABILITY) {
             new WaveAudio("audio\\yihaa.wav").play(false);
@@ -164,10 +204,9 @@ public class Mualuenie extends ImageObject {
             airtime = 0;
             state = State.GROUND;
 
-            switch (skin) {
-                case DEFAULT -> animator.setFrames(run);
-                case KNIGHT -> animator.setFrames(runKnight);
-            }
+
+            animator.setFrames(run);
+
 
             setGlobalPosition(getGlobalPosition().x, other.getGlobalPosition().y + other.getComponents(Collider.class).get(0).getPadding().top() - getSize().height + 9f / 32f);
         }
