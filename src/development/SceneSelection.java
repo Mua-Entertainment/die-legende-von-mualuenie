@@ -19,6 +19,7 @@ public class SceneSelection extends GameObject {
 
         scene = Scene.OVERWORLD;
         sceneLabel = createMenuLabel(this, scene.name().toLowerCase(), 2);
+        sceneLabel.setColor(Color.white);
 
         engine.Button leftBtn = new engine.Button();
         addChildren(leftBtn);
@@ -33,6 +34,8 @@ public class SceneSelection extends GameObject {
         rightBtn.setPosition((getCanvasSize().width - rightBtn.getWidth()) / 2 + 1.5f, 2);
         rightBtn.setSrc("img\\ui\\arrow-right.png");
         rightBtn.click.subscribe(this::switchRight);
+
+        createMenuButton(this, "Spielen", this::play, 2.75f);
     }
 
     private void switchLeft() {
@@ -48,9 +51,23 @@ public class SceneSelection extends GameObject {
     }
 
     private void switchRight() {
+        int index = List.of(Scene.values()).indexOf(scene);
+        index++;
 
+        if (index >= Scene.values().length) {
+            index = 0;
+        }
+
+        scene = Scene.values()[index];
+        loadScene();
     }
 
-    private void loadScene() {}
+    private void loadScene() {
+        sceneLabel.setText(scene.name().toLowerCase());
+    }
 
+    private void play() {
+        add(new PlayMode(scene));
+        destroy();
+    }
 }
