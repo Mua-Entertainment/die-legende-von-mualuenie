@@ -34,7 +34,8 @@ public class PlayMode extends GameObject {
         score = 0;
 
         //Hintergrund
-        setCanvasBackground(new Color(0xBEF9FF));
+        if (scenes == Scenes.OW) setCanvasBackground(new Color(0xBEF9FF));
+        else setCanvasBackground(new Color(0x45476c ));
 
         // Weltgenerator
         Chunk chunk;
@@ -48,7 +49,7 @@ public class PlayMode extends GameObject {
         addChildren(scoreLabel);
         scoreLabel.setGlobalPosition((getCanvasSize().width - getWidth())/2f,0f);
         scoreLabel.setFont(getFont("font\\pixel.ttf").deriveFont(25f));
-        scoreLabel.setColor(Color.black);
+        scoreLabel.setColor(Color.white);
 
         // Müaluenie
         mua = new Mualuenie();
@@ -65,7 +66,7 @@ public class PlayMode extends GameObject {
         //erhöhung des scores
         score += 100f / getFPS();
 
-        scoreLabel.setText("Score: " + (int) score + "  -  " + coins + " coins");
+        scoreLabel.setText("Score: " + (int) score);
     }
 
     public void gameOver(boolean showGameOverScreen, boolean executeAlways)
