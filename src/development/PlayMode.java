@@ -4,6 +4,7 @@ package development;
 
 import engine.Button;
 import engine.GameObject;
+import engine.ImageObject;
 import engine.Label;
 
 import java.awt.*;
@@ -21,9 +22,8 @@ public class PlayMode extends GameObject {
     public static Mualuenie mua;
     public static int coins;
     public static float score;
-    private Label scoreLabel = new Label();
-    private Button pauseButton;
-
+    private final Label scoreLabel = new Label();
+    private final Label coinsLabel = new Label();
 
     @Override
     protected void load() {
@@ -55,7 +55,18 @@ public class PlayMode extends GameObject {
         mua = new Mualuenie();
         addChildren(mua);
 
-        pauseButton = createButton(this, "Pause", this::pause, getCanvasSize().width - 2, 0.5f);
+        createButton(this, "Pause", this::pause, getCanvasSize().width - 2, 0.5f);
+
+        ImageObject coinIcon = new ImageObject();
+        addChildren(coinIcon);
+        coinIcon.setSrc("img\\obj\\mua_coin.png");
+        coinIcon.setSize(.3f, .3f);
+        coinIcon.setPosition(.2f, .2f);
+
+        addChildren(coinsLabel);
+        coinsLabel.setPosition(.3f, -.12f);
+        coinsLabel.setFont(getFont("font\\pixel.ttf").deriveFont(15f));
+        coinsLabel.setColor(Color.white);
     }
 
     @Override
@@ -67,6 +78,7 @@ public class PlayMode extends GameObject {
         score += 100f / getFPS();
 
         scoreLabel.setText("Score: " + (int) score);
+        coinsLabel.setText(String.valueOf(coins));
     }
 
     public void gameOver(boolean showGameOverScreen, boolean executeAlways)

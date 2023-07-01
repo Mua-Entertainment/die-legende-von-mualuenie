@@ -1,5 +1,5 @@
 package development;
 
 public enum Skin {
-    DEFAULT, KNIGHT
+    DEFAULT, KNIGHT, MARTIAN, PIRATE
 }
