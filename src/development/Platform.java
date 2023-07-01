@@ -30,31 +30,32 @@ public class Platform extends ImageObject {
     @Override
     protected void update() {
         super.update();
-        if (!paused) {
-            //bewegung auf und ab
-            if (!randomMovement) {
-                if (time >= 2 && floatingUp) {
-                    floatingUp = false;
-                    time = 0;
-                }
-                if (time >= 2 && !floatingUp) {
-                    floatingUp = true;
-                    time = 0;
-                }
-            } else {
-                if (time * Math.random() >= 1 && floatingUp) {
-                    floatingUp = false;
-                    time = 0;
-                }
-                if (time * Math.random() >= 1 && !floatingUp) {
-                    floatingUp = true;
-                    time = 0;
-                }
+
+        //bewegung auf und ab
+        if (!randomMovement) {
+            if (time >= 2 && floatingUp) {
+                floatingUp = false;
+                time = 0;
             }
-            if (floatingUp) move(0, -1f / getFPS());
-            if (!floatingUp) move(0, 1f / getFPS());
-            time += 1 / getFPS();
+            if (time >= 2 && !floatingUp) {
+                floatingUp = true;
+                time = 0;
+            }
+        } else {
+            if (time * Math.random() >= 1 && floatingUp) {
+                floatingUp = false;
+                time = 0;
+            }
+            if (time * Math.random() >= 1 && !floatingUp) {
+                floatingUp = true;
+                time = 0;
+            }
         }
+
+        if (floatingUp) move(0, -1f / getFPS());
+        if (!floatingUp) move(0, 1f / getFPS());
+
+        time += 1 / getFPS();
     }
 }
 

@@ -2,24 +2,23 @@ package development;
 
 import engine.SafeList;
 import java.sql.*;
-import java.util.Collections;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
-public class Database {
-    private final String HOST = "sql7.freesqldatabase.com";
-    private final String USER = "sql7628410";
-    private final String PASSWORD = "ua2Jkhhx4J";
-    private final String PORT = "3306";
-    private final String CONNECTION_URL = "jdbc:mysql://" + HOST + ':' + PORT + '/' + USER;
+public final class Database {
+    private static final String HOST = "sql7.freesqldatabase.com";
+    private static final String USER = "sql7628410";
+    private static final String PASSWORD = "ua2Jkhhx4J";
+    private static final String PORT = "3306";
+    private static final String CONNECTION_URL = "jdbc:mysql://" + HOST + ':' + PORT + '/' + USER;
 
-    public Database() {
+    public static void update() {
         // trägt offline gespeicherte Dateien in die Datenbank ein
-        setHighscore(Program.data.getHighscore(), Program.data.getDate());
-        setName(Program.data.getName());
+        setHighscore(DataFile.getHighscore(), DataFile.getDate());
+        setName(DataFile.getName());
     }
 
-    private void connect(Consumer<Connection> func) {
+    private static void connect(Consumer<Connection> func) {
         Connection con = null;
 
         try {
@@ -41,31 +40,31 @@ public class Database {
         }
     }
 
-    public void setHighscore(int value, long date) {
+    public static void setHighscore(int value, long date) {
         connect(con -> {
             try {
-                Program.data.setHighscore(value);
-                Program.data.setDate(date);
+                DataFile.setHighscore(value);
+                DataFile.setDate(date);
 
                 Statement stmt = con.createStatement();
 
-                stmt.executeUpdate("DELETE FROM users WHERE id='" + Program.data.getUID() + '\'');
-                stmt.executeUpdate("INSERT INTO users (id, name, highscore, date) VALUE (" + Program.data.getUID() + ", '" + Program.data.getName() + "', " + value + ", " + date + ")");
+                stmt.executeUpdate("DELETE FROM users WHERE id='" + DataFile.getUID() + '\'');
+                stmt.executeUpdate("INSERT INTO users (id, name, highscore, date) VALUE (" + DataFile.getUID() + ", '" + DataFile.getName() + "', " + value + ", " + date + ")");
             } catch (Exception e) {
                 System.out.println(e.getClass().getTypeName());
             }
         });
     }
 
-    public void setName(String name) {
+    public static void setName(String name) {
         connect(con -> {
             try {
-                Program.data.setName(name);
+                DataFile.setName(name);
 
                 Statement stmt = con.createStatement();
 
-                stmt.executeUpdate("DELETE FROM users WHERE id=" + Program.data.getUID());
-                stmt.executeUpdate("INSERT INTO users (id, name, highscore, date) VALUE (" + Program.data.getUID() + ", '" + name + "', " + Program.data.getHighscore() + ", " + Program.data.getDate()+ ")");
+                stmt.executeUpdate("DELETE FROM users WHERE id=" + DataFile.getUID());
+                stmt.executeUpdate("INSERT INTO users (id, name, highscore, date) VALUE (" + DataFile.getUID() + ", '" + name + "', " + DataFile.getHighscore() + ", " + DataFile.getDate()+ ")");
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println(e.getClass().getTypeName());
@@ -73,7 +72,7 @@ public class Database {
         });
     }
 
-    public SafeList<User> getSortedHighscores() throws SQLException {
+    public static SafeList<User> getSortedHighscores() throws SQLException {
         SafeList<User> result = new SafeList<>();
         AtomicBoolean connected = new AtomicBoolean(false);
 

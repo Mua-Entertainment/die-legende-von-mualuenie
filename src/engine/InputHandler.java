@@ -94,12 +94,9 @@ public class InputHandler implements KeyListener, MouseListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (!keyPressed) {
-            keyDown = keyPressed = true;
-        }
-
-        // fügt gedrückte Tastencodes hinzu
         if (!pressedKeys.contains(e.getKeyCode())) {
+            keyDown = keyPressed = true;
+            // fügt gedrückte Tastencodes hinzu
             pressedKeys.add(e.getKeyCode());
         }
     }

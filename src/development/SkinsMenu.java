@@ -24,7 +24,7 @@ public class SkinsMenu extends GameObject {
     protected void load() {
         super.load();
 
-        skin = Program.data.getMuaSkin();
+        skin = DataFile.getMuaSkin();
         setCanvasBackground(new Color(0x17C255));
 
         // Button, der zum Hauptmenü zurückführt
@@ -84,12 +84,12 @@ public class SkinsMenu extends GameObject {
     }
 
     private void selectSkin() {
-        if (Program.data.getUnlockedSkins().contains(skin)) {
-            Program.data.setMuaSkin(skin);
+        if (DataFile.getUnlockedSkins().contains(skin)) {
+            DataFile.setMuaSkin(skin);
             returnToMainMenu();
-        } else if (Program.data.getCoins() >= SKIN_PRICE) {
-            Program.data.addCoins(-SKIN_PRICE);
-            Program.data.unlockSkin(skin);
+        } else if (DataFile.getCoins() >= SKIN_PRICE) {
+            DataFile.addCoins(-SKIN_PRICE);
+            DataFile.unlockSkin(skin);
             loadSkin();
         }
     }
@@ -99,7 +99,7 @@ public class SkinsMenu extends GameObject {
         String fileName = skin.name().toLowerCase();
         String src = "img\\obj\\mua\\" + fileName + "\\run-6.png";
 
-        String btnText = Program.data.getUnlockedSkins().contains(skin) ? "Auswählen" : (SKIN_PRICE + " Coins");
+        String btnText = DataFile.getUnlockedSkins().contains(skin) ? "Auswählen" : (SKIN_PRICE + " Coins");
         selectBtn.label.setText(btnText);
 
         skinDisplay.setSrc(src);

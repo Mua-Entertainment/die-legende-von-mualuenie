@@ -3,21 +3,12 @@
 package engine;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 // Superklasse für alle Objekte auf der Spieloberfläche
 public class GameObject {
-
-    // gibt an ob Spiel pausiert ist
-    protected static boolean paused;
 
     // Position im Spielfenster
     private Point position;
@@ -46,6 +37,9 @@ public class GameObject {
     // Komponenten, die diesem Objekt weitere Funktionen verleihen
     private SafeList<Component> components;
 
+    // Objekt wird nicht mehr geupdated
+    private boolean active;
+
 
     // wird nach das Objekt im Spielfeld hinzugefügt wurde aufgerufen
     // soll den Konstruktor ersetzen, damit zu dem Zeitpunkt die meisten Werte nicht mehr null sind
@@ -55,6 +49,7 @@ public class GameObject {
         size = Size.ONE;
         children = new SafeList<>();
         components = new SafeList<>();
+        active = true;
         visible = true;
     }
 
@@ -201,6 +196,16 @@ public class GameObject {
     public void hide() {
         visible = false;
         children.forEach(GameObject::hide);
+    }
+
+    // (de)aktiviert dieses Objekt und alle Kinder
+    public void setActive(boolean active) {
+        this.active = active;
+        children.forEach(c -> c.setActive(active));
+    }
+
+    public boolean getActive() {
+        return active;
     }
 
     public boolean getVisibility() {

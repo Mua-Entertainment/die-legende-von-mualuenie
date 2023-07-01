@@ -17,7 +17,7 @@ public class PauseScreen extends RectObject {
     }
 
     private void continuePlaying() {
-        paused = false;
+        PlayMode.getInstance().setActive(true);
         destroy();
     }
 

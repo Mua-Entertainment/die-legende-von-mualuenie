@@ -2,6 +2,7 @@
 
 package engine;
 
+import development.DataFile;
 import development.Program;
 
 import javax.swing.*;
@@ -77,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable {
                 update();
                 repaint();
 
-                Thread.sleep((int) (1000f / Program.data.getMaxFPS()));
+                Thread.sleep((int) (1000f / DataFile.getMaxFPS()));
             }
         } catch (InterruptedException ex) {
             ex.printStackTrace();
@@ -88,7 +89,7 @@ public class GamePanel extends JPanel implements Runnable {
     private void configFPSDisplay() {
         while (true) {
             try {
-                fpsDisplay = Math.round(fps) + "/" + Program.data.getMaxFPS() + " FPS";
+                fpsDisplay = Math.round(fps) + "/" + DataFile.getMaxFPS() + " FPS";
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
@@ -114,8 +115,12 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
 
-        // Führt für jedes GameObject update() aus
-        gameObjects.forEach(GameObject::update);
+        // Führt für jedes aktivierte GameObject update() aus
+        gameObjects.forEach(obj -> {
+            if (obj.getActive()) {
+                obj.update();
+            }
+        });
 
         // updatet den InputHandler
         input.update();

@@ -21,18 +21,18 @@ public class SettingScreen extends GameObject {
         // Button mit dem man zum MainMenu zurück kommt
         createButton(this, "Zurück", this::returnToMainMenu, 0.5f, 0.5f);
 
-        String text = Program.data.getMusicEnabled() ? "Musik aus" : "Musik ein";
+        String text = DataFile.getMusicEnabled() ? "Musik aus" : "Musik ein";
         musicButton = createMenuButton(this, text, this::switchMusicSettings, 1f);
 
-        text = Program.data.getSFXEnabled() ? "SFX aus" : "SFX ein";
+        text = DataFile.getSFXEnabled() ? "SFX aus" : "SFX ein";
         sfxButton = createMenuButton(this, text, this::switchSFXSettings, 1.75f);
 
-        fpsLabel = createMenuLabel(this, Program.data.getMaxFPS() + " max. FPS", 2.5f);
+        fpsLabel = createMenuLabel(this, DataFile.getMaxFPS() + " max. FPS", 2.5f);
         fpsSlider = createMenuSlider(this, 2.9f);
         fpsSlider.button.release.subscribe(this::switchMaxFPS);
-        fpsSlider.setValue((Program.data.getMaxFPS() - 10) / 990f);
+        fpsSlider.setValue((DataFile.getMaxFPS() - 10) / 990f);
 
-        createMenuLabel(this, "Name: " + Program.data.getName(), 3.5f);
+        createMenuLabel(this, "Name: " + DataFile.getName(), 3.5f);
         createMenuButton(this, "Ändern", this::openNameInput, 4f);
     }
 
@@ -54,7 +54,7 @@ public class SettingScreen extends GameObject {
     }
 
     private void switchMaxFPS() {
-        Program.data.setMaxFPS(getSliderFPSValue());
+        DataFile.setMaxFPS(getSliderFPSValue());
     }
 
     private int getSliderFPSValue() {
@@ -62,8 +62,8 @@ public class SettingScreen extends GameObject {
     }
 
     private void switchMusicSettings() {
-        boolean enabled = Program.data.getMusicEnabled();
-        Program.data.setMusicEnabled(!enabled);
+        boolean enabled = DataFile.getMusicEnabled();
+        DataFile.setMusicEnabled(!enabled);
 
         if (enabled) {
             Program.music.stop();
@@ -75,8 +75,8 @@ public class SettingScreen extends GameObject {
     }
 
     private void switchSFXSettings() {
-        boolean enabled = Program.data.getSFXEnabled();
-        Program.data.setSFXEnabled(!enabled);
+        boolean enabled = DataFile.getSFXEnabled();
+        DataFile.setSFXEnabled(!enabled);
 
         sfxButton.label.setText(enabled ? "SFX ein" : "SFX aus");
     }

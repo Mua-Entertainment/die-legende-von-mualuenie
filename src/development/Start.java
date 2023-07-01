@@ -49,10 +49,9 @@ public class Start extends ImageObject {
     @Override
     protected void update() {
         super.update();
-        if(!paused) {
-            //bewegung der welt
-            move((-2 - 0.0001f * PlayMode.score)/ getFPS(), 0);
-        }
+
+        //bewegung der welt
+        move((-2 - 0.0001f * PlayMode.score)/ getFPS(), 0);
 
         //löschen, falls außerhalb des bildschirms
         if (getGlobalPosition().x <= -getWidth()) {

@@ -23,19 +23,19 @@ public class MainMenu extends GameObject {
         headBar.setSize(getCanvasSize().width, 0.5f);
 
         // Zeigt Name und Coins an
-        String text = Program.data.getName() + "  -  " + Program.data.getCoins() + " Coins  -  Highscore: " + Program.data.getHighscore();
+        String text = DataFile.getName() + "  -  " + DataFile.getCoins() + " Coins  -  Highscore: " + DataFile.getHighscore();
         createMenuLabel(this, text, 0).setColor(Color.white);
 
         // Listet die globalen Highscores auf
         createMenuLabel(this, "Highscores", 1f);
 
         try {
-            SafeList<User> highscores = Program.database.getSortedHighscores();
+            SafeList<User> highscores = Database.getSortedHighscores();
 
-            for (int i = 0; i < Math.min(3, Program.database.getSortedHighscores().size()); i++) {
+            for (int i = 0; i < Math.min(3, Database.getSortedHighscores().size()); i++) {
                 User user = highscores.get(i);
 
-                boolean isThisUser = Program.data.getUID().equals(user.id());
+                boolean isThisUser = DataFile.getUID().equals(user.id());
                 String name = isThisUser ? "dir" : user.name();
 
                 Label scoreLabel = createMenuLabel(this, String.valueOf(user.highscore()), 1.5f + i * 0.7f);

@@ -41,20 +41,18 @@ public class ObstacleBird extends ImageObject {
     protected void update() {
         super.update();
 
-        if(!paused) {
-            //Übergang Flug -> Sturzflug
-            if (state == State.FLYING && getGlobalPosition().x > 5 && Math.random() > .99) {
-                state = State.DIVING;
-                animator.setFrames(dive);
+        //Übergang Flug -> Sturzflug
+        if (state == State.FLYING && getGlobalPosition().x > 5 && Math.random() > .99) {
+            state = State.DIVING;
+            animator.setFrames(dive);
 
-            }
-
-            //Sturzflug
-            if (state == State.DIVING) move(0f, 4f / getFPS());
-
-            //bewegung
-            move(-2f / getFPS(), 0f);
         }
+
+        //Sturzflug
+        if (state == State.DIVING) move(0f, 4f / getFPS());
+
+        //bewegung
+        move(-2f / getFPS(), 0f);
     }
 
     //

@@ -2,6 +2,7 @@
 
 package development;
 
+import engine.Button;
 import engine.GameObject;
 import engine.Label;
 
@@ -11,20 +12,17 @@ import java.awt.*;
 public class PlayMode extends GameObject {
 
     private static PlayMode instance;
+    public static Scenes scenes = Scenes.DW;
 
     public enum Scenes {
         OW, DW
     }
 
     public static Mualuenie mua;
-
     public static int coins;
-
     public static float score;
-
     private Label scoreLabel = new Label();
-
-    public static Scenes scenes = Scenes.DW;
+    private Button pauseButton;
 
 
     @Override
@@ -32,7 +30,6 @@ public class PlayMode extends GameObject {
         super.load();
 
         instance = this;
-        paused = false;
         coins = 0;
         score = 0;
 
@@ -57,7 +54,7 @@ public class PlayMode extends GameObject {
         mua = new Mualuenie();
         addChildren(mua);
 
-        createButton(this, "Pause", this::pause, getCanvasSize().width - 2, 0.5f);
+        pauseButton = createButton(this, "Pause", this::pause, getCanvasSize().width - 2, 0.5f);
     }
 
     @Override
@@ -66,38 +63,37 @@ public class PlayMode extends GameObject {
         super.update();
 
         //erhöhung des scores
-        if(!paused) score += 100f / getFPS();
+        score += 100f / getFPS();
 
         scoreLabel.setText("Score: " + (int) score + "  -  " + coins + " coins");
     }
 
     public void gameOver(boolean showGameOverScreen, boolean executeAlways)
     {
-        if (!paused || executeAlways) {
-            if (Program.data.getHighscore() < score) {
+        if (getActive() || executeAlways) {
+            if (DataFile.getHighscore() < score) {
                 //setzen des Highscores in der Datenbank
-                Program.database.setHighscore((int) score, System.nanoTime());
+                Database.setHighscore((int) score, System.nanoTime());
 
                 // lokales Speichern des Highscores
-                Program.data.setHighscore((int) score);
+                DataFile.setHighscore((int) score);
             }
 
-            Program.data.addCoins(coins);
+            DataFile.addCoins(coins);
 
             if (showGameOverScreen) {
                 add(new GameOverScreen());
+                setActive(false);
             } else {
                 add(new MainMenu());
                 destroy();
             }
         }
-
-        paused = true;
     }
 
     private void pause() {
-        paused = true;
         add(new PauseScreen());
+        setActive(false);
     }
 
     public static PlayMode getInstance() {

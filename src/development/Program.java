@@ -7,14 +7,15 @@ import engine.WaveAudio;
 
 public class Program {
 
-    public static final DataFile data = new DataFile();
-    public static final Database database = new Database();
     public static final WaveAudio music = new WaveAudio("audio\\music.wav");
     public static Game game;
 
     public static void main(String[] args) {
 
-        if (data.getMusicEnabled()) {
+        DataFile.update();
+        Database.update();
+
+        if (DataFile.getMusicEnabled()) {
             music.play(true);
         }
 

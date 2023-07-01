@@ -4,6 +4,7 @@ import engine.GameObject;
 import engine.Label;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
 
 public class NameInput extends GameObject {
 
@@ -22,7 +23,7 @@ public class NameInput extends GameObject {
 
         createMenuLabel(this, "Gib deinen Namen ein.", 0.5f);
 
-        nameLabel = createMenuLabel(this, Program.data.getName(), 2);
+        nameLabel = createMenuLabel(this, DataFile.getName(), 2);
         nameLabel.setFont(nameLabel.getFont().deriveFont(30f));
 
         createMenuButton(this, "Weiter", this::exit, 4);
@@ -33,7 +34,6 @@ public class NameInput extends GameObject {
         super.update();
 
         if (getInput().anyKeyDown()) {
-
             for (int key : getInput().getPressedKeys()) {
                 if (Character.isAlphabetic((char) key) || Character.isDigit((char) key)) {
                     char c = (char) key;
@@ -51,7 +51,8 @@ public class NameInput extends GameObject {
     }
 
     private void exit() {
-        Program.database.setName(nameLabel.getText());
+        DataFile.setName(nameLabel.getText());
+        Database.setName(nameLabel.getText());
         add(objToReturn);
         destroy();
     }

@@ -6,13 +6,13 @@ import java.nio.file.Path;
 import engine.SafeList;
 import org.json.*;
 
-public class DataFile {
+public final class DataFile {
 
-    private final int SEED = 2;
-    private final Path PATH = Path.of("player.dat");
-    private JSONObject jo;
+    private static final int SEED = 2;
+    private static final Path PATH = Path.of("player.dat");
+    private static JSONObject jo;
 
-    public DataFile() {
+    public static void update() {
         try {
             boolean loaded;
             String json = "{\"uid\":\"" + generateUID() + "\",\"highscore\":0,\"date\":0,\"skin\":\"DEFAULT\",\"music\":true,\"sfx\":true,\"coins\":0,\"skins\":[\"DEFAULT\"],\"name\":\"\",\"fps\":100}";
@@ -44,7 +44,7 @@ public class DataFile {
     }
 
     // verschlüsselt Text
-    private String decode(String text, int seed) {
+    private static String decode(String text, int seed) {
         StringBuilder result = new StringBuilder();
 
         for (char c : text.toCharArray()) {
@@ -54,7 +54,7 @@ public class DataFile {
         return result.toString();
     }
 
-    private void write() {
+    private static void write() {
         try {
             Files.writeString(PATH, decode(jo.toString(), SEED));
         } catch (IOException e2) {
@@ -63,7 +63,7 @@ public class DataFile {
     }
 
     // gibt die UUID des Nutzers zurück
-    public String getUID() {
+    public static String getUID() {
         try {
             return jo.getString("uid");
         } catch (IllegalArgumentException e1) {
@@ -74,61 +74,61 @@ public class DataFile {
         }
     }
 
-    public int getHighscore() {
+    public static int getHighscore() {
         return jo.getInt("highscore");
     }
 
-    public void setHighscore(int value) {
+    public static void setHighscore(int value) {
         jo.put("highscore", value);
         write();
     }
 
-    public long getDate() {
+    public static long getDate() {
         return jo.getLong("date");
     }
 
-    public void setDate(long date) {
+    public static void setDate(long date) {
         jo.put("date", date);
         write();
     }
 
-    public Skin getMuaSkin() {
+    public static Skin getMuaSkin() {
         return Skin.valueOf(jo.get("skin").toString());
     }
 
-    public void setMuaSkin(Skin skin) {
+    public static void setMuaSkin(Skin skin) {
         jo.put("skin", skin);
         write();
     }
 
-    public boolean getMusicEnabled() {
+    public static boolean getMusicEnabled() {
         return jo.getBoolean("music");
     }
 
-    public void setMusicEnabled(boolean enabled) {
+    public static void setMusicEnabled(boolean enabled) {
         jo.put("music", enabled);
         write();
     }
 
-    public boolean getSFXEnabled() {
+    public static boolean getSFXEnabled() {
         return jo.getBoolean("sfx");
     }
 
-    public void setSFXEnabled(boolean enabled) {
+    public static void setSFXEnabled(boolean enabled) {
         jo.put("sfx", enabled);
         write();
     }
 
-    public int getCoins() {
+    public static int getCoins() {
         return jo.getInt("coins");
     }
 
-    public void addCoins(int coins) {
+    public static void addCoins(int coins) {
         jo.put("coins", getCoins() + coins);
         write();
     }
 
-    public SafeList<Skin> getUnlockedSkins() {
+    public static SafeList<Skin> getUnlockedSkins() {
         SafeList<Skin> result = new SafeList<>();
 
         jo.getJSONArray("skins").forEach(s -> {
@@ -138,20 +138,20 @@ public class DataFile {
         return result;
     }
 
-    public void unlockSkin(Skin skin) {
+    public static void unlockSkin(Skin skin) {
         jo.getJSONArray("skins").put(skin.name());
     }
 
-    public String getName() {
+    public static String getName() {
         return jo.getString("name");
     }
 
-    public void setName(String name) {
+    public static void setName(String name) {
         jo.put("name", name);
         write();
     }
 
-    private String generateUID() {
+    private static String generateUID() {
         String result = String.valueOf(System.nanoTime());
         String ran = String.valueOf((int) (Math.random() * 100000));
 
@@ -162,11 +162,11 @@ public class DataFile {
         return result + ran;
     }
 
-    public int getMaxFPS() {
+    public static int getMaxFPS() {
         return jo.getInt("fps");
     }
 
-    public void setMaxFPS(int fps) {
+    public static void setMaxFPS(int fps) {
         jo.put("fps", fps);
         write();
     }

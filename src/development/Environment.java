@@ -11,7 +11,7 @@ public class Environment extends GameObject {
     protected void load() {
         super.load();
 
-        if (Program.data.getName().equals("")) {
+        if (DataFile.getName().equals("")) {
             // Anzeigen von Namen-Eingabe
             add(new NameInput(new MainMenu()));
         } else {
