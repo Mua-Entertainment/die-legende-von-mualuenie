@@ -94,7 +94,7 @@ public class PlayMode extends GameObject {
                 //setzen des Highscores in der Datenbank
                 LocalDateTime now = LocalDateTime.now();
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-                async(() -> Database.setHighscore((int) score, dtf.format(now)));
+                Database.setHighscore((int) score, dtf.format(now));
 
                 // lokales Speichern des Highscores
                 DataFile.setHighscore((int) score);

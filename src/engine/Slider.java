@@ -53,6 +53,6 @@ public class Slider extends ImageObject {
     }
 
     public void setValue(float value) {
-        button.setPosition(button.getWidth() / 2 + (getWidth() - button.getWidth()) * value, button.getY());
+        button.setPosition((getWidth() - button.getWidth()) * value, button.getY());
     }
 }

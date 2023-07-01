@@ -32,6 +32,11 @@ public class SettingScreen extends GameObject {
         fpsSlider.button.release.subscribe(this::switchMaxFPS);
         fpsSlider.setValue((DataFile.getMaxFPS() - 10) / 990f);
 
+        var x = new Slider();
+        add(x);
+        x.setValue(.5f);
+        System.out.println(x.getValue());
+
         createMenuLabel(this, "Name: " + DataFile.getName(), 3.5f);
         createMenuButton(this, "Ändern", this::openNameInput, 4f);
     }

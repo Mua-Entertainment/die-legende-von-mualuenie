@@ -52,7 +52,7 @@ public class NameInput extends GameObject {
 
     private void exit() {
         DataFile.setName(nameLabel.getText());
-        async(() -> Database.setName(nameLabel.getText()));
+        Database.setName(nameLabel.getText());
         add(objToReturn);
         destroy();
     }
