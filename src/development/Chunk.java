@@ -46,7 +46,25 @@ public class Chunk extends ImageObject {
                 addComponent(colliderR);
                 colliderR.setPadding(2.25f,0f,0f,0f);
             }
-            if (id >= 2) {
+            if (id == 2)
+            {
+                setSrc("img\\obj\\world\\ow\\ow-bridge.png");
+                setGlobalPosition(12.5f, 4f);
+                setSize(5f, 3f);
+                Collider collider = new Collider();
+                addComponent(collider);
+                collider.setPadding(0f,1f,0f,0f);
+            }
+            if (id == 3)
+            {
+                setSrc("img\\obj\\world\\ow\\ow-rocks.png");
+                setGlobalPosition(12.5f, 3.5f);
+                setSize(2.5f, 3.5f);
+                Collider collider = new Collider();
+                addComponent(collider);
+                collider.setPadding(10f/32f,5f/32f,0f,0f);
+            }
+            if (id >= 4) {
                 setSrc("img\\obj\\world\\ow\\ow-chunk.png");
                 setGlobalPosition(12.5f, 5f);
                 setSize(2.5f, 2f);
