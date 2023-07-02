@@ -21,16 +21,10 @@ public class Chunk extends ImageObject {
         //zufälliges setzen des Bodens
         if (PlayMode.getInstance().getScene() == Scene.OVERWORLD) {
             //Overworld Böden
-            id = (int) (Math.random() * 4);
-            if (id >= 1) {
-                setSrc("img\\obj\\world\\ow\\ow-chunk.png");
-                setGlobalPosition(12.5f, 5f);
-                setSize(2.5f, 2f);
-                Collider collider = new Collider();
-                addComponent(collider);
-            }
-            else{
-                setSrc("img\\obj\\world\\ow\\ow-hole.png");
+            id = (int) (Math.random() * 8);
+            if (id == 0)
+            {
+                setSrc("img\\obj\\world\\ow\\ow-large-hole.png");
                 setGlobalPosition(12.5f, 5f);
                 setSize(12.5f, 2f);
                 Collider colliderL = new Collider();
@@ -39,6 +33,25 @@ public class Chunk extends ImageObject {
                 Collider colliderR = new Collider();
                 addComponent(colliderR);
                 colliderR.setPadding(10f,0f,0f,0f);
+            }
+            if (id == 1)
+            {
+                setSrc("img\\obj\\world\\ow\\ow-hole.png");
+                setGlobalPosition(12.5f, 5f);
+                setSize(2.5f, 2f);
+                Collider colliderL = new Collider();
+                addComponent(colliderL);
+                colliderL.setPadding(0f,0f,2.25f,0f);
+                Collider colliderR = new Collider();
+                addComponent(colliderR);
+                colliderR.setPadding(2.25f,0f,0f,0f);
+            }
+            if (id >= 2) {
+                setSrc("img\\obj\\world\\ow\\ow-chunk.png");
+                setGlobalPosition(12.5f, 5f);
+                setSize(2.5f, 2f);
+                Collider collider = new Collider();
+                addComponent(collider);
             }
         }
         else {
