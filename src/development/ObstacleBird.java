@@ -71,7 +71,7 @@ public class ObstacleBird extends ImageObject {
 
 
         // Übergang Sturzflug ->Flug
-        if (state == State.DIVING)
+        if (state == State.DIVING && other instanceof Chunk || other instanceof Start)
         {
             state = State.DOVE;
             animator.setFrames(fly);

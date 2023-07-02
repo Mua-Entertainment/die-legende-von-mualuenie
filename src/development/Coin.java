@@ -39,8 +39,10 @@ public class Coin extends engine.ImageObject {
 
     //wenn eingesammelt
     private void onCollide(GameObject other, Collision collision) {
-        PlayMode.getInstance().coins += 1;
-        PlayMode.getInstance().score += 100;
-        destroy();
+        if (other instanceof Mualuenie) {
+            PlayMode.getInstance().coins += 1;
+            PlayMode.getInstance().score += 100;
+            destroy();
+        }
     }
 }
