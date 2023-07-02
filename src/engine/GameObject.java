@@ -279,7 +279,7 @@ public class GameObject {
             var pos = MouseInfo.getPointerInfo().getLocation();
 
             // wandelt Werte entsprechend der in den Settings angegebenen Einheiten um
-            float x = (pos.x - origin.x - panel.window.getX()) * panel.settings.xTiles() / (panel.getWidth() - 2 * origin.x);
+            float x = (pos.x - origin.x - panel.window.getX()) * panel.settings.xTiles() / (panel.getWidth() - 2 * origin.x) - .1f;
             float y = (pos.y - origin.y - panel.window.getY() - panel.window.getInsets().top) * panel.settings.yTiles() / (panel.getHeight() - 2 * origin.y);
 
             return new Point(x, y);

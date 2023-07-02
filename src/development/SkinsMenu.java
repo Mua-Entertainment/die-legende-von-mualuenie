@@ -5,6 +5,7 @@ package development;
 import engine.Button;
 import engine.GameObject;
 import engine.ImageObject;
+import engine.Label;
 import java.awt.*;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class SkinsMenu extends GameObject {
 
     private final int SKIN_PRICE = 50;
     private Skin skin;
+    private Label skinNameLabel;
     private Button selectBtn;
 
     // Aktuelle Skin-Anzeige
@@ -26,6 +28,9 @@ public class SkinsMenu extends GameObject {
 
         // Button, der zum Hauptmenü zurückführt
         createButton(this, "Zurück", this::returnToMainMenu, 0.5f, 0.5f);
+
+        // Label, der den Name des Skins Anzeigt
+        skinNameLabel = createMenuLabel(this, "", 1.25f);
 
         // Button, der Skin auswählt
         selectBtn = createMenuButton(this, "Auswählen", this::selectSkin, 4);
@@ -100,5 +105,15 @@ public class SkinsMenu extends GameObject {
         selectBtn.label.setText(btnText);
 
         skinDisplay.setSrc(src);
+
+        String name = "Müaluenie";
+
+        switch (skin) {
+            case KNIGHT -> name = "Ritterluenie";
+            case PIRATE -> name = "Piratenluenie";
+            case MARTIAN -> name = "Marsluenie";
+        }
+
+        skinNameLabel.setText(name);
     }
 }

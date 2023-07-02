@@ -56,7 +56,6 @@ public class Button extends ImageObject {
             if (getInput().mouseUp()) {
                 pressed = false;
                 release.invoke();
-                setBrightness(0);
             }
         }
     }
