@@ -8,6 +8,19 @@ public class Obstacle extends ImageObject {
 
     int id = 0;
 
+    private  final AnimationFrame[] campfire = new AnimationFrame[]{
+            new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\campfire-1.png")),
+            new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\campfire-2.png")),
+            new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\campfire-3.png")),
+            new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\campfire-4.png"))
+    };
+    private  final AnimationFrame[] grazingCow = new AnimationFrame[]{
+            new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\cow-grazing-1.png")),
+            new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\cow-grazing-2.png"))
+    };
+
+    Animator animator = new Animator();
+
     protected void load() {
         super.load();
         //Festlegen Bild und Collider
@@ -15,8 +28,35 @@ public class Obstacle extends ImageObject {
 
             //Overworld Obstacles
 
-            id = (int) (Math.random() * 3);
-            if (id >= 2) {
+            id = (int) (Math.random() * 5);
+
+            if (id >= 4) {
+                addComponent(animator);
+                animator.setFrames(campfire);
+                setGlobalPosition(getParent().getGlobalPosition().x + (float) Math.random() * (getParent().getWidth() - getWidth()), 4f);
+
+                Collider collider = new Collider();
+                collider.collide.subscribe(this::onCollide);
+                addComponent(collider);
+                collider.setPadding(8f / 32f, 8f / 32f, 8f / 32f, 0f);
+            }
+            if (id == 3) {
+                if (Math.random() < .5) {
+                    setSrc("img\\obj\\obstacles\\cow.png");
+                }
+                else
+                {
+                    addComponent(animator);
+                    animator.setFrames(grazingCow);
+                }
+                setGlobalPosition(getParent().getGlobalPosition().x + (float) Math.random() * (getParent().getWidth() - getWidth()), 4f+1f/32f);
+
+                Collider collider = new Collider();
+                collider.collide.subscribe(this::onCollide);
+                addComponent(collider);
+                collider.setPadding(3f / 32f, 14f / 32f, 5f / 32f, 1f/32f);
+            }
+            if (id == 2) {
                 setSrc("img\\obj\\obstacles\\bush-1.png");
                 setGlobalPosition(getParent().getGlobalPosition().x + (float) Math.random() * (getParent().getWidth() - getWidth()), 4f);
 

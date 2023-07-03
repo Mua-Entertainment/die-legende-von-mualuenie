@@ -105,6 +105,7 @@ public class PlayMode extends GameObject {
             if (showGameOverScreen) {
                 add(new GameOverScreen());
                 setActive(false);
+
             } else {
                 add(new MainMenu());
                 destroy();
