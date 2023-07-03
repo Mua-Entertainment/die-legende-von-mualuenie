@@ -15,7 +15,7 @@ public class Obstacle extends ImageObject {
             new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\campfire-4.png"))
     };
     private  final AnimationFrame[] grazingCow = new AnimationFrame[]{
-            new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\cow-grazing-1.png")),
+            new AnimationFrame(.6f, () -> setSrc("img\\obj\\obstacles\\cow-grazing-1.png")),
             new AnimationFrame(.2f, () -> setSrc("img\\obj\\obstacles\\cow-grazing-2.png"))
     };
 
@@ -108,7 +108,7 @@ public class Obstacle extends ImageObject {
 
     private void onCollide(Collider other, Collision collision) {
         //Wenn Müa draufspringt Müa tot
-        if (other.getOwner() == PlayMode.getInstance().mua && PlayMode.getInstance().getScene() == Scene.UNDERWORLD) {
+        if (other.getOwner() == PlayMode.getInstance().mua && ( PlayMode.getInstance().getScene() == Scene.UNDERWORLD || PlayMode.getInstance().getScene() == Scene.OVERWORLD && id >= 4)) {
             PlayMode.getInstance().gameOver(true, false);
         }
     }

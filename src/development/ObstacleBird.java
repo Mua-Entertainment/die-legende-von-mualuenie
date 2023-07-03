@@ -75,7 +75,7 @@ public class ObstacleBird extends ImageObject {
         {
             state = State.DOVE;
             animator.setFrames(fly);
-            setGlobalPosition(getGlobalPosition().x,other.getOwner().getGlobalPosition().y - getHeight());
+            setGlobalPosition(getGlobalPosition().x, other.getOwner().getGlobalPosition().y + other.getPadding().top() - getSize().height);
         }
 
     }

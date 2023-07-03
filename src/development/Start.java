@@ -58,6 +58,14 @@ public class Start extends ImageObject {
             destroy();
         }
 
+        if (!duplicated && getGlobalPosition().x <= getCanvasSize().width - getWidth())
+        {
+            Chunk chunk;
+            getParent().addChildren(chunk= new Chunk());
+            chunk.setGlobalPosition(getGlobalPosition().x + getWidth(), chunk.getY());
+            duplicated = true;
+        }
+
     }
 
 }

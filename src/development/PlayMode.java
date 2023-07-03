@@ -41,10 +41,6 @@ public class PlayMode extends GameObject {
         if (scene == Scene.OVERWORLD) textColor = Color.black;
 
         // Weltgenerator
-        Chunk chunk;
-        addChildren(chunk = new Chunk());
-        chunk.setGlobalPosition(getCanvasSize().width,5f);
-
         Start start;
         addChildren(start = new Start());
 
