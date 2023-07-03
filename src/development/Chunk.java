@@ -131,7 +131,7 @@ public class Chunk extends ImageObject {
         Obstacle obstacle = new Obstacle();
         obstacles.add(obstacle);
 
-        if (Math.random() > .3)
+        if (Math.random() > .3 && ((PlayMode.getInstance().getScene() == Scene.OVERWORLD && id > 3) || (PlayMode.getInstance().getScene() == Scene.UNDERWORLD && id != 2)))
         {
             addChildren(obstacles.get((int) (Math.random() * obstacles.size())));
         }
