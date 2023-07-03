@@ -56,26 +56,26 @@ public class ObstacleBird extends ImageObject {
     }
 
     //
-    private void onCollide(GameObject other, Collision collision) {
+    private void onCollide(Collider other, Collision collision) {
         PlayMode pm = PlayMode.getInstance();
 
         //Wenn Müa draufspringt => tot
-        if (other == pm.mua && pm.mua.getGlobalPosition().y + pm.mua.getHeight() - 12f/32f < getGlobalPosition().y + 13f/32f) {
+        if (other.getOwner() == pm.mua && pm.mua.getGlobalPosition().y + pm.mua.getHeight() - 12f/32f < getGlobalPosition().y + 13f/32f) {
             pm.mua.jump();
             destroy();
         }
         //Wenn Müa drunter ist => Müa tot
-        else if (other == pm.mua) {
+        else if (other.getOwner() == pm.mua) {
             PlayMode.getInstance().gameOver(true, false);
         }
 
 
         // Übergang Sturzflug ->Flug
-        if (state == State.DIVING && other instanceof Chunk || other instanceof Start)
+        if (state == State.DIVING && other.getOwner() instanceof Chunk || other.getOwner() instanceof Start)
         {
             state = State.DOVE;
             animator.setFrames(fly);
-            setGlobalPosition(getGlobalPosition().x,other.getGlobalPosition().y - getHeight());
+            setGlobalPosition(getGlobalPosition().x,other.getOwner().getGlobalPosition().y - getHeight());
         }
 
     }

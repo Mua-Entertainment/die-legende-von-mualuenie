@@ -66,9 +66,9 @@ public class Obstacle extends ImageObject {
 
     }
 
-    private void onCollide(GameObject other, Collision collision) {
-        //Wenn Müa draufspringt => Müa tot
-        if (other == PlayMode.getInstance().mua && PlayMode.getInstance().getScene() == Scene.UNDERWORLD) {
+    private void onCollide(Collider other, Collision collision) {
+        //Wenn Müa draufspringt Müa tot
+        if (other.getOwner() == PlayMode.getInstance().mua && PlayMode.getInstance().getScene() == Scene.UNDERWORLD) {
             PlayMode.getInstance().gameOver(true, false);
         }
     }

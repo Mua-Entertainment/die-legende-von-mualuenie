@@ -8,7 +8,7 @@ public class Collider extends Component{
     private Padding padding = Padding.ZERO;
 
     // Zusammenstoß-Ereignis
-    public final BiEvent<GameObject, Collision> collide = new BiEvent<>();
+    public final BiEvent<Collider, Collision> collide = new BiEvent<>();
 
     // alle Objekte deren Collider gerade mit diesem Collider zusammenstößt
     private final SafeList<GameObject> collidingObjects = new SafeList<>();
@@ -36,7 +36,7 @@ public class Collider extends Component{
                         // berechnet ob die Collider vertikal oder horizontal zusammenstoßen
                         var type = hDis > vDis && hDis >= 0 ? Collision.VERTICAL : Collision.HORIZONTAL;
 
-                        collide.invoke(obj, type);
+                        collide.invoke(c2, type);
                         collidingObjects.add(obj);
                     }
                 });

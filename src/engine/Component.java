@@ -10,4 +10,9 @@ public abstract class Component {
 
     // wird jeden Frame aufgerufen
     abstract void update();
+
+    public GameObject getOwner()
+    {
+        return owner;
+    }
 }

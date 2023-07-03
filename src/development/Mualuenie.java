@@ -48,6 +48,8 @@ public class Mualuenie extends ImageObject {
 
         skin = DataFile.getMuaSkin();
 
+        setLayer(9);
+
         setRunAnimation();
     }
 
@@ -137,12 +139,12 @@ public class Mualuenie extends ImageObject {
 
 
     //Kollidieren mit Boden
-    private void onCollide(GameObject other, Collision collision) {
+    private void onCollide(Collider other, Collision collision) {
         airtime = 0;
         state = State.GROUND;
 
         setRunAnimation();
 
-        setGlobalPosition(getGlobalPosition().x, other.getGlobalPosition().y + other.getComponents(Collider.class).get(0).getPadding().top() - getSize().height + 9f / 32f);
+        setGlobalPosition(getGlobalPosition().x, other.getOwner().getGlobalPosition().y + other.getPadding().top() - getSize().height + 9f / 32f);
     }
 }
