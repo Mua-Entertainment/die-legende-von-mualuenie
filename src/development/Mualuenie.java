@@ -28,6 +28,8 @@ public class Mualuenie extends ImageObject {
     private final float[] JUMP_DELAYS = new float[] { .05f, .05f, .05f, .1f };
     private final float AIR_DELAY = .1f;
 
+    Collider collider = new Collider();
+
     @Override
     protected void load() {
         super.load();
@@ -38,7 +40,6 @@ public class Mualuenie extends ImageObject {
         //setzen des colliders
         setGlobalPosition(1, getCanvasSize().height - 2);
 
-        Collider collider = new Collider();
         collider.collide.subscribe(this::onCollide);
         addComponent(collider);
         collider.setPadding(1f/32f,9f/32f,2f/32f,9f/32f);
@@ -140,11 +141,12 @@ public class Mualuenie extends ImageObject {
 
     //Kollidieren mit Boden
     private void onCollide(Collider other, Collision collision) {
-        airtime = 0;
-        state = State.GROUND;
-
-        setRunAnimation();
-
-        setGlobalPosition(getGlobalPosition().x, other.getOwner().getGlobalPosition().y + other.getPadding().top() - getSize().height + 9f / 32f);
+        if (collision == Collision.VERTICAL || other.getOwner() instanceof Coin){
+            airtime = 0;
+            state = State.GROUND;
+            setRunAnimation();
+            setGlobalPosition(getGlobalPosition().x, other.getOwner().getGlobalPosition().y + other.getPadding().top() - getSize().height + 9f / 32f);
+        }
+        else PlayMode.getInstance().gameOver(true, false);
     }
 }
