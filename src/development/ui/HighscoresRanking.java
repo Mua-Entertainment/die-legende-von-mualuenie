@@ -34,6 +34,7 @@ public class HighscoresRanking extends GameObject {
             Button downBtn = new Button();
             addChildren(upBtn);
             downBtn.setSrc("img\\ui\\arrow-down.png");
+            downBtn.click.subscribe(this::switchDown);
             downBtn.setSize(.5f, .5f);
             downBtn.setPosition(getCanvasSize().width - 1f, 1.25f);
         } catch (SQLException e) {
