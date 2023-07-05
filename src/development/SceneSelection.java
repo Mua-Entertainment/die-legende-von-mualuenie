@@ -8,8 +8,10 @@ import java.util.List;
 
 public class SceneSelection extends GameObject {
 
+    private final int PRICE = 50;
     private Label sceneLabel;
     private Scene scene;
+    private Button playButton;
 
     @Override
     protected void load() {
@@ -35,7 +37,8 @@ public class SceneSelection extends GameObject {
         rightBtn.setSrc("img\\ui\\arrow-right.png");
         rightBtn.click.subscribe(this::switchRight);
 
-        createMenuButton(this, "Spielen", this::play, 2.75f);
+        playButton = createMenuButton(this, "Spielen", this::play, 2.75f);
+        reload();
     }
 
     private void switchLeft() {
@@ -47,7 +50,7 @@ public class SceneSelection extends GameObject {
         }
 
         scene = Scene.values()[index];
-        loadScene();
+        reload();
     }
 
     private void switchRight() {
@@ -59,15 +62,35 @@ public class SceneSelection extends GameObject {
         }
 
         scene = Scene.values()[index];
-        loadScene();
+        reload();
     }
 
-    private void loadScene() {
+    // lädt die Buttons und Labels neu
+    private void reload() {
         sceneLabel.setText(scene.name().toLowerCase());
+
+        // Überprüft ob Scene freigeschalten ist und bei Bedarf den Preis an
+        if (DataFile.getUnlockedScenes().contains(scene)) {
+            playButton.label.setText("Spielen");
+        } else {
+            playButton.label.setText(getPrice() + " Coins");
+        }
     }
 
     private void play() {
-        add(new PlayMode(scene));
-        destroy();
+        // Startet Spiel falls Scene freigeschalten
+        if (DataFile.getUnlockedScenes().contains(scene)) {
+            add(new PlayMode(scene));
+            destroy();
+        // Schaltet neue Scene falls genug Coins frei
+        } else if (DataFile.getCoins() >= getPrice()) {
+            DataFile.addCoins(-getPrice());
+            DataFile.unlockScene(scene);
+            reload();
+        }
+    }
+
+    private int getPrice() {
+        return PRICE * List.of(Scene.values()).indexOf(scene);
     }
 }

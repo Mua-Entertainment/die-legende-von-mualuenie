@@ -15,7 +15,7 @@ public final class DataFile {
     public static void update() {
         try {
             boolean loaded;
-            String json = "{\"uid\":\"" + generateUID() + "\",\"highscore\":0,\"date\":\"01.01.2023\",\"skin\":\"DEFAULT\",\"music\":true,\"sfx\":true,\"coins\":0,\"skins\":[\"DEFAULT\"],\"name\":\"\",\"fps\":100}";
+            String json = "{\"uid\":\"" + generateUID() + "\",\"highscore\":0,\"date\":\"01.01.2023\",\"skin\":\"DEFAULT\",\"music\":true,\"sfx\":true,\"coins\":0,\"skins\":[\"DEFAULT\"],\"scenes\":[\"OVERWORLD\"],\"name\":\"\",\"fps\":100}";
 
             do {
                 // Erstellt JSON-Datei, falls nicht vorhanden
@@ -30,7 +30,7 @@ public final class DataFile {
                     }
 
                     loaded = false;
-                } else if (!(jo.has("uid") && jo.has("highscore") && jo.has("date") && jo.has("skin") && jo.has("music") && jo.has("sfx") && jo.has("coins") && jo.has("skins") && jo.has("name") && jo.has("fps"))) {
+                } else if (!(jo.has("uid") && jo.has("highscore") && jo.has("date") && jo.has("skin") && jo.has("music") && jo.has("sfx") && jo.has("coins") && jo.has("skins") && jo.has("scenes") && jo.has("name") && jo.has("fps"))) {
                     Files.writeString(PATH, decode(json, SEED));
                     jo = null;
                     loaded = false;
@@ -142,6 +142,19 @@ public final class DataFile {
         jo.getJSONArray("skins").put(skin.name());
     }
 
+    public static SafeList<Scene> getUnlockedScenes() {
+        SafeList<Scene> result = new SafeList<>();
+
+        jo.getJSONArray("scenes").forEach(s -> {
+            result.add(Scene.valueOf(s.toString()));
+        });
+
+        return result;
+    }
+
+    public static void unlockScene(Scene scene) {
+        jo.getJSONArray("scenes").put(scene.name());
+    }
     public static String getName() {
         return jo.getString("name");
     }
