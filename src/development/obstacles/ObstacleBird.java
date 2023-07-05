@@ -1,8 +1,15 @@
 // Loui Gabl
 
-package development;
+package development.obstacles;
 
-import engine.*;
+import development.world.Chunk;
+import development.world.PlayMode;
+import development.world.Start;
+import engine.main.Animator;
+import engine.main.Collider;
+import engine.main.ImageObject;
+import engine.enums.Collision;
+import engine.tools.AnimationFrame;
 
 public class ObstacleBird extends ImageObject {
 
@@ -60,7 +67,7 @@ public class ObstacleBird extends ImageObject {
         PlayMode pm = PlayMode.getInstance();
 
         //Wenn Müa draufspringt => tot
-        if (other.getOwner() == pm.mua && pm.mua.getGlobalPosition().y + pm.mua.getHeight() - 12f/32f < getGlobalPosition().y + 13f/32f) {
+        if (other.getOwner() == pm.mua && pm.mua.getGlobalPosition().y + pm.mua.getHeight() - 12f/32f < getGlobalPosition().y + 13f/32f && collision == Collision.VERTICAL) {
             pm.mua.jump();
             destroy();
         }

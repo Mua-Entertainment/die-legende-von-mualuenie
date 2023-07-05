@@ -1,8 +1,12 @@
 // Loui Gabl
 
-package development;
+package development.world;
 
-import engine.*;
+import development.data.DataFile;
+import development.enums.Skin;
+import engine.main.*;
+import engine.enums.Collision;
+import engine.tools.AnimationFrame;
 
 import java.awt.event.KeyEvent;
 
@@ -24,11 +28,9 @@ public class Mualuenie extends ImageObject {
     private Animator animator;
     private boolean yihaaEnabled;
 
-    private final float[] RUN_DELAYS = new float[] { .1f, .1f, .1f, .1f, .1f, .1f };
-    private final float[] JUMP_DELAYS = new float[] { .05f, .05f, .05f, .1f };
+    private final float[] RUN_DELAYS = new float[]{.1f, .1f, .1f, .1f, .1f, .1f};
+    private final float[] JUMP_DELAYS = new float[]{.05f, .05f, .05f, .1f};
     private final float AIR_DELAY = .1f;
-
-    Collider collider = new Collider();
 
     @Override
     protected void load() {
@@ -40,9 +42,10 @@ public class Mualuenie extends ImageObject {
         //setzen des colliders
         setGlobalPosition(1, getCanvasSize().height - 2);
 
+        Collider collider = new Collider();
         collider.collide.subscribe(this::onCollide);
         addComponent(collider);
-        collider.setPadding(1f/32f,9f/32f,2f/32f,9f/32f);
+        collider.setPadding(1f / 32f, 9f / 32f, 2f / 32f, 9f / 32f);
 
         animator = new Animator();
         addComponent(animator);
@@ -80,10 +83,10 @@ public class Mualuenie extends ImageObject {
         }
         //Horizontale Bewegung
         if (getInput().keyPressed(KeyEvent.VK_D) && getGlobalPosition().x < getCanvasSize().width - getWidth()) {
-            move(5 / getFPS(),0);
+            move(5 / getFPS(), 0);
         }
         if (getInput().keyPressed(KeyEvent.VK_A) && getGlobalPosition().x > 0f) {
-            move(-5 / getFPS(),0);
+            move(-5 / getFPS(), 0);
         }
 
         if (state != State.GROUND) {
@@ -141,12 +144,15 @@ public class Mualuenie extends ImageObject {
 
     //Kollidieren mit Boden
     private void onCollide(Collider other, Collision collision) {
-        if (collision == Collision.VERTICAL || other.getOwner() instanceof Coin){
+        if (collision == Collision.VERTICAL && !(other.getOwner() instanceof Coin)) {
             airtime = 0;
             state = State.GROUND;
             setRunAnimation();
             setGlobalPosition(getGlobalPosition().x, other.getOwner().getGlobalPosition().y + other.getPadding().top() - getSize().height + 9f / 32f);
+        } else {
+            if (!(other.getOwner() instanceof Coin)) {
+                PlayMode.getInstance().gameOver(true, false);
+            }
         }
-        else PlayMode.getInstance().gameOver(true, false);
     }
 }
