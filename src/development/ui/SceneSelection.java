@@ -9,6 +9,7 @@ import engine.main.Label;
 import java.awt.*;
 import java.util.List;
 
+// Szenerie-Auswahl vor jeder Runde
 public class SceneSelection extends GameObject {
 
     private final int PRICE = 50;
@@ -22,10 +23,14 @@ public class SceneSelection extends GameObject {
 
         setCanvasBackground(new Color(0x541414));
 
+        // Button, der zum Hauptmenü zurückführt
+        createButton(this, "Zurück", () -> replace(new MainMenu()), .5f, .5f);
+
         scene = Scene.OVERWORLD;
         sceneLabel = createMenuLabel(this, scene.name().toLowerCase(), 2);
         sceneLabel.setColor(Color.white);
 
+        // Button mit denen man die anzuzeigende Szenerie wechseln kann
         Button leftBtn = new Button();
         addChildren(leftBtn);
         leftBtn.setSize(0.5f, 0.5f);
@@ -33,6 +38,7 @@ public class SceneSelection extends GameObject {
         leftBtn.setSrc("img\\ui\\arrow-left.png");
         leftBtn.click.subscribe(this::switchLeft);
 
+        // Button mit denen man die anzuzeigende Szenerie wechseln kann
         Button rightBtn = new Button();
         addChildren(rightBtn);
         rightBtn.setSize(0.5f, 0.5f);
@@ -40,10 +46,12 @@ public class SceneSelection extends GameObject {
         rightBtn.setSrc("img\\ui\\arrow-right.png");
         rightBtn.click.subscribe(this::switchRight);
 
+        // zum Starten einer neuen Runde
         playButton = createMenuButton(this, "Spielen", this::play, 2.75f);
         reload();
     }
 
+    // Wechseln der anzuzeigenden Szenerie
     private void switchLeft() {
         int index = List.of(Scene.values()).indexOf(scene);
         index--;
@@ -56,6 +64,7 @@ public class SceneSelection extends GameObject {
         reload();
     }
 
+    // Wechseln der anzuzeigenden Szenerie
     private void switchRight() {
         int index = List.of(Scene.values()).indexOf(scene);
         index++;
@@ -72,7 +81,7 @@ public class SceneSelection extends GameObject {
     private void reload() {
         sceneLabel.setText(scene.name().toLowerCase());
 
-        // Überprüft ob Scene freigeschalten ist und bei Bedarf den Preis an
+        // Überprüft ob Scene freigeschalten ist und zeigt bei Bedarf den Preis an
         if (DataFile.getUnlockedScenes().contains(scene)) {
             playButton.label.setText("Spielen");
         } else {
@@ -80,6 +89,7 @@ public class SceneSelection extends GameObject {
         }
     }
 
+    // nach Drücken auf Spielen
     private void play() {
         // Startet Spiel falls Scene freigeschalten
         if (DataFile.getUnlockedScenes().contains(scene)) {
@@ -92,6 +102,7 @@ public class SceneSelection extends GameObject {
         }
     }
 
+    // brechnet den Preis
     private int getPrice() {
         return PRICE * List.of(Scene.values()).indexOf(scene);
     }

@@ -4,6 +4,7 @@ import development.world.PlayMode;
 import engine.main.RectObject;
 import java.awt.*;
 
+// Das Menü das während dem Pausieren des Spiels angezeigt wird
 public class PauseMenu extends RectObject {
 
     @Override

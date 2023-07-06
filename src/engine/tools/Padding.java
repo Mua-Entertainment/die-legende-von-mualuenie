@@ -1,5 +1,3 @@
-// Simo Münc
-
 package engine.tools;
 
 // Verkleinerung der Ränder eines Objektes

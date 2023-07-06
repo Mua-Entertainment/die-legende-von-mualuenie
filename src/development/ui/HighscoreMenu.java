@@ -10,8 +10,10 @@ import engine.main.Button;
 import java.awt.*;
 import java.sql.SQLException;
 
+// Zeigt die Highscores aller Spieler sortiert an
 public class HighscoreMenu extends GameObject {
 
+    // index der aktuell anzuzeigenden Highscores
     private int index;
     private SafeList<User> highscores;
     private final SafeList<Label> labels = new SafeList<>();
@@ -24,6 +26,7 @@ public class HighscoreMenu extends GameObject {
             highscores = Database.getSortedByHighscore();
             reload();
 
+            // Button um die vorherigen Highscores anzuzeigen
             Button upBtn = new Button();
             addChildren(upBtn);
             upBtn.setSrc("img\\ui\\arrow-up.png");
@@ -31,6 +34,7 @@ public class HighscoreMenu extends GameObject {
             upBtn.setSize(.5f, .5f);
             upBtn.setPosition(getCanvasSize().width - 1f, .5f);
 
+            // Button um die nächsten 10 Highscores anzuzeugen
             Button downBtn = new Button();
             addChildren(downBtn);
             downBtn.setSrc("img\\ui\\arrow-down.png");
@@ -38,6 +42,7 @@ public class HighscoreMenu extends GameObject {
             downBtn.setSize(.5f, .5f);
             downBtn.setPosition(getCanvasSize().width - 1f, 1.25f);
 
+            // Button um zum MainMenu zurückzukehren
             createButton(this, "Zurück", () -> replace(new MainMenu()), .5f, .5f);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -45,11 +50,13 @@ public class HighscoreMenu extends GameObject {
     }
 
     private void reload() {
+        // löscht alle Highscores-Label
         labels.forEach(GameObject::destroy);
         labels.clear();
 
         int max = Math.min(index + 10, highscores.size());
 
+        // lädt neue Highscores
         for (int i = index; i < max; i++) {
             User user = highscores.get(i);
 
@@ -73,6 +80,7 @@ public class HighscoreMenu extends GameObject {
         }
     }
 
+    // veringert den index um 10 falls index > 0 oder geht sonst ans Ende
     private void switchUp() {
         if (index <= 0) {
             index = (highscores.size() / 10) * 10;
@@ -83,6 +91,7 @@ public class HighscoreMenu extends GameObject {
         reload();
     }
 
+    // erhöht den index um 10 falls index >= Anzahl der Highscores oder geht sonst an den Anfang
     private void switchDown() {
         index += 10;
 

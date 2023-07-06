@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="die-legende-von-mualuenie:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/die_legende_von_mualuenie_jar</output-path>
+    <root id="archive" name="die-legende-von-mualuenie.jar">
+      <element id="module-output" name="die-legende-von-mualuenie" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/mysql-connector-java-8.0.30.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/json-20230618.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

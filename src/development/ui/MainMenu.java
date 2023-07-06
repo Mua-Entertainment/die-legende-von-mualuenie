@@ -1,5 +1,3 @@
-// Joha Zwin
-
 package development.ui;
 
 import development.data.DataFile;
@@ -13,6 +11,7 @@ import engine.tools.SafeList;
 import java.awt.*;
 import java.sql.SQLException;
 
+// Hauptmenü in dem der Nutzer zwischen verschieden Sachen machen kann
 public class MainMenu extends GameObject {
 
     @Override
@@ -33,6 +32,7 @@ public class MainMenu extends GameObject {
         // Listet die globalen Highscores auf
         createMenuLabel(this, "Highscores", 1f);
 
+        // lädt die 3 besten Highscores und zeigt sie an
         try {
             SafeList<User> highscores = Database.getSortedByHighscore();
 

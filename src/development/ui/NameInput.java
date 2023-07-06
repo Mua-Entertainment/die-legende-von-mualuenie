@@ -7,6 +7,7 @@ import engine.main.Label;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+// Eingabeformular für den Benutzername
 public class NameInput extends GameObject {
 
     private Label nameLabel;
@@ -34,6 +35,7 @@ public class NameInput extends GameObject {
     protected void update() {
         super.update();
 
+        // Überprüft Eingabe der einzelnen Tasten (nur Buchstaben und Zahlen)
         if (getInput().anyKeyDown()) {
             for (int key : getInput().getPressedKeys()) {
                 if (Character.isAlphabetic((char) key) || Character.isDigit((char) key)) {
@@ -51,6 +53,7 @@ public class NameInput extends GameObject {
         }
     }
 
+    // verlässt dieses Formular
     private void exit() {
         DataFile.setName(nameLabel.getText());
         Database.setName(nameLabel.getText());

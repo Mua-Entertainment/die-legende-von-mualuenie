@@ -1,5 +1,3 @@
-// Simo Münc
-
 package engine.main;
 
 import engine.tools.Point;

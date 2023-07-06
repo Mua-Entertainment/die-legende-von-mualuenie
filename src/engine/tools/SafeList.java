@@ -1,5 +1,3 @@
-// Simo Münc
-
 package engine.tools;
 
 import java.util.ArrayList;

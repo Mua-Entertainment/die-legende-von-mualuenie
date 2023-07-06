@@ -1,5 +1,3 @@
-// Joha Zwin
-
 package development.ui;
 
 import development.data.DataFile;
@@ -51,20 +49,24 @@ public class SettingsMenu extends GameObject {
         fpsLabel.setText(getSliderFPSValue() + " max. FPS");
     }
 
+    // ändert max. FPS
     private void switchMaxFPS() {
         DataFile.setMaxFPS(getSliderFPSValue());
     }
 
+    // berechnet FPS-Wert des Sliders
     private int getSliderFPSValue() {
         return 10 + (int) (fpsSlider.getValue() * 990f);
     }
 
+    // ändert Musiklautstärke
     private void switchMusicSettings() {
         DataFile.setMusicVolume(musicSlider.getValue());
         Program.music.setVolume(musicSlider.getValue());
         musicLabel.setText("Musiklautstärke " + (int) (musicSlider.getValue() * 100f));
     }
 
+    // ändert SFX-Lautstärke
     private void switchSFXSettings() {
         DataFile.setSFXVolume(sfxSlider.getValue());
         sfxLabel.setText("SFX-Lautstärke " + (int) (sfxSlider.getValue() * 100f));

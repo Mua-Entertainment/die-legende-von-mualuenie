@@ -1,5 +1,3 @@
-//Loui Gabl
-
 package development.obstacles;
 
 import engine.main.Collider;

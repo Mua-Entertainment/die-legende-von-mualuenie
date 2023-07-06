@@ -1,5 +1,3 @@
-// Loui Gabl, Joha Zwin, Simo Münc
-
 package development.world;
 
 import development.enums.Scene;

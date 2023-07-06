@@ -1,5 +1,3 @@
-// Joha Zwin
-
 package development.ui;
 
 import development.data.DataFile;
@@ -37,6 +35,7 @@ public class SkinMenu extends GameObject {
         // Button, der Skin auswählt
         selectBtn = createMenuButton(this, "Auswählen", this::selectSkin, 4);
 
+        // Button zum Wechseln des aktuellen anzuzeigenden Skins
         Button leftBtn = new Button();
         addChildren(leftBtn);
         leftBtn.setSize(0.5f, 0.5f);
@@ -44,6 +43,7 @@ public class SkinMenu extends GameObject {
         leftBtn.setSrc("img\\ui\\arrow-left.png");
         leftBtn.click.subscribe(this::switchLeft);
 
+        // Button zum Wechseln des aktuellen anzuzeigenden Skins
         Button rightBtn = new Button();
         addChildren(rightBtn);
         rightBtn.setSize(0.5f, 0.5f);
@@ -58,6 +58,7 @@ public class SkinMenu extends GameObject {
         loadSkin();
     }
 
+    // Wechseln des aktuellen anzuzeigenden Skins
     private void switchLeft() {
         int index = List.of(Skin.values()).indexOf(skin);
         index--;
@@ -70,6 +71,7 @@ public class SkinMenu extends GameObject {
         loadSkin();
     }
 
+    // Wechseln des aktuellen anzuzeigenden Skins
     private void switchRight() {
         int index = List.of(Skin.values()).indexOf(skin);
         index++;
@@ -82,12 +84,13 @@ public class SkinMenu extends GameObject {
         loadSkin();
     }
 
+    // Wählt Skin aus oder kauft ihn
     private void selectSkin() {
         if (DataFile.getUnlockedSkins().contains(skin)) {
             DataFile.setMuaSkin(skin);
             replace(new MainMenu());
-        } else if (DataFile.getCoins() >= SKIN_PRICE) {
-            DataFile.addCoins(-SKIN_PRICE);
+        } else if (DataFile.getCoins() >= getPrice()) {
+            DataFile.addCoins(-getPrice());
             DataFile.unlockSkin(skin);
             loadSkin();
         }
@@ -98,7 +101,7 @@ public class SkinMenu extends GameObject {
         String fileName = skin.name().toLowerCase();
         String src = "img\\obj\\mua\\" + fileName + "\\run-6.png";
 
-        String btnText = DataFile.getUnlockedSkins().contains(skin) ? "Auswählen" : (SKIN_PRICE + " Coins");
+        String btnText = DataFile.getUnlockedSkins().contains(skin) ? "Auswählen" : (getPrice() + " Coins");
         selectBtn.label.setText(btnText);
 
         skinDisplay.setSrc(src);
@@ -112,5 +115,10 @@ public class SkinMenu extends GameObject {
         }
 
         skinNameLabel.setText(name);
+    }
+
+    // berechnte Preis
+    private int getPrice() {
+        return SKIN_PRICE * List.of(Skin.values()).indexOf(skin);
     }
 }

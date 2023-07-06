@@ -1,5 +1,3 @@
-// Simo Münc
-
 package development.main;
 
 import development.data.DataFile;
@@ -10,14 +8,19 @@ import engine.tools.WaveAudio;
 
 public class Program {
 
+    // Musik
     public static final WaveAudio music = new WaveAudio("audio\\music.wav");
+
+    // Spiel
     public static Game game;
 
     public static void main(String[] args) {
 
+        // Lädt Datenanwendungen
         DataFile.load();
         Database.load();
 
+        // spielt Musik ab
         music.play(true);
         music.setVolume(DataFile.getMusicVolume());
 

@@ -1,5 +1,3 @@
-// Loui Gabl
-
 package development.world;
 
 import development.data.DataFile;
