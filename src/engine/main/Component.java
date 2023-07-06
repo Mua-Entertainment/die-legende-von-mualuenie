@@ -1,5 +1,3 @@
-// Simo Münc
-
 package engine.main;
 
 // stellt eine Komponente eines GameObject dar, die dem Objekt Funktionen verleiht

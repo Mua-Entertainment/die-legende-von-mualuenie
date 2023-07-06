@@ -1,5 +1,3 @@
-// Simo Münc
-
 package engine.main;
 
 import engine.events.VoidEvent;
@@ -39,27 +37,25 @@ public class Button extends ImageObject {
     protected void update() {
         super.update();
 
-        if (getVisibility()) {
-            if (getHover() && !hover) {
-                hover = true;
-                setBrightness(15);
-            }
+        if (getHover() && !hover) {
+            hover = true;
+            setBrightness(15);
+        }
 
-            if (!getHover() && hover) {
-                hover = false;
-                setBrightness(0);
-            }
+        if (!getHover() && hover) {
+            hover = false;
+            setBrightness(0);
+        }
 
-            if (getInput().mouseDown() && getHover()) {
-                pressed = true;
-                click.invoke();
-                setBrightness(30);
-            }
+        if (getInput().mouseDown() && getHover()) {
+            pressed = true;
+            click.invoke();
+            setBrightness(30);
+        }
 
-            if (getInput().mouseUp()) {
-                pressed = false;
-                release.invoke();
-            }
+        if (getInput().mouseUp()) {
+            pressed = false;
+            release.invoke();
         }
     }
 

@@ -1,5 +1,3 @@
-// Loui Gabl, Joha Zwin, Simo Münc
-
 package development.main;
 
 import development.data.DataFile;

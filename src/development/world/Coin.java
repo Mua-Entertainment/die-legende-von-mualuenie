@@ -1,5 +1,3 @@
-//Loui Gabl
-
 package development.world;
 
 import engine.main.Collider;

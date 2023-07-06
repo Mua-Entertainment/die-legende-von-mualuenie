@@ -6,7 +6,7 @@ import java.nio.file.Path;
 
 import development.enums.Scene;
 import development.enums.Skin;
-import engine.main.SafeList;
+import engine.tools.SafeList;
 import org.json.*;
 
 public final class DataFile {
@@ -15,7 +15,7 @@ public final class DataFile {
     private static final Path PATH = Path.of("player.dat");
     private static JSONObject jo;
 
-    public static void update() {
+    public static void load() {
         try {
             boolean loaded;
             String json = "{\"uid\":\"" + generateUID() + "\",\"highscore\":0,\"date\":\"01.01.2023\",\"skin\":\"DEFAULT\",\"music\":0.5,\"sfx\":0.5,\"coins\":0,\"skins\":[\"DEFAULT\"],\"scenes\":[\"OVERWORLD\"],\"name\":\"\",\"fps\":100}";
