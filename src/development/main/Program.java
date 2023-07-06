@@ -22,9 +22,6 @@ public class Program {
         DataFile.load();
         Database.load();
 
-        DataFile.unlockScene(Scene.UNDERWORLD);
-        DataFile.unlockSkin(Skin.MARTIAN);
-
         // spielt Musik ab
         music.play(true);
         music.setVolume(DataFile.getMusicVolume());
