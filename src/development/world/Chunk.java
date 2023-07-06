@@ -93,7 +93,7 @@ public class Chunk extends ImageObject {
             setSize(2f, 5.5f);
             Collider colliderRoof = new Collider();
             addComponent(colliderRoof);
-            colliderRoof.setPadding(8f / 64f * 2f, 10f / 176f * 5.5f, 8f / 64f * 2f, 144f / 176f * 5.5f);
+            colliderRoof.setPadding(8f / 64f * 2f, 10f / 176f * 5.5f, 8f / 64f * 2f, 175f / 176f * 5.5f);
             Collider colliderFloor = new Collider();
             addComponent(colliderFloor);
             colliderFloor.setPadding(0f, 112f / 176f * 5.5f, 0f, 0f);

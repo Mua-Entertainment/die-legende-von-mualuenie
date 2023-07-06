@@ -30,9 +30,10 @@ public class Obstacle extends ImageObject {
     protected void load() {
         super.load();
         //Festlegen Bild und Collider
+
+        //Overworld Obstacles
         if (PlayMode.getInstance().getScene() == Scene.OVERWORLD) {
 
-            //Overworld Obstacles
 
             id = (int) (Math.random() * 5);
 
