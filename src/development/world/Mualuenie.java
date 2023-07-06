@@ -21,8 +21,6 @@ public class Mualuenie extends ImageObject {
     private final float YIHAA_PROBABILITY = 0.2f;
     private float currentJumpSpeed = 0f;
     private float airtime = 0;
-    private float score = 0f;
-    private int coins = 0;
     private State state = State.GROUND;
     private Skin skin;
     private Animator animator;
@@ -154,6 +152,6 @@ public class Mualuenie extends ImageObject {
                 PlayMode.getInstance().gameOver(true, false);
             }
         }
-
+    }
 
 }
