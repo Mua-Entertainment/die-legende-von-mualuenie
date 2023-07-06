@@ -71,7 +71,7 @@ public class Mualuenie extends ImageObject {
 
             setAirAnimation();
         }
-    }
+
         //Springen
         if (getInput().keyPressed(KeyEvent.VK_SPACE, KeyEvent.VK_W) && state == State.GROUND) {
             jump();
