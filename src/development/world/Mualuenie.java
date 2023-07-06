@@ -143,11 +143,17 @@ public class Mualuenie extends ImageObject {
 
     //Kollidieren mit Boden
     private void onCollide(Collider other, Collision collision) {
-        airtime = 0;
-        state = State.GROUND;
 
-        setRunAnimation();
+        if (collision == Collision.VERTICAL && !(other.getOwner() instanceof Coin)) {
+            airtime = 0;
+            state = State.GROUND;
+            setRunAnimation();
+            setGlobalPosition(getGlobalPosition().x, other.getOwner().getGlobalPosition().y + other.getPadding().top() - getSize().height + 9f / 32f);
+        } else {
+            if (!(other.getOwner() instanceof Coin)) {
+                PlayMode.getInstance().gameOver(true, false);
+            }
+        }
 
-        setGlobalPosition(getGlobalPosition().x, other.getOwner().getGlobalPosition().y + other.getPadding().top() - getSize().height + 9f / 32f);
-    }
+
 }
