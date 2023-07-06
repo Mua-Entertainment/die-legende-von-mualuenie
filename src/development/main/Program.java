@@ -2,6 +2,8 @@ package development.main;
 
 import development.data.DataFile;
 import development.data.Database;
+import development.enums.Scene;
+import development.enums.Skin;
 import engine.tools.Game;
 import engine.tools.Settings;
 import engine.tools.WaveAudio;
@@ -19,6 +21,9 @@ public class Program {
         // Lädt Datenanwendungen
         DataFile.load();
         Database.load();
+
+        DataFile.unlockScene(Scene.UNDERWORLD);
+        DataFile.unlockSkin(Skin.MARTIAN);
 
         // spielt Musik ab
         music.play(true);
