@@ -17,7 +17,7 @@ public class Mualuenie extends ImageObject {
     }
 
     private final float GRAVITY = 10f;
-    private final float JUMPFORCE = 8.75f;
+    private final float JUMPFORCE = 7f;
     private final float YIHAA_PROBABILITY = 0.2f;
     private float currentJumpSpeed = 0f;
     private float airtime = 0;
