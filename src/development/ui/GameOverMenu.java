@@ -4,7 +4,7 @@ import development.world.PlayMode;
 import engine.main.RectObject;
 import java.awt.*;
 
-public class GameOverScreen extends RectObject {
+public class GameOverMenu extends RectObject {
 
     @Override
     protected void load() {

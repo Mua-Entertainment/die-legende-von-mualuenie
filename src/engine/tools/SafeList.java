@@ -1,6 +1,6 @@
 // Simo Münc
 
-package engine.main;
+package engine.tools;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;

@@ -4,7 +4,7 @@ import development.world.PlayMode;
 import engine.main.RectObject;
 import java.awt.*;
 
-public class PauseScreen extends RectObject {
+public class PauseMenu extends RectObject {
 
     @Override
     protected void load() {

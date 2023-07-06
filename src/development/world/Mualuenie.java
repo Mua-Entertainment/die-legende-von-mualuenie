@@ -7,6 +7,8 @@ import development.enums.Skin;
 import engine.main.*;
 import engine.enums.Collision;
 import engine.tools.AnimationFrame;
+import engine.tools.SafeList;
+import engine.tools.WaveAudio;
 
 import java.awt.event.KeyEvent;
 
@@ -69,8 +71,7 @@ public class Mualuenie extends ImageObject {
 
             setAirAnimation();
         }
-
-
+    }
         //Springen
         if (getInput().keyPressed(KeyEvent.VK_SPACE, KeyEvent.VK_W) && state == State.GROUND) {
             jump();

@@ -8,6 +8,7 @@ import development.data.User;
 import engine.main.*;
 import engine.main.Button;
 import engine.main.Label;
+import engine.tools.SafeList;
 
 import java.awt.*;
 import java.sql.SQLException;
@@ -33,9 +34,9 @@ public class MainMenu extends GameObject {
         createMenuLabel(this, "Highscores", 1f);
 
         try {
-            SafeList<User> highscores = Database.getSortedHighscores();
+            SafeList<User> highscores = Database.getSortedByHighscore();
 
-            for (int i = 0; i < Math.min(3, Database.getSortedHighscores().size()); i++) {
+            for (int i = 0; i < Math.min(3, Database.getSortedByHighscore().size()); i++) {
                 User user = highscores.get(i);
 
                 boolean isThisUser = DataFile.getUID().equals(user.id());
@@ -56,17 +57,17 @@ public class MainMenu extends GameObject {
         }
 
         // öffnet Einstellungen
-        Button settingsBtn = createMenuButton(this, "Einstellungen", () -> replace(new SettingScreen()), 4.5f);
+        Button settingsBtn = createMenuButton(this, "Einstellungen", () -> replace(new SettingsMenu()), 4.5f);
         settingsBtn.setX((getCanvasSize().width - settingsBtn.getWidth()) / 2 - 2);
 
         // zeigt alle Highscores an
-        createMenuButton(this, "Bestenliste", () -> replace(new HighscoresRanking()), 3.75f);
+        createMenuButton(this, "Bestenliste", () -> replace(new HighscoreMenu()), 3.75f);
 
         // startet Spiel
         createMenuButton(this, "Spielen", () -> replace(new SceneSelection()), 4.5f);
 
         // öffnet Skin-Menü
-        Button skinsBtn = createMenuButton(this, "Skins", () -> replace(new SkinsMenu()), 4.5f);
+        Button skinsBtn = createMenuButton(this, "Skins", () -> replace(new SkinMenu()), 4.5f);
         skinsBtn.setX((getCanvasSize().width - skinsBtn.getWidth()) / 2 + 2);
     }
 }

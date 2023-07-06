@@ -5,12 +5,12 @@ import development.data.Database;
 import development.data.User;
 import engine.main.GameObject;
 import engine.main.Label;
-import engine.main.SafeList;
+import engine.tools.SafeList;
 import engine.main.Button;
 import java.awt.*;
 import java.sql.SQLException;
 
-public class HighscoresRanking extends GameObject {
+public class HighscoreMenu extends GameObject {
 
     private int index;
     private SafeList<User> highscores;
@@ -21,7 +21,7 @@ public class HighscoresRanking extends GameObject {
         super.load();
 
         try {
-            highscores = Database.getSortedHighscores();
+            highscores = Database.getSortedByHighscore();
             reload();
 
             Button upBtn = new Button();

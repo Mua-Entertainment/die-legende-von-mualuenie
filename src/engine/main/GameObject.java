@@ -3,8 +3,8 @@
 package engine.main;
 
 import engine.tools.Point;
+import engine.tools.SafeList;
 import engine.tools.Size;
-
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -31,9 +31,6 @@ public class GameObject {
     // Ursprungs-Position des Koordinatensystems
     Point origin;
 
-    // Sichtbarkeit des Objektes
-    boolean visible;
-
     // Objekte, die sich relativ zu diesem Objekt bewegen
     private SafeList<GameObject> children;
 
@@ -53,7 +50,6 @@ public class GameObject {
         children = new SafeList<>();
         components = new SafeList<>();
         active = true;
-        visible = true;
     }
 
     // wird jeden Frame aufgerufen
@@ -195,18 +191,6 @@ public class GameObject {
         setPosition(getPosition().x + x, getPosition().y + y);
     }
 
-    // macht das Objekt und die Children sichtbar
-    public void show() {
-        visible = true;
-        children.forEach(GameObject::show);
-    }
-
-    // macht das Objekt und die Children unsichtbar
-    public void hide() {
-        visible = false;
-        children.forEach(GameObject::hide);
-    }
-
     // (de)aktiviert dieses Objekt und alle Kinder
     public void setActive(boolean active) {
         this.active = active;
@@ -217,9 +201,6 @@ public class GameObject {
         return active;
     }
 
-    public boolean getVisibility() {
-        return visible;
-    }
 
     // fügt GameObjetcts zum Environment-Objekt hinzu
     protected void add(GameObject... objects) {

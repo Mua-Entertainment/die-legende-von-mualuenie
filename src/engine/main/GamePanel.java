@@ -4,6 +4,7 @@ package engine.main;
 
 import development.data.DataFile;
 import engine.tools.Point;
+import engine.tools.SafeList;
 import engine.tools.Settings;
 import engine.tools.Size;
 
@@ -176,16 +177,14 @@ public class GamePanel extends JPanel implements Runnable {
 
         // durchläuft jedes GameObject
         gameObjects.forEach(obj -> {
-            if (obj.visible) {
-                // rechnet die Werte von den GameObjects wieder in Pixel-Einheit um
-                int x = (int) (origin.x + obj.getGlobalPosition().x / settings.xTiles() * canvasSize.width);
-                int y = (int) (origin.y + obj.getGlobalPosition().y / settings.yTiles() * canvasSize.height);
-                int w = (int) (obj.getSize().width / settings.xTiles() * canvasSize.width);
-                int h = (int) (obj.getSize().height / settings.yTiles() * canvasSize.height);
+            // rechnet die Werte von den GameObjects wieder in Pixel-Einheit um
+            int x = (int) (origin.x + obj.getGlobalPosition().x / settings.xTiles() * canvasSize.width);
+            int y = (int) (origin.y + obj.getGlobalPosition().y / settings.yTiles() * canvasSize.height);
+            int w = (int) (obj.getSize().width / settings.xTiles() * canvasSize.width);
+            int h = (int) (obj.getSize().height / settings.yTiles() * canvasSize.height);
 
-                obj.origin = origin;
-                obj.draw(g2d, x, y, w, h);
-            }
+            obj.origin = origin;
+            obj.draw(g2d, x, y, w, h);
         });
 
         g2d.setColor(Color.black);

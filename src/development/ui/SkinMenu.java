@@ -11,7 +11,7 @@ import engine.main.Label;
 import java.awt.*;
 import java.util.List;
 
-public class SkinsMenu extends GameObject {
+public class SkinMenu extends GameObject {
 
     private final int SKIN_PRICE = 50;
     private Skin skin;

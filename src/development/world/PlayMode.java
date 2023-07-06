@@ -5,9 +5,9 @@ package development.world;
 import development.enums.Scene;
 import development.data.DataFile;
 import development.data.Database;
-import development.ui.GameOverScreen;
+import development.ui.GameOverMenu;
 import development.ui.MainMenu;
-import development.ui.PauseScreen;
+import development.ui.PauseMenu;
 import engine.main.GameObject;
 import engine.main.ImageObject;
 import engine.main.Label;
@@ -105,7 +105,7 @@ public class PlayMode extends GameObject {
             DataFile.addCoins(coins);
 
             if (showGameOverScreen) {
-                add(new GameOverScreen());
+                add(new GameOverMenu());
                 setActive(false);
 
             } else {
@@ -116,7 +116,7 @@ public class PlayMode extends GameObject {
     }
 
     private void pause() {
-        add(new PauseScreen());
+        add(new PauseMenu());
         setActive(false);
     }
 

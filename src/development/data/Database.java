@@ -1,6 +1,6 @@
 package development.data;
 
-import engine.main.SafeList;
+import engine.tools.SafeList;
 import java.sql.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
@@ -12,7 +12,7 @@ public final class Database {
     private static final String PORT = "3306";
     private static final String CONNECTION_URL = "jdbc:mysql://" + HOST + ':' + PORT + '/' + USER;
 
-    public static void update() {
+    public static void load() {
         // trägt offline gespeicherte Dateien in die Datenbank ein
         setHighscore(DataFile.getHighscore(), DataFile.getDate());
         setName(DataFile.getName());
@@ -72,7 +72,7 @@ public final class Database {
         });
     }
 
-    public static SafeList<User> getSortedHighscores() throws SQLException {
+    public static SafeList<User> getSortedByHighscore() throws SQLException {
         SafeList<User> result = new SafeList<>();
         AtomicBoolean connected = new AtomicBoolean(false);
 

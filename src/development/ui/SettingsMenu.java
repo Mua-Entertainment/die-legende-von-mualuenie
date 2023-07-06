@@ -7,10 +7,9 @@ import development.main.Program;
 import engine.main.GameObject;
 import engine.main.Label;
 import engine.main.Slider;
-import engine.main.WaveAudio;
 
 // Einstellungsmenü
-public class SettingScreen extends GameObject {
+public class SettingsMenu extends GameObject {
     private Label fpsLabel, musicLabel, sfxLabel;
     private Slider fpsSlider, musicSlider, sfxSlider;
 
@@ -43,7 +42,7 @@ public class SettingScreen extends GameObject {
         createMenuLabel(this, "Name: " + DataFile.getName(), 3.5f);
 
         // Username ändern
-        createMenuButton(this, "Ändern", () -> replace(new NameInput(new SettingScreen())), 4f);
+        createMenuButton(this, "Ändern", () -> replace(new NameInput(new SettingsMenu())), 4f);
     }
 
     @Override

@@ -2,7 +2,7 @@
 
 package engine.events;
 
-import engine.main.SafeList;
+import engine.tools.SafeList;
 
 // Ereignis
 public class VoidEvent {

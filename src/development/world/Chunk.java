@@ -9,7 +9,7 @@ import development.obstacles.ObstacleGraves;
 import engine.main.Collider;
 import engine.main.GameObject;
 import engine.main.ImageObject;
-import engine.main.SafeList;
+import engine.tools.SafeList;
 
 // Teil der Welt der sich horizontal nach links bewegt
 public class Chunk extends ImageObject {

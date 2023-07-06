@@ -5,6 +5,7 @@ package development.world;
 import development.enums.Scene;
 import engine.main.*;
 import engine.tools.AnimationFrame;
+import engine.tools.SafeList;
 
 // Teil der Welt der sich horizontal nach links bewegt
 public class Start extends ImageObject {
