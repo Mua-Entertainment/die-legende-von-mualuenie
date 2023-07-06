@@ -33,6 +33,11 @@ public class WaveAudio {
         clip.stop();
     }
 
+    public void setVolume(float volume) {
+        FloatControl ctrl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        ctrl.setValue(20f * (float) Math.log10(volume * 2f));
+    }
+
     public float getLength() {
         return (float) (clip.getMicrosecondLength() / 1_000_000);
     }

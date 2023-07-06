@@ -18,7 +18,7 @@ public final class DataFile {
     public static void update() {
         try {
             boolean loaded;
-            String json = "{\"uid\":\"" + generateUID() + "\",\"highscore\":0,\"date\":\"01.01.2023\",\"skin\":\"DEFAULT\",\"music\":true,\"sfx\":true,\"coins\":0,\"skins\":[\"DEFAULT\"],\"scenes\":[\"OVERWORLD\"],\"name\":\"\",\"fps\":100}";
+            String json = "{\"uid\":\"" + generateUID() + "\",\"highscore\":0,\"date\":\"01.01.2023\",\"skin\":\"DEFAULT\",\"music\":0.5,\"sfx\":0.5,\"coins\":0,\"skins\":[\"DEFAULT\"],\"scenes\":[\"OVERWORLD\"],\"name\":\"\",\"fps\":100}";
 
             do {
                 // Erstellt JSON-Datei, falls nicht vorhanden
@@ -27,15 +27,22 @@ public final class DataFile {
                     loaded = false;
                 } else if (jo == null) {
                     try {
+                        // lädt das JSON Objekt
                         jo = new JSONObject(decode(Files.readString(PATH), -SEED));
+
+                        // Überprüft im folgenden ob alle JSON-Objekte existieren und den richtigen Datentype haben
+
+                        for (String s : new String[] { "uid", "date", "skin", "name" }) jo.getString(s);
+                        for (String s : new String[] { "highscore", "coins", "fps" }) jo.getInt(s);
+                        for (String s : new String[] { "skins", "scenes" }) jo.getJSONArray(s);
+                        for (String s : new String[] { "music", "sfx" }) jo.getFloat(s);
+
                     } catch (JSONException e) {
+                        jo = null;
+                        // für den Fall eines Fehlers wird die Datei neu geschrieben
                         Files.writeString(PATH, decode(json, SEED));
                     }
 
-                    loaded = false;
-                } else if (!(jo.has("uid") && jo.has("highscore") && jo.has("date") && jo.has("skin") && jo.has("music") && jo.has("sfx") && jo.has("coins") && jo.has("skins") && jo.has("scenes") && jo.has("name") && jo.has("fps"))) {
-                    Files.writeString(PATH, decode(json, SEED));
-                    jo = null;
                     loaded = false;
                 } else {
                     loaded = true;
@@ -104,21 +111,21 @@ public final class DataFile {
         write();
     }
 
-    public static boolean getMusicEnabled() {
-        return jo.getBoolean("music");
+    public static float getMusicVolume() {
+        return jo.getFloat("music");
     }
 
-    public static void setMusicEnabled(boolean enabled) {
-        jo.put("music", enabled);
+    public static void setMusicVolume(float volume) {
+        jo.put("music", volume);
         write();
     }
 
-    public static boolean getSFXEnabled() {
-        return jo.getBoolean("sfx");
+    public static float getSFXVolume() {
+        return jo.getFloat("sfx");
     }
 
-    public static void setSFXEnabled(boolean enabled) {
-        jo.put("sfx", enabled);
+    public static void setSFXVolume(float volume) {
+        jo.put("sfx", volume);
         write();
     }
 

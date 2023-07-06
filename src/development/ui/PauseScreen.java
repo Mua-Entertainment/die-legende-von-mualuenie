@@ -17,11 +17,13 @@ public class PauseScreen extends RectObject {
         createMenuButton(this, "Aufgeben", this::surrender, 3f);
     }
 
+    // lässt Spiel weiter laufen
     private void continuePlaying() {
         destroy();
         PlayMode.getInstance().setActive(true);
     }
 
+    // Aufgeben und zurück zum Hauptmenü
     private void surrender() {
         destroy();
         PlayMode.getInstance().gameOver(false, true);

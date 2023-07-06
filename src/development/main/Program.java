@@ -18,9 +18,8 @@ public class Program {
         DataFile.update();
         Database.update();
 
-        if (DataFile.getMusicEnabled()) {
-            music.play(true);
-        }
+        music.play(true);
+        music.setVolume(DataFile.getMusicVolume());
 
         Settings settings = new Settings(10, 6);
         Environment environment = new Environment();

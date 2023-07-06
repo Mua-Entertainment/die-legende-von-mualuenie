@@ -54,7 +54,6 @@ public class NameInput extends GameObject {
     private void exit() {
         DataFile.setName(nameLabel.getText());
         Database.setName(nameLabel.getText());
-        add(objToReturn);
-        destroy();
+        replace(objToReturn);
     }
 }

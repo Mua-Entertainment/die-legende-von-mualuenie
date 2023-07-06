@@ -3,6 +3,7 @@
 package engine.main;
 
 import engine.enums.Collision;
+import engine.events.BiEvent;
 import engine.tools.Padding;
 import engine.tools.Point;
 import engine.tools.Size;

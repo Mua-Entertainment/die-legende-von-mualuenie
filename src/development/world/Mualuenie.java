@@ -26,7 +26,6 @@ public class Mualuenie extends ImageObject {
     private State state = State.GROUND;
     private Skin skin;
     private Animator animator;
-    private boolean yihaaEnabled;
 
     private final float[] RUN_DELAYS = new float[] { .1f, .1f, .1f, .1f, .1f, .1f };
     private final float[] JUMP_DELAYS = new float[] { .05f, .05f, .05f, .1f };
@@ -35,9 +34,6 @@ public class Mualuenie extends ImageObject {
     @Override
     protected void load() {
         super.load();
-
-        // lädt Wert aus JSON-Datei, damit dies wöhrend dem Spiel nicht wiederholt werden muss
-        yihaaEnabled = DataFile.getSFXEnabled();
 
         //setzen des colliders
         setGlobalPosition(1, getCanvasSize().height - 2);
@@ -136,8 +132,11 @@ public class Mualuenie extends ImageObject {
 
         setJumpAnimation();
 
-        if (yihaaEnabled && Math.random() < YIHAA_PROBABILITY) {
-            new WaveAudio("audio\\yihaa.wav").play(false);
+        // Spielt manchmal ein "Yihaa"-Ruf ab
+        if (Math.random() < YIHAA_PROBABILITY) {
+            WaveAudio yihaa = new WaveAudio("audio\\yihaa.wav");
+            yihaa.setVolume(DataFile.getSFXVolume());
+            yihaa.play(false);
         }
     }
 

@@ -10,16 +10,17 @@ import engine.tools.Size;
 import javax.swing.*;
 import java.awt.*;
 
-// Panel auf das die Spielelemente gezeichnet werden
+// Panel auf dem die Spielelemente gezeichnet werden
 public class GamePanel extends JPanel implements Runnable {
 
-    // enthält alle anzuzeigenden GameObjects
+    // enthält alle anzuzeigenden und zu updatenden GameObjects
     final SafeList<GameObject> gameObjects = new SafeList<>();
 
-    // Input-Event-Handler zum Lauschen auf Eingabe-Events
+    // Input-Event-Handler zum Lauschen auf Maus- und Tastatureingabeereignisse
     InputHandler input = new InputHandler();
 
     // Größe der Fläche, auf der das Spiel abgebildet wird
+    // wird in paintComponent() angepasst
     Size canvasSize = Size.ZERO;
 
     // Einstellungen für die Koordinateneinheiten und Größen
@@ -31,13 +32,13 @@ public class GamePanel extends JPanel implements Runnable {
     // Frames pro Sekunde
     float fps;
 
-    // Umgebung - das Objekt, dass alle anderen Objekte enthält
+    // das Objekt, welches alle anderen Objekte enthält
     GameObject environment;
 
     // letzter Frame in Nanosekunden
     private long lastFrame;
 
-    // FPS-Anzeige
+    // FPS-Anzeige-Text (wird links oben angezeigt)
     private String fpsDisplay;
 
     public GamePanel(Settings settings, GameObject environment, Window window) {
@@ -48,7 +49,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.window = window;
         this.lastFrame = System.nanoTime();
 
-        // bestimmt Eigenschaften des Spielfeldes
+        // bestimmt Eigenschaften dieses JPanels
         setBackground(Color.black);
         setPreferredSize(new Dimension(800, 500));
         setDoubleBuffered(true);
@@ -57,13 +58,18 @@ public class GamePanel extends JPanel implements Runnable {
         addMouseListener(input);
 
         // startet Threads
+
+        // loopThread: wird jeden Frame ausgeführt
+        // um Spielelemente jeden Frame zu zeichnen und zu aktualisieren
         Thread loopThread = new Thread(this);
         loopThread.start();
 
+        // fpsThread: wird jede Sekunde ausgeführt
+        // Zum Anzeigen des fpsDisplay String links oben
         Thread fpsThread = new Thread(this::configFPSDisplay);
         fpsThread.start();
 
-        // fügt Objekt, dass alle anderen Objekte beinhaltet hinzu
+        // lädt enivronment und fügt es zu gameObjects
         environment.panel = this;
         environment.load();
         gameObjects.add(environment);
@@ -78,6 +84,8 @@ public class GamePanel extends JPanel implements Runnable {
             // Endlos-Schleife
             while (true) {
                 update();
+
+                // repaint, damit paintComponent in diesem Frame aufgerufen wird
                 repaint();
 
                 Thread.sleep((int) (1000f / DataFile.getMaxFPS()));
@@ -91,6 +99,7 @@ public class GamePanel extends JPanel implements Runnable {
     private void configFPSDisplay() {
         while (true) {
             try {
+                // gibt
                 fpsDisplay = Math.round(fps) + "/" + DataFile.getMaxFPS() + " FPS";
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
@@ -143,23 +152,23 @@ public class GamePanel extends JPanel implements Runnable {
 
         // berechnete im Folgenden die Position und Größe der schwarzen Fensterränder,
         // die dafür sorgen, dass das Spielfeld immer gleich groß ist
-        engine.tools.Point origin, end;
+        Point origin, end;
         int width, height, borderSize;
 
-        engine.tools.Point space1Pos, space2Pos;
+        Point space1Pos, space2Pos;
         Size space1Size, space2Size;
 
         if (windowRatio > canvasRatio) {
             borderSize = (getWidth() - (int) (getHeight() * canvasRatio)) / 2;
 
-            origin = new engine.tools.Point(borderSize, 0);
-            end = new engine.tools.Point(getWidth() - borderSize, 0);
+            origin = new Point(borderSize, 0);
+            end = new Point(getWidth() - borderSize, 0);
 
             canvasSize = new Size(getWidth() - 2 * (int) origin.x, getHeight());
         } else {
             borderSize = (getHeight() - (int) (getWidth() / canvasRatio)) / 2;
 
-            origin = new engine.tools.Point(0, borderSize);
+            origin = new Point(0, borderSize);
             end = new Point(0, getHeight() - borderSize);
 
             canvasSize = new Size(getWidth(), getHeight() - 2 * (int) origin.y);

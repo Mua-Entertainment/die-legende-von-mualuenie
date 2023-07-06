@@ -1,6 +1,8 @@
 // Simo Münc
 
-package engine.main;
+package engine.events;
+
+import engine.main.SafeList;
 
 import java.util.function.BiConsumer;
 

@@ -3,7 +3,6 @@
 package engine.main;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.function.Consumer;
 
 // Liste zur Vermeidung von ConcurrrentModificationException

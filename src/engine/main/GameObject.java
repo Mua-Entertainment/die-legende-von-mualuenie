@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class GameObject {
 
     // Position im Spielfenster
-    private engine.tools.Point position;
+    private Point position;
 
     // anzuzeigende Größe
     private Size size;
@@ -29,7 +29,7 @@ public class GameObject {
     GamePanel panel;
 
     // Ursprungs-Position des Koordinatensystems
-    engine.tools.Point origin;
+    Point origin;
 
     // Sichtbarkeit des Objektes
     boolean visible;
@@ -48,7 +48,7 @@ public class GameObject {
     // soll den Konstruktor ersetzen, damit zu dem Zeitpunkt die meisten Werte nicht mehr null sind
     protected void load() {
         // setzt Attribute auf Standard-Werte
-        position = engine.tools.Point.ZERO;
+        position = Point.ZERO;
         size = Size.ONE;
         children = new SafeList<>();
         components = new SafeList<>();
@@ -77,6 +77,12 @@ public class GameObject {
         }
     }
 
+    // löscht dieses Objekt und fügt ein anderes dem gleichen Parent hinzu
+    public void replace(GameObject other) {
+        getParent().add(other);
+        destroy();
+    }
+
     // gibt die Frames pPro Sekunde zurück
     protected float getFPS() {
         return panel.fps;
@@ -88,10 +94,10 @@ public class GameObject {
     }
 
     public void setPosition(float x, float y) {
-        setPosition(new engine.tools.Point(x, y));
+        setPosition(new Point(x, y));
     }
 
-    public void setPosition(engine.tools.Point position) {
+    public void setPosition(Point position) {
         this.position = position;
     }
 
@@ -103,7 +109,7 @@ public class GameObject {
         position.y = y;
     }
 
-    public engine.tools.Point getPosition() {
+    public Point getPosition() {
         return position;
     }
 
@@ -116,22 +122,22 @@ public class GameObject {
     }
 
     // Position relativ zum Ursprung
-    public engine.tools.Point getGlobalPosition() {
+    public Point getGlobalPosition() {
         if (parent == null) {
             return getPosition();
         } else {
-            return new engine.tools.Point(getPosition().x + parent.getGlobalPosition().x, getPosition().y + parent.getGlobalPosition().y);
+            return new Point(getPosition().x + parent.getGlobalPosition().x, getPosition().y + parent.getGlobalPosition().y);
         }
     }
 
     // setzt Position relativ zum Ursprung
     public void setGlobalPosition(float x, float y) {
-        engine.tools.Point pos = new engine.tools.Point(x - parent.getGlobalPosition().x, y - parent.getGlobalPosition().y);
+        Point pos = new Point(x - parent.getGlobalPosition().x, y - parent.getGlobalPosition().y);
         setPosition(pos);
     }
 
     // setzt Position relativ zum Ursprung
-    public void setGlobalPosition(engine.tools.Point position) {
+    public void setGlobalPosition(Point position) {
         setGlobalPosition(position.x, position.y);
     }
 
@@ -275,9 +281,9 @@ public class GameObject {
     }
 
     // Cursor-Position
-    protected engine.tools.Point getCursorPosition() {
+    protected Point getCursorPosition() {
         if (origin == null) {
-            return engine.tools.Point.ZERO;
+            return Point.ZERO;
         } else {
             var pos = MouseInfo.getPointerInfo().getLocation();
 

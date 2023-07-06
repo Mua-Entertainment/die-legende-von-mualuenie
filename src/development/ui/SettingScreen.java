@@ -4,55 +4,52 @@ package development.ui;
 
 import development.data.DataFile;
 import development.main.Program;
-import engine.main.Button;
 import engine.main.GameObject;
 import engine.main.Label;
 import engine.main.Slider;
-
+import engine.main.WaveAudio;
 
 // Einstellungsmenü
 public class SettingScreen extends GameObject {
-    private Button musicButton, sfxButton;
-    private Label fpsLabel;
-    private Slider fpsSlider;
+    private Label fpsLabel, musicLabel, sfxLabel;
+    private Slider fpsSlider, musicSlider, sfxSlider;
 
     @Override
     protected void load() {
         super.load();
 
-        // Button mit dem man zum MainMenu zurück kommt
-        createButton(this, "Zurück", this::returnToMainMenu, 0.5f, 0.5f);
+        // zurück zum MainMenu
+        createButton(this, "Zurück", () -> replace(new MainMenu()), 0.5f, 0.5f);
 
-        String text = DataFile.getMusicEnabled() ? "Musik aus" : "Musik ein";
-        musicButton = createMenuButton(this, text, this::switchMusicSettings, 1f);
+        // Slider zum Anpassen der Musiklautstärke
+        musicLabel = createMenuLabel(this, "Musiklautstärke " + (int) (DataFile.getMusicVolume() * 100f), 1f);
+        musicSlider = createMenuSlider(this, 1.4f);
+        musicSlider.button.release.subscribe(this::switchMusicSettings);
+        musicSlider.setValue(DataFile.getMusicVolume());
 
-        text = DataFile.getSFXEnabled() ? "SFX aus" : "SFX ein";
-        sfxButton = createMenuButton(this, text, this::switchSFXSettings, 1.75f);
+        // Slider zum Anpassen der Musiklautstärke
+        sfxLabel = createMenuLabel(this, "SFX-Lautstärke " + (int) (DataFile.getSFXVolume() * 100f), 1.7f);
+        sfxSlider = createMenuSlider(this, 2.1f);
+        sfxSlider.button.release.subscribe(this::switchSFXSettings);
+        sfxSlider.setValue(DataFile.getSFXVolume());
 
-        fpsLabel = createMenuLabel(this, DataFile.getMaxFPS() + " max. FPS", 2.5f);
-        fpsSlider = createMenuSlider(this, 2.9f);
+        // Slider zum Anpassen der Maximalen FPS
+        fpsLabel = createMenuLabel(this, DataFile.getMaxFPS() + " max. FPS", 2.4f);
+        fpsSlider = createMenuSlider(this, 2.8f);
         fpsSlider.button.release.subscribe(this::switchMaxFPS);
         fpsSlider.setValue((DataFile.getMaxFPS() - 10) / 990f);
 
+        // Zeigt den aktuellen Username an
         createMenuLabel(this, "Name: " + DataFile.getName(), 3.5f);
-        createMenuButton(this, "Ändern", this::openNameInput, 4f);
+
+        // Username ändern
+        createMenuButton(this, "Ändern", () -> replace(new NameInput(new SettingScreen())), 4f);
     }
 
     @Override
     protected void update() {
         super.update();
         fpsLabel.setText(getSliderFPSValue() + " max. FPS");
-    }
-
-    // zurück zum MainMenu
-    private void returnToMainMenu() {
-        destroy();
-        add(new MainMenu());
-    }
-
-    private void openNameInput() {
-        destroy();
-        add(new NameInput(new SettingScreen()));
     }
 
     private void switchMaxFPS() {
@@ -64,22 +61,13 @@ public class SettingScreen extends GameObject {
     }
 
     private void switchMusicSettings() {
-        boolean enabled = DataFile.getMusicEnabled();
-        DataFile.setMusicEnabled(!enabled);
-
-        if (enabled) {
-            Program.music.stop();
-        } else {
-            Program.music.play(true);
-        }
-
-        musicButton.label.setText(enabled ? "Musik ein" : "Musik aus");
+        DataFile.setMusicVolume(musicSlider.getValue());
+        Program.music.setVolume(musicSlider.getValue());
+        musicLabel.setText("Musiklautstärke " + (int) (musicSlider.getValue() * 100f));
     }
 
     private void switchSFXSettings() {
-        boolean enabled = DataFile.getSFXEnabled();
-        DataFile.setSFXEnabled(!enabled);
-
-        sfxButton.label.setText(enabled ? "SFX ein" : "SFX aus");
+        DataFile.setSFXVolume(sfxSlider.getValue());
+        sfxLabel.setText("SFX-Lautstärke " + (int) (sfxSlider.getValue() * 100f));
     }
 }

@@ -83,8 +83,7 @@ public class SceneSelection extends GameObject {
     private void play() {
         // Startet Spiel falls Scene freigeschalten
         if (DataFile.getUnlockedScenes().contains(scene)) {
-            add(new PlayMode(scene));
-            destroy();
+            replace(new PlayMode(scene));
         // Schaltet neue Scene falls genug Coins frei
         } else if (DataFile.getCoins() >= getPrice()) {
             DataFile.addCoins(-getPrice());

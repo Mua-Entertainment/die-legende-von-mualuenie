@@ -11,6 +11,7 @@ import java.awt.*;
 public class Window extends JFrame {
 
     // Component zur Anzeige der Inhalte
+    // füllt das ganze Fenster aus
     final GamePanel gamePanel;
 
     public Window(Settings settings, GameObject environment, String iconSrc) {

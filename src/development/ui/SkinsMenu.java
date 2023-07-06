@@ -29,7 +29,7 @@ public class SkinsMenu extends GameObject {
         setCanvasBackground(new Color(0x17C255));
 
         // Button, der zum Hauptmenü zurückführt
-        createButton(this, "Zurück", this::returnToMainMenu, 0.5f, 0.5f);
+        createButton(this, "Zurück", () -> replace(new MainMenu()), 0.5f, 0.5f);
 
         // Label, der den Name des Skins Anzeigt
         skinNameLabel = createMenuLabel(this, "", 1.25f);
@@ -56,11 +56,6 @@ public class SkinsMenu extends GameObject {
         skinDisplay.setPosition((getCanvasSize().width - skinDisplay.getWidth()) / 2f, 2);
 
         loadSkin();
-    }
-
-    private void returnToMainMenu() {
-        destroy();
-        add(new MainMenu());
     }
 
     private void switchLeft() {
@@ -90,7 +85,7 @@ public class SkinsMenu extends GameObject {
     private void selectSkin() {
         if (DataFile.getUnlockedSkins().contains(skin)) {
             DataFile.setMuaSkin(skin);
-            returnToMainMenu();
+            replace(new MainMenu());
         } else if (DataFile.getCoins() >= SKIN_PRICE) {
             DataFile.addCoins(-SKIN_PRICE);
             DataFile.unlockSkin(skin);

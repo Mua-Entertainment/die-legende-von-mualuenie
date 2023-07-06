@@ -1,9 +1,7 @@
 package development.ui;
 
 import development.world.PlayMode;
-import development.enums.Scene;
 import engine.main.RectObject;
-
 import java.awt.*;
 
 public class GameOverScreen extends RectObject {
@@ -20,15 +18,12 @@ public class GameOverScreen extends RectObject {
     }
 
     private void tryAgain() {
-        Scene scene = PlayMode.getInstance().getScene();
-        destroy();
         PlayMode.getInstance().destroy();
-        add(new PlayMode(scene));
+        replace(new PlayMode(PlayMode.getInstance().getScene()));
     }
 
     private void returnToMainMenu() {
-        destroy();
         PlayMode.getInstance().destroy();
-        add(new MainMenu());
+        replace(new MainMenu());
     }
 }

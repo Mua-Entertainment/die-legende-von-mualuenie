@@ -55,33 +55,18 @@ public class MainMenu extends GameObject {
             createMenuLabel(this, "Connection Error", 2.5f).setColor(new Color(0x873434));
         }
 
-        Button settingsBtn = createMenuButton(this, "Einstellungen", this::openSettings, 4.5f);
+        // öffnet Einstellungen
+        Button settingsBtn = createMenuButton(this, "Einstellungen", () -> replace(new SettingScreen()), 4.5f);
         settingsBtn.setX((getCanvasSize().width - settingsBtn.getWidth()) / 2 - 2);
 
-        createMenuButton(this, "Start", this::runGame, 4.5f);
+        // zeigt alle Highscores an
+        createMenuButton(this, "Bestenliste", () -> replace(new HighscoresRanking()), 3.75f);
 
-        Button skinsBtn = createMenuButton(this, "Skins", this::openSkinsMenu, 4.5f);
+        // startet Spiel
+        createMenuButton(this, "Spielen", () -> replace(new SceneSelection()), 4.5f);
+
+        // öffnet Skin-Menü
+        Button skinsBtn = createMenuButton(this, "Skins", () -> replace(new SkinsMenu()), 4.5f);
         skinsBtn.setX((getCanvasSize().width - skinsBtn.getWidth()) / 2 + 2);
-    }
-
-    // startet Spiel
-    private void runGame()
-    {
-        add(new SceneSelection());
-        destroy();
-    }
-
-    // öffnet Einstellungen
-    private void openSettings()
-    {
-        add(new SettingScreen());
-        destroy();
-    }
-
-    // öffnet Skin-Menü
-    private void openSkinsMenu()
-    {
-        add(new SkinsMenu());
-        destroy();
     }
 }

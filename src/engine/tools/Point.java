@@ -16,7 +16,7 @@ public class Point {
         this.y = y;
     }
 
-    // Konvertierung zu Text, zum Debuggin
+    // Konvertierung zu Text, zum Debugging
     @Override
     public String toString() {
         return "Point{" + "x=" + x + ", y=" + y + '}';

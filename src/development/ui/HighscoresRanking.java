@@ -32,21 +32,23 @@ public class HighscoresRanking extends GameObject {
             upBtn.setPosition(getCanvasSize().width - 1f, .5f);
 
             Button downBtn = new Button();
-            addChildren(upBtn);
+            addChildren(downBtn);
             downBtn.setSrc("img\\ui\\arrow-down.png");
             downBtn.click.subscribe(this::switchDown);
             downBtn.setSize(.5f, .5f);
             downBtn.setPosition(getCanvasSize().width - 1f, 1.25f);
+
+            createButton(this, "Zurück", () -> replace(new MainMenu()), .5f, .5f);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     private void reload() {
-        labels.forEach(Label::destroy);
+        labels.forEach(GameObject::destroy);
         labels.clear();
 
-        int max = Math.min(index + 10, highscores.size() - 10 * index);
+        int max = Math.min(index + 10, highscores.size());
 
         for (int i = index; i < max; i++) {
             User user = highscores.get(i);
@@ -54,13 +56,15 @@ public class HighscoresRanking extends GameObject {
             boolean isThisUser = DataFile.getUID().equals(user.id());
             String name = isThisUser ? "dir" : user.name();
 
-            Label scoreLabel = createMenuLabel(this, String.valueOf(user.highscore()), .5f + i * .6f);
+            float x = getCanvasSize().width / 2 + ((i - index) < 5 ? -2f : 2f) - 1f;
+            float y = 1.25f + (i - index - ((i - index) < 5 ? 0 : 5)) * .6f;
+            Label scoreLabel = createLabel(this, (i + 1) + ". " + user.highscore(), x, y);
 
             if (isThisUser) {
                 scoreLabel.setColor(new Color(0x9200A7));
             }
 
-            Label infoLabel = createMenuLabel(this, "von " + name + " am " + user.date(), 1f + i * .6f);
+            Label infoLabel = createLabel(this, "von " + name + " am " + user.date(), x, .25f + y);
             infoLabel.setFont(infoLabel.getFont().deriveFont(10f));
             infoLabel.setColor(isThisUser ? new Color(0xAE00C5) : new Color(0x232323));
 
@@ -80,10 +84,10 @@ public class HighscoresRanking extends GameObject {
     }
 
     private void switchDown() {
-        if (index >= (highscores.size() / 10)) {
+        index += 10;
+
+        if (index >= highscores.size()) {
             index = 0;
-        } else {
-            index += 10;
         }
 
         reload();
