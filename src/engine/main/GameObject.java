@@ -292,6 +292,14 @@ public class GameObject {
         return font.deriveFont(12.5f);
     }
 
+    protected void changeWindowState() {
+        panel.window.changeWindowState();
+    }
+
+    protected boolean hasFullscreen() {
+        return panel.window.hasFullscreen();
+    }
+
     protected Button createMenuButton(GameObject parent, String text, Runnable onClick, float y) {
         Button btn = createButton(parent, text, onClick, 0, y);
         btn.getPosition().x = (getCanvasSize().width - btn.getSize().width) / 2f;

@@ -22,6 +22,9 @@ public class HighscoreMenu extends GameObject {
     protected void load() {
         super.load();
 
+        // Button um zum MainMenu zurückzukehren
+        createButton(this, "Zurück", () -> replace(new MainMenu()), .5f, .5f);
+
         try {
             highscores = Database.getSortedByHighscore();
             reload();
@@ -42,10 +45,8 @@ public class HighscoreMenu extends GameObject {
             downBtn.setSize(.5f, .5f);
             downBtn.setPosition(getCanvasSize().width - 1f, 1.25f);
 
-            // Button um zum MainMenu zurückzukehren
-            createButton(this, "Zurück", () -> replace(new MainMenu()), .5f, .5f);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            createMenuLabel(this, "Connection Error", 2.5f).setColor(new Color(0x873434));
         }
     }
 

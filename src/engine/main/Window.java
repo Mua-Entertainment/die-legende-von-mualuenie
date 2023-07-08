@@ -12,6 +12,12 @@ public class Window extends JFrame {
     // füllt das ganze Fenster aus
     final GamePanel gamePanel;
 
+    // Fenster-Größe während das Fenster nicht im Fullscreen-Zustand ist
+    private Dimension normalWindowSize;
+
+    // Fenster-Position während das Fenster nicht im Fullscreen-Zustand ist
+    private Point normalWindowLocation;
+
     public Window(Settings settings, GameObject environment, String iconSrc) {
         // legt Fenstertitel fest
         super("Die Legende von Müaluenie");
@@ -29,5 +35,30 @@ public class Window extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+
+        normalWindowSize = getSize();
+        normalWindowLocation = getLocation();
+    }
+
+    void changeWindowState() {
+        dispose();
+
+        if (hasFullscreen()) {
+            setUndecorated(false);
+            setExtendedState(NORMAL);
+            setSize(normalWindowSize);
+            setLocation(normalWindowLocation);
+        } else {
+            normalWindowSize = getSize();
+            normalWindowLocation = getLocation();
+            setUndecorated(true);
+            setExtendedState(MAXIMIZED_BOTH);
+        }
+
+        setVisible(true);
+    }
+
+    boolean hasFullscreen() {
+        return getExtendedState() == MAXIMIZED_BOTH;
     }
 }
