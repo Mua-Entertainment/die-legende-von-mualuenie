@@ -7,9 +7,9 @@ import java.util.function.Consumer;
 
 public final class Database {
 
-    private final static String URL = "jdbc:mysql://aws.connect.psdb.cloud/dlvm?sslMode=VERIFY_IDENTITY";
-    private final static String USER = "1rnwemxwjpxvx9spxx91";
-    private final static String PASSWORD = "pscale_pw_mo4Da4NEwlOfFb5zwsY56sCLifFJI1AiT1s8tOucHU0";
+    private final static String URL = "jdbc:mysql://sql7.freesqldatabase.com/sql7631558";
+    private final static String USER = "sql7631558";
+    private final static String PASSWORD = "6PJGt4YGtp";
 
     public static void load() {
         // trägt offline gespeicherte Dateien in die Datenbank ein
