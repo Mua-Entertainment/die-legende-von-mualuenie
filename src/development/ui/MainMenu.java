@@ -57,7 +57,7 @@ public class MainMenu extends GameObject {
         }
 
         // öffnet Einstellungen
-        Button settingsBtn = createMenuButton(this, "Einstellungen", () -> replace(new SettingsMenu()), 4.5f);
+        Button settingsBtn = createMenuButton(this, "Einstellungen", () -> replace(new SettingsMenu(new MainMenu())), 4.5f);
         settingsBtn.setX((getCanvasSize().width - settingsBtn.getWidth()) / 2 - 2);
 
         // zeigt alle Highscores an

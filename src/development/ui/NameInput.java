@@ -11,6 +11,8 @@ import java.awt.event.KeyEvent;
 public class NameInput extends GameObject {
 
     private Label nameLabel;
+
+    // GameObject, welches nach Verlassen dieser Anzeige angezeigt wird
     private final GameObject objToReturn;
 
     public NameInput(GameObject objToReturn) {

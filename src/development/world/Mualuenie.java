@@ -39,7 +39,7 @@ public class Mualuenie extends ImageObject {
         Collider collider = new Collider();
         collider.collide.subscribe(this::onCollide);
         addComponent(collider);
-        collider.setPadding(1f/32f,9f/32f,2f/32f,9f/32f);
+        collider.setPadding(3/32f, 9/32f, 3/32f, 9/32f);
 
         animator = new Animator();
         addComponent(animator);

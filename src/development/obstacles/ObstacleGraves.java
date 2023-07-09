@@ -18,7 +18,7 @@ int id = 0;
 
             Collider collider = new Collider();
             addComponent(collider);
-            collider.setPadding(0f, 13f / 32f, 4f / 32f, 0f);
+            collider.setPadding(6/32f, 13/32f, 4/32f, 0f);
         }
         if (id >= 1) {
             setSrc("img\\obj\\obstacles\\graves-2.png");
@@ -26,7 +26,7 @@ int id = 0;
 
             Collider collider = new Collider();
             addComponent(collider);
-            collider.setPadding(0f, 7f / 32f, 4f/32f, 0f);
+            collider.setPadding(0f, 8/32f, 3/32f, 0f);
         }
 
 

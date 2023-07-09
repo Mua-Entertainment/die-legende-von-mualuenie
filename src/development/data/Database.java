@@ -6,11 +6,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 public final class Database {
-    private static final String HOST = "sql7.freesqldatabase.com";
-    private static final String USER = "sql7628410";
-    private static final String PASSWORD = "ua2Jkhhx4J";
-    private static final String PORT = "3306";
-    private static final String CONNECTION_URL = "jdbc:mysql://" + HOST + ':' + PORT + '/' + USER;
+
+    private final static String URL = "jdbc:mysql://aws.connect.psdb.cloud/dlvm?sslMode=VERIFY_IDENTITY";
+    private final static String USER = "ttqn45xanzmppf59u39z";
+    private final static String PASSWORD = "pscale_pw_XxjuXC4nFHnRPN99exmX4mwkCwzclNICMCQ2UXE8cHA";
 
     public static void load() {
         // trägt offline gespeicherte Dateien in die Datenbank ein
@@ -23,7 +22,8 @@ public final class Database {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
+            con = DriverManager.getConnection(URL, USER, PASSWORD);
+
             if (con != null) {
                 func.accept(con);
             }
@@ -49,7 +49,7 @@ public final class Database {
                 Statement stmt = con.createStatement();
 
                 stmt.executeUpdate("DELETE FROM users WHERE id='" + DataFile.getUID() + '\'');
-                stmt.executeUpdate("INSERT INTO users (id, name, highscore, date) VALUE (" + DataFile.getUID() + ", '" + DataFile.getName() + "', " + value + ", '" + date + "')");
+                stmt.executeUpdate("INSERT INTO users (id, name, highscore, date) VALUES ('" + DataFile.getUID() + "', '" + DataFile.getName() + "', " + value + ", '" + date + "')");
             } catch (Exception e) {
                 System.out.println(e.getClass().getTypeName());
             }
@@ -63,8 +63,8 @@ public final class Database {
 
                 Statement stmt = con.createStatement();
 
-                stmt.executeUpdate("DELETE FROM users WHERE id=" + DataFile.getUID());
-                stmt.executeUpdate("INSERT INTO users (id, name, highscore, date) VALUE (" + DataFile.getUID() + ", '" + name + "', " + DataFile.getHighscore() + ", '" + DataFile.getDate()+ "')");
+                stmt.executeUpdate("DELETE FROM users WHERE id='" + DataFile.getUID() + '\'');
+                stmt.executeUpdate("INSERT INTO users (id, name, highscore, date) VALUES ('" + DataFile.getUID() + "', '" + name + "', " + DataFile.getHighscore() + ", '" + DataFile.getDate()+ "')");
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println(e.getClass().getTypeName());

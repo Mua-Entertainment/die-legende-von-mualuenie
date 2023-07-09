@@ -2,50 +2,72 @@ package development.ui;
 
 import development.data.DataFile;
 import development.main.Program;
+import engine.main.*;
 import engine.main.Button;
-import engine.main.GameObject;
 import engine.main.Label;
-import engine.main.Slider;
+
+import java.awt.*;
 
 // Einstellungsmenü
-public class SettingsMenu extends GameObject {
+public class SettingsMenu extends RectObject {
     private Label fpsLabel, musicLabel, sfxLabel;
     private Slider fpsSlider, musicSlider, sfxSlider;
     private Button fullscreenBtn;
+
+    // GameObject, welches nach Verlassen dieser Anzeige angezeigt wird
+    private final GameObject objToReturn;
+
+    public SettingsMenu(GameObject objToReturn) {
+        this.objToReturn = objToReturn;
+    }
 
     @Override
     protected void load() {
         super.load();
 
-        // zurück zum MainMenu
-        createButton(this, "Zurück", () -> replace(new MainMenu()), 0.5f, 0.5f);
+        setSize(getCanvasSize());
+        setColor(objToReturn instanceof PauseMenu ? new Color(0x7C000000, true) : new Color(0x567BB4));
+
+        // zurück
+        createButton(this, "Zurück", () -> replace(objToReturn), 0.5f, 0.5f);
 
         // Vollbildmodus ein/aus
         fullscreenBtn = createMenuButton(this, "Vollbild " + (hasFullscreen() ? "an" : "aus"), this::changeWindowState, .8f);
 
-        // Slider zum Anpassen der Musiklautstärke
+        Color labelColor = objToReturn instanceof PauseMenu ? Color.white : Color.black;
+
         musicLabel = createMenuLabel(this, "Musiklautstärke " + (int) (DataFile.getMusicVolume() * 100f), 1.5f);
+        musicLabel.setColor(labelColor);
+
+        // Slider zum Anpassen der Musiklautstärke
         musicSlider = createMenuSlider(this, 1.9f);
         musicSlider.button.release.subscribe(this::switchMusicSettings);
         musicSlider.setValue(DataFile.getMusicVolume());
 
-        // Slider zum Anpassen der Musiklautstärke
         sfxLabel = createMenuLabel(this, "SFX-Lautstärke " + (int) (DataFile.getSFXVolume() * 100f), 2.2f);
+        sfxLabel.setColor(labelColor);
+
+        // Slider zum Anpassen der Musiklautstärke
         sfxSlider = createMenuSlider(this, 2.6f);
         sfxSlider.button.release.subscribe(this::switchSFXSettings);
         sfxSlider.setValue(DataFile.getSFXVolume());
 
-        // Slider zum Anpassen der Maximalen FPS
         fpsLabel = createMenuLabel(this, DataFile.getMaxFPS() + " max. FPS", 2.9f);
-        fpsSlider = createMenuSlider(this, 3.2f);
+        fpsLabel.setColor(labelColor);
+
+        // Slider zum Anpassen der Maximalen FPS
+        fpsSlider = createMenuSlider(this, 3.3f);
         fpsSlider.button.release.subscribe(this::switchMaxFPS);
         fpsSlider.setValue((DataFile.getMaxFPS() - 10) / 990f);
 
-        // Zeigt den aktuellen Username an
-        createMenuLabel(this, "Name: " + DataFile.getName(), 3.5f);
+        // nur im Hauptmenü möglich
+        if (objToReturn instanceof MainMenu) {
+            // Zeigt den aktuellen Username an
+            createMenuLabel(this, "Name: " + DataFile.getName(), 3.6f).setColor(labelColor);
 
-        // Username ändern
-        createMenuButton(this, "Ändern", () -> replace(new NameInput(new SettingsMenu())), 4f);
+            // Username ändern
+            createMenuButton(this, "Ändern", () -> replace(new NameInput(new SettingsMenu(objToReturn))), 4f);
+        }
     }
 
     @Override

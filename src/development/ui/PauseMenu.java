@@ -14,8 +14,9 @@ public class PauseMenu extends RectObject {
         setSize(getCanvasSize());
         setColor(new Color(0x7C000000, true));
 
-        createMenuButton(this,"Weiter", this::continuePlaying, 2);
-        createMenuButton(this, "Aufgeben", this::surrender, 3f);
+        createMenuButton(this,"Weiter", this::continuePlaying, 1.75f);
+        createMenuButton(this, "Einstellungen", () -> replace(new SettingsMenu(new PauseMenu())), 2.5f);
+        createMenuButton(this, "Aufgeben", this::surrender, 3.25f);
     }
 
     // lässt Spiel weiter laufen
