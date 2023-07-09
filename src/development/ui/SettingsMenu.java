@@ -35,7 +35,7 @@ public class SettingsMenu extends RectObject {
         addChildren(new MenuButton("Zurück", () -> replace(objToReturn), .5f, .5f));
 
         // Vollbildmodus ein/aus
-        addChildren(fullscreenBtn = new MenuButton("Vollbild" + (hasFullscreen() ? "an" : "aus"), this::changeWindowState, .8f));
+        addChildren(fullscreenBtn = new MenuButton("Vollbild " + (hasFullscreen() ? "an" : "aus"), this::changeWindowState, .8f));
 
         Color labelColor = objToReturn instanceof PauseMenu ? Color.white : Color.black;
 
