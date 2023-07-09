@@ -8,8 +8,8 @@ import java.util.function.Consumer;
 public final class Database {
 
     private final static String URL = "jdbc:mysql://aws.connect.psdb.cloud/dlvm?sslMode=VERIFY_IDENTITY";
-    private final static String USER = "ttqn45xanzmppf59u39z";
-    private final static String PASSWORD = "pscale_pw_XxjuXC4nFHnRPN99exmX4mwkCwzclNICMCQ2UXE8cHA";
+    private final static String USER = "1rnwemxwjpxvx9spxx91";
+    private final static String PASSWORD = "pscale_pw_mo4Da4NEwlOfFb5zwsY56sCLifFJI1AiT1s8tOucHU0";
 
     public static void load() {
         // trägt offline gespeicherte Dateien in die Datenbank ein
