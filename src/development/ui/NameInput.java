@@ -2,6 +2,8 @@ package development.ui;
 
 import development.data.DataFile;
 import development.data.Database;
+import development.ui.simplified.MenuButton;
+import development.ui.simplified.MenuLabel;
 import engine.main.GameObject;
 import engine.main.Label;
 import java.awt.*;
@@ -25,12 +27,12 @@ public class NameInput extends GameObject {
 
         setCanvasBackground(new Color(0x7996BE));
 
-        createMenuLabel(this, "Gib deinen Namen ein.", 0.5f);
+        addChildren(new MenuLabel("Gib deinen Namen ein.", .5f));
 
-        nameLabel = createMenuLabel(this, DataFile.getName(), 2);
+        addChildren(nameLabel = new MenuLabel(DataFile.getName(), 2));
         nameLabel.setFont(nameLabel.getFont().deriveFont(30f));
 
-        createMenuButton(this, "Weiter", this::exit, 4);
+        addChildren(new MenuButton("Weiter", this::exit, 4));
     }
 
     @Override

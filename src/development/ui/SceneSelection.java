@@ -1,6 +1,8 @@
 package development.ui;
 
 import development.data.DataFile;
+import development.ui.simplified.MenuButton;
+import development.ui.simplified.MenuLabel;
 import development.world.PlayMode;
 import development.enums.Scene;
 import engine.main.Button;
@@ -24,10 +26,10 @@ public class SceneSelection extends GameObject {
         setCanvasBackground(new Color(0x541414));
 
         // Button, der zum Hauptmenü zurückführt
-        createButton(this, "Zurück", () -> replace(new MainMenu()), .5f, .5f);
+        addChildren(new MenuButton("Zurück", () -> replace(new MainMenu()), .5f, .5f));
 
         scene = Scene.OVERWORLD;
-        sceneLabel = createMenuLabel(this, scene.name().toLowerCase(), 2);
+        addChildren(sceneLabel = new MenuLabel(scene.name().toLowerCase(), 2));
         sceneLabel.setColor(Color.white);
 
         // Button mit denen man die anzuzeigende Szenerie wechseln kann
@@ -47,7 +49,7 @@ public class SceneSelection extends GameObject {
         rightBtn.click.subscribe(this::switchRight);
 
         // zum Starten einer neuen Runde
-        playButton = createMenuButton(this, "Spielen", this::play, 2.75f);
+        addChildren(playButton = new MenuButton("Spielen", this::play, 2.75f));
         reload();
     }
 

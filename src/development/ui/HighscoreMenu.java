@@ -3,6 +3,8 @@ package development.ui;
 import development.data.DataFile;
 import development.data.Database;
 import development.data.User;
+import development.ui.simplified.MenuButton;
+import development.ui.simplified.MenuLabel;
 import engine.main.GameObject;
 import engine.main.Label;
 import engine.tools.SafeList;
@@ -23,7 +25,7 @@ public class HighscoreMenu extends GameObject {
         super.load();
 
         // Button um zum MainMenu zurückzukehren
-        createButton(this, "Zurück", () -> replace(new MainMenu()), .5f, .5f);
+        addChildren(new MenuButton("Zurück", () -> replace(new MainMenu()), .5f, .5f));
 
         try {
             highscores = Database.getSortedByHighscore();
@@ -46,7 +48,9 @@ public class HighscoreMenu extends GameObject {
             downBtn.setPosition(getCanvasSize().width - 1f, 1.25f);
 
         } catch (SQLException e) {
-            createMenuLabel(this, "Connection Error", 2.5f).setColor(new Color(0x873434));
+            Label errorLabel = new MenuLabel("Connection Error", 2.5f);
+            addChildren(errorLabel);
+            errorLabel.setColor(new Color(0x873434));
         }
     }
 
@@ -66,13 +70,15 @@ public class HighscoreMenu extends GameObject {
 
             float x = getCanvasSize().width / 2 + ((i - index) < 5 ? -2f : 2f) - 1f;
             float y = 1.25f + (i - index - ((i - index) < 5 ? 0 : 5)) * .6f;
-            Label scoreLabel = createLabel(this, (i + 1) + ". " + user.highscore(), x, y);
+            Label scoreLabel = new MenuLabel((i + 1) + ". " + user.highscore(), x, y);
+            addChildren(scoreLabel);
 
             if (isThisUser) {
                 scoreLabel.setColor(new Color(0x9200A7));
             }
 
-            Label infoLabel = createLabel(this, "von " + name + " am " + user.date(), x, .25f + y);
+            Label infoLabel = new MenuLabel("von " + name + " am " + user.date(), x, .25f + y);
+            addChildren(infoLabel);
             infoLabel.setFont(infoLabel.getFont().deriveFont(10f));
             infoLabel.setColor(isThisUser ? new Color(0xAE00C5) : new Color(0x232323));
 

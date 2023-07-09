@@ -1,5 +1,6 @@
 package development.ui;
 
+import development.ui.simplified.MenuButton;
 import development.world.PlayMode;
 import engine.main.RectObject;
 import java.awt.*;
@@ -14,9 +15,9 @@ public class PauseMenu extends RectObject {
         setSize(getCanvasSize());
         setColor(new Color(0x7C000000, true));
 
-        createMenuButton(this,"Weiter", this::continuePlaying, 1.75f);
-        createMenuButton(this, "Einstellungen", () -> replace(new SettingsMenu(new PauseMenu())), 2.5f);
-        createMenuButton(this, "Aufgeben", this::surrender, 3.25f);
+        addChildren(new MenuButton("Weiter", this::continuePlaying, 1.75f));
+        addChildren(new MenuButton("Einstellungen", () -> replace(new SettingsMenu(new PauseMenu())), 2.5f));
+        addChildren(new MenuButton("Aufgeben", this::surrender, 3.25f));
     }
 
     // lässt Spiel weiter laufen

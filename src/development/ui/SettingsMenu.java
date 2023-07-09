@@ -2,6 +2,9 @@ package development.ui;
 
 import development.data.DataFile;
 import development.main.Program;
+import development.ui.simplified.MenuButton;
+import development.ui.simplified.MenuLabel;
+import development.ui.simplified.MenuSlider;
 import engine.main.*;
 import engine.main.Button;
 import engine.main.Label;
@@ -29,44 +32,43 @@ public class SettingsMenu extends RectObject {
         setColor(objToReturn instanceof PauseMenu ? new Color(0x7C000000, true) : new Color(0x567BB4));
 
         // zurück
-        createButton(this, "Zurück", () -> replace(objToReturn), 0.5f, 0.5f);
+        addChildren(new MenuButton("Zurück", () -> replace(objToReturn), .5f, .5f));
 
         // Vollbildmodus ein/aus
-        fullscreenBtn = createMenuButton(this, "Vollbild " + (hasFullscreen() ? "an" : "aus"), this::changeWindowState, .8f);
+        addChildren(fullscreenBtn = new MenuButton("Vollbild" + (hasFullscreen() ? "an" : "aus"), this::changeWindowState, .8f));
 
         Color labelColor = objToReturn instanceof PauseMenu ? Color.white : Color.black;
 
-        musicLabel = createMenuLabel(this, "Musiklautstärke " + (int) (DataFile.getMusicVolume() * 100f), 1.5f);
+        addChildren(musicLabel = new MenuLabel("Musiklautstärke " + (int) (DataFile.getMusicVolume() * 100f), 1.5f));
         musicLabel.setColor(labelColor);
 
         // Slider zum Anpassen der Musiklautstärke
-        musicSlider = createMenuSlider(this, 1.9f);
-        musicSlider.button.release.subscribe(this::switchMusicSettings);
+        addChildren(musicSlider = new MenuSlider(this::switchMusicSettings, 1.9f));
         musicSlider.setValue(DataFile.getMusicVolume());
 
-        sfxLabel = createMenuLabel(this, "SFX-Lautstärke " + (int) (DataFile.getSFXVolume() * 100f), 2.2f);
+        addChildren(sfxLabel = new MenuLabel("SFX-Lautstärke " + (int) (DataFile.getSFXVolume() * 100f), 2.2f));
         sfxLabel.setColor(labelColor);
 
         // Slider zum Anpassen der Musiklautstärke
-        sfxSlider = createMenuSlider(this, 2.6f);
-        sfxSlider.button.release.subscribe(this::switchSFXSettings);
+        addChildren(sfxSlider = new MenuSlider(this::switchSFXSettings, 2.6f));
         sfxSlider.setValue(DataFile.getSFXVolume());
 
-        fpsLabel = createMenuLabel(this, DataFile.getMaxFPS() + " max. FPS", 2.9f);
+        addChildren(fpsLabel = new MenuLabel(DataFile.getMaxFPS() + " max. FPS", 2.9f));
         fpsLabel.setColor(labelColor);
 
         // Slider zum Anpassen der Maximalen FPS
-        fpsSlider = createMenuSlider(this, 3.3f);
-        fpsSlider.button.release.subscribe(this::switchMaxFPS);
+        addChildren(fpsSlider = new MenuSlider(this::switchMaxFPS, 3.3f));
         fpsSlider.setValue((DataFile.getMaxFPS() - 10) / 990f);
 
         // nur im Hauptmenü möglich
         if (objToReturn instanceof MainMenu) {
             // Zeigt den aktuellen Username an
-            createMenuLabel(this, "Name: " + DataFile.getName(), 3.6f).setColor(labelColor);
+            Label nameLabel = new MenuLabel("Name: " + DataFile.getName(), 3.6f);
+            addChildren(nameLabel);
+            nameLabel.setColor(labelColor);
 
             // Username ändern
-            createMenuButton(this, "Ändern", () -> replace(new NameInput(new SettingsMenu(objToReturn))), 4f);
+            addChildren(new MenuButton("Ändern", () -> replace(new NameInput(new SettingsMenu(objToReturn))), 4f));
         }
     }
 

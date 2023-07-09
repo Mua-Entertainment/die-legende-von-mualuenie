@@ -6,6 +6,7 @@ import development.data.Database;
 import development.ui.GameOverMenu;
 import development.ui.MainMenu;
 import development.ui.PauseMenu;
+import development.ui.simplified.MenuButton;
 import engine.main.GameObject;
 import engine.main.ImageObject;
 import engine.main.Label;
@@ -58,7 +59,7 @@ public class PlayMode extends GameObject {
         mua = new Mualuenie();
         addChildren(mua);
 
-        createButton(this, "Pause", this::pause, getCanvasSize().width - 2, 0.5f);
+        addChildren(new MenuButton("Pause", this::pause, getCanvasSize().width - 2, 0.5f));
 
         ImageObject coinIcon = new ImageObject();
         addChildren(coinIcon);

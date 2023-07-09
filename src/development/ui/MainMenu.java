@@ -3,11 +3,12 @@ package development.ui;
 import development.data.DataFile;
 import development.data.Database;
 import development.data.User;
+import development.ui.simplified.MenuButton;
+import development.ui.simplified.MenuLabel;
 import engine.main.*;
 import engine.main.Button;
 import engine.main.Label;
 import engine.tools.SafeList;
-
 import java.awt.*;
 import java.sql.SQLException;
 
@@ -27,10 +28,13 @@ public class MainMenu extends GameObject {
 
         // Zeigt Name und Coins an
         String text = DataFile.getName() + "  -  " + DataFile.getCoins() + " Coins  -  Highscore: " + DataFile.getHighscore();
-        createMenuLabel(this, text, 0).setColor(Color.white);
+
+        Label headLabel = new MenuLabel(text, 0f);
+        addChildren(headLabel);
+        headLabel.setColor(Color.white);
 
         // Listet die globalen Highscores auf
-        createMenuLabel(this, "Highscores", 1f);
+        addChildren(new MenuLabel("Highscores", 1f));
 
         // lädt die 3 besten Highscores und zeigt sie an
         try {
@@ -42,32 +46,38 @@ public class MainMenu extends GameObject {
                 boolean isThisUser = DataFile.getUID().equals(user.id());
                 String name = isThisUser ? "dir" : user.name();
 
-                Label scoreLabel = createMenuLabel(this, String.valueOf(user.highscore()), 1.5f + i * 0.7f);
+                Label scoreLabel = new MenuLabel(String.valueOf(user.highscore()), 1.5f + i * .7f);
+                addChildren(scoreLabel);
 
                 if (isThisUser) {
                     scoreLabel.setColor(new Color(0x9200A7));
                 }
 
-                Label infoLabel = createMenuLabel(this, "von " + name + " am " + user.date(), 1.75f + i * 0.7f);
+                Label infoLabel = new MenuLabel("von " + name + " am " + user.date(), 1.75f + i * .7f);
+                addChildren(infoLabel);
                 infoLabel.setFont(infoLabel.getFont().deriveFont(10f));
                 infoLabel.setColor(isThisUser ? new Color(0xAE00C5) : new Color(0x232323));
             }
         } catch (SQLException e) {
-            createMenuLabel(this, "Connection Error", 2.5f).setColor(new Color(0x873434));
+            Label errorLabel = new MenuLabel("Connection Error", 2.5f);
+            addChildren(errorLabel);
+            errorLabel.setColor(new Color(0x873434));
         }
 
         // öffnet Einstellungen
-        Button settingsBtn = createMenuButton(this, "Einstellungen", () -> replace(new SettingsMenu(new MainMenu())), 4.5f);
-        settingsBtn.setX((getCanvasSize().width - settingsBtn.getWidth()) / 2 - 2);
+        Button settingsBtn = new MenuButton("Einstellungen", () -> replace(new SettingsMenu(new MainMenu())), 4.5f);
+        addChildren(settingsBtn);
+        settingsBtn.move(-2, 0);
 
         // zeigt alle Highscores an
-        createMenuButton(this, "Bestenliste", () -> replace(new HighscoreMenu()), 3.75f);
+        addChildren(new MenuButton("Bestenliste", () -> replace(new HighscoreMenu()), 3.75f));
 
         // startet Spiel
-        createMenuButton(this, "Spielen", () -> replace(new SceneSelection()), 4.5f);
+        addChildren(new MenuButton("Spielen", () -> replace(new SceneSelection()), 4.5f));
 
         // öffnet Skin-Menü
-        Button skinsBtn = createMenuButton(this, "Skins", () -> replace(new SkinMenu()), 4.5f);
-        skinsBtn.setX((getCanvasSize().width - skinsBtn.getWidth()) / 2 + 2);
+        Button skinBtn = new MenuButton("Skins", () -> replace(new SkinMenu()), 4.5f);
+        addChildren(skinBtn);
+        skinBtn.move(2, 0);
     }
 }

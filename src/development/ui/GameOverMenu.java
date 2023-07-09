@@ -1,5 +1,6 @@
 package development.ui;
 
+import development.ui.simplified.MenuButton;
 import development.world.PlayMode;
 import engine.main.RectObject;
 import java.awt.*;
@@ -14,8 +15,8 @@ public class GameOverMenu extends RectObject {
         setSize(getCanvasSize());
         setColor(new Color(0x7C000000, true));
 
-        createMenuButton(this, "Nochmal", this::tryAgain, 2);
-        createMenuButton(this, "Hauptmenü", this::returnToMainMenu, 3);
+        addChildren(new MenuButton("Nochmal", this::tryAgain, 2));
+        addChildren(new MenuButton("Hauptmenü", this::returnToMainMenu, 3));
     }
 
     // Startet die Runde von vorne

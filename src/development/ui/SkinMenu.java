@@ -2,6 +2,8 @@ package development.ui;
 
 import development.data.DataFile;
 import development.enums.Skin;
+import development.ui.simplified.MenuButton;
+import development.ui.simplified.MenuLabel;
 import engine.main.Button;
 import engine.main.GameObject;
 import engine.main.ImageObject;
@@ -27,13 +29,13 @@ public class SkinMenu extends GameObject {
         setCanvasBackground(new Color(0x17C255));
 
         // Button, der zum Hauptmenü zurückführt
-        createButton(this, "Zurück", () -> replace(new MainMenu()), 0.5f, 0.5f);
+        addChildren(new MenuButton("Zurück", () -> replace(new MainMenu()), .5f, .5f));
 
         // Label, der den Name des Skins Anzeigt
-        skinNameLabel = createMenuLabel(this, "", 1.25f);
+        addChildren(skinNameLabel = new MenuLabel("", 1.25f));
 
         // Button, der Skin auswählt
-        selectBtn = createMenuButton(this, "Auswählen", this::selectSkin, 4);
+        addChildren(new MenuButton("Auswählen", this::selectSkin, 4f));
 
         // Button zum Wechseln des aktuellen anzuzeigenden Skins
         Button leftBtn = new Button();
