@@ -35,7 +35,7 @@ public class SkinMenu extends GameObject {
         addChildren(skinNameLabel = new MenuLabel("", 1.25f));
 
         // Button, der Skin auswählt
-        addChildren(new MenuButton("Auswählen", this::selectSkin, 4f));
+        addChildren(selectBtn = new MenuButton("Auswählen", this::selectSkin, 4f));
 
         // Button zum Wechseln des aktuellen anzuzeigenden Skins
         Button leftBtn = new Button();
