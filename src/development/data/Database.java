@@ -7,9 +7,9 @@ import java.util.function.Consumer;
 
 public final class Database {
 
-    private final static String URL = "jdbc:mysql://sql7.freesqldatabase.com/sql7631558";
-    private final static String USER = "sql7631558";
-    private final static String PASSWORD = "6PJGt4YGtp";
+    private final static String URL = "jdbc:mysql://sql7.freesqldatabase.com/sql11660230";
+    private final static String USER = "sql11660230";
+    private final static String PASSWORD = "bznF9K7Nud";
 
     public static void load() {
         // trägt offline gespeicherte Dateien in die Datenbank ein

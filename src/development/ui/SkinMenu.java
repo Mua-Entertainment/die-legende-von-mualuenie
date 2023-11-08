@@ -13,7 +13,7 @@ import java.util.List;
 
 public class SkinMenu extends GameObject {
 
-    private final int SKIN_PRICE = 50;
+    private final int SKIN_PRICE = 1;
     private Skin skin;
     private Label skinNameLabel;
     private Button selectBtn;
@@ -114,6 +114,7 @@ public class SkinMenu extends GameObject {
             case KNIGHT -> name = "Ritterluenie";
             case PIRATE -> name = "Piratenluenie";
             case MARTIAN -> name = "Marsluenie";
+            case SNAIL -> name = "Schneckenluenie";
         }
 
         skinNameLabel.setText(name);
